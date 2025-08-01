@@ -1,8 +1,8 @@
-interface FacebookIconProps {
+interface TiktokIconProps {
   className?: string;
 }
 
-export default function FacebookIcon({ className }: FacebookIconProps) {
+export default function TiktokIcon({ className }: TiktokIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

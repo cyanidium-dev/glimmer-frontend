@@ -1,8 +1,8 @@
-interface FacebookIconProps {
+interface YoutubeIconProps {
   className?: string;
 }
 
-export default function FacebookIcon({ className }: FacebookIconProps) {
+export default function YoutubeIcon({ className }: YoutubeIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
