@@ -46,7 +46,7 @@ export default function MainButton({
     >
       <div
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(110deg,_rgba(148,197,232,0.1)_0%,_rgba(148,197,232,0.7)_50%,_rgba(148,197,232,0.1)_100%)]
-bg-[length:200%_100%] opacity-0 transition-opacity duration-500 ease-in-out animate-[shimmer_2.5s_linear_infinite] group-hover:opacity-100"
+bg-[length:200%_100%] opacity-0 transition-opacity duration-500 ease-in-out animate-[shimmer_2.5s_linear_infinite] xl:group-hover:opacity-100 group-active:opacity-100 group-focus:opacity-100"
       />
       <span className="relative z-10"> {children}</span>
       {isLoading ? <LoaderIcon /> : null}
