@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="uk">
       <body
-        className={`${montserrat.variable} flex min-h-screen flex-col antialiased text-[12px] lg:text-[15px] font-light leading-[120%]`}
+        className={`${montserrat.variable} flex min-h-dvh flex-col antialiased text-[12px] lg:text-[15px] font-light leading-[120%]`}
       >
         <Header />
         <main className="flex-1">{children}</main>
