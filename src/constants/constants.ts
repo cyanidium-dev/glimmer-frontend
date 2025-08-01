@@ -4,3 +4,5 @@ export const socials = {
   tiktok: "https://www.tiktok.com",
   facebook: "https://www.facebook.com",
 };
+
+export const TELEGRAM_URL = "https://t.me/";
