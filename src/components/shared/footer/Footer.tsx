@@ -13,10 +13,10 @@ export default function Footer() {
         alt="logo"
         width="219"
         height="312"
-        className="absolute left-0 top-8 w-[186px] h-auto"
+        className="hidden xl:block absolute left-0 top-8 w-[186px] h-auto"
       />
-      <Container className="flex flex-col gap-8 lg:gap-22 lg:flex-row lg:pl-[310px]">
-        <div className="w-[267px] lg:order-3">
+      <Container className="flex flex-col gap-8 justify-between xl:gap-22 md:flex-row xl:pl-[310px]">
+        <div className="w-[267px] md:order-3">
           <Image
             src="/images/footer/logo.svg"
             alt="logo"

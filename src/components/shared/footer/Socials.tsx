@@ -9,7 +9,7 @@ export default function Socials() {
   const { facebook, tiktok, youtube, instagram } = socials;
 
   return (
-    <ul className="flex gap-5 items-center">
+    <ul className="flex gap-5 items-center md:max-w-[176px] lg:max-w-full flex-wrap">
       <li>
         <a
           href={facebook}
