@@ -8,7 +8,7 @@ import NavMenu from "./NavMenu";
 
 export default function Header() {
   return (
-    <header className="fixed top-0 left-0 w-dvw py-6 bg-black">
+    <header className="fixed z-30 top-0 left-0 w-dvw py-6 bg-black">
       <Container className="flex items-center justify-between">
         <Link href="/" className="group">
           <LogoIcon className="text-white xl:group-hover:text-main group-focus:text-main group-active:text-main transition duration-300 ease-in-out" />
