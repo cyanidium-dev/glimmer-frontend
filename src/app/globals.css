@@ -73,7 +73,7 @@
     height: 32px;
     position: relative;
     border-radius: 50%;
-    color: var(--main);
+    color: var(--color-main);
     animation: fill 1s ease-in infinite alternate;
   }
   .loader::before,
