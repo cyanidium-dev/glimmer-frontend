@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 
 interface InstagramPostsListProps {
   instagramPosts: { image: string; alt?: string; url: string }[];

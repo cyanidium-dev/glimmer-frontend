@@ -5,12 +5,18 @@ import { allInstagramPostsQuery } from "@/lib/queries";
 import Instagram from "@/components/homePage/instagram/Instagram";
 import { Suspense } from "react";
 import Loader from "@/components/shared/loader/Loader";
+import Bestsellers from "@/components/homePage/bestsellers/Bestsellers";
+import PromotionalProducts from "@/components/homePage/promotionalProducts/PromotionalProducts";
+import NewProducts from "@/components/homePage/newProducts/NewProducts";
 
 export default async function HomePage() {
   const allInstagramPosts = await fetchSanityDataServer(allInstagramPostsQuery);
 
   return (
     <>
+      <Bestsellers />
+      <PromotionalProducts />
+      <NewProducts />
       <Suspense fallback={<Loader />}>
         <Instagram instagramPosts={allInstagramPosts?.posts} />
       </Suspense>
