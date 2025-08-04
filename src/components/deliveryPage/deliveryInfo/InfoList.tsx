@@ -20,7 +20,7 @@ export default function InfoList() {
             alt="star icon"
             width={23}
             height={24}
-            className="shrink-0"
+            className="shrink-0 h-6"
           />
           <p>{infoItem}</p>
         </li>
