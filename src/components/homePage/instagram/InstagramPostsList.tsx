@@ -1,0 +1,38 @@
+import Image from "next/image";
+import Link from "next/link";
+
+interface InstagramPostsListProps {
+  instagramPosts: { image: string; alt?: string; url: string }[];
+}
+
+export default function InstagramPostsList({
+  instagramPosts,
+}: InstagramPostsListProps) {
+  return (
+    <ul
+      className="flex gap-3 sm:gap-5 overflow-x-auto px-5 sm:px-0  scrollbar scrollbar-h-[0px] scrollbar-thumb-rounded-full 
+      scrollbar-track-rounded-full scrollbar-thumb-transparent scrollbar-track-main"
+    >
+      {instagramPosts.map(({ url, image, alt }, idx) => (
+        <li
+          key={idx}
+          className="shrink-0 w-[140px] sm:w-[calc(25%-15px)] h-auto aspect-[140/157] rounded-[8px] overflow-hidden"
+        >
+          <Link
+            href={url}
+            className="group block w-[140px] sm:w-full h-auto aspect-[140/157]"
+          >
+            <div className="relative w-[140px] sm:w-full h-auto aspect-[140/157]">
+              <Image
+                src={image}
+                alt={alt || "instagram post"}
+                fill
+                className="object-cover xl:group-hover:scale-105 transition duration-1000 ease-in-out"
+              />
+            </div>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}

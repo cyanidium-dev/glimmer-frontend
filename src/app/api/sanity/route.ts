@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "next-sanity";
 
 const client = createClient({
-  projectId: "izvuzo8i",
+  projectId: "us9jz0mn",
   dataset: "production",
   apiVersion: "2025-08-04",
   useCdn: true,
