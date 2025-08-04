@@ -18,8 +18,10 @@ export default function InstagramPostsList({
           key={idx}
           className="shrink-0 w-[140px] sm:w-[calc(25%-15px)] h-auto aspect-[140/157] rounded-[8px] overflow-hidden"
         >
-          <Link
+          <a
             href={url}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
             className="group block w-[140px] sm:w-full h-auto aspect-[140/157]"
           >
             <div className="relative w-[140px] sm:w-full h-auto aspect-[140/157]">
@@ -30,7 +32,7 @@ export default function InstagramPostsList({
                 className="object-cover xl:group-hover:scale-105 transition duration-1000 ease-in-out"
               />
             </div>
-          </Link>
+          </a>
         </li>
       ))}
     </ul>
