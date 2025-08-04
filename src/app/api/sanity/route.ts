@@ -21,8 +21,8 @@ export async function POST(req: NextRequest) {
   try {
     const data = await client.fetch(query, params || {});
     return NextResponse.json(data);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
+    console.error(error);
     return NextResponse.json({ error: "Sanity query failed" }, { status: 500 });
   }
 }
