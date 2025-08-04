@@ -1,25 +1,19 @@
-import axios from "axios";
+import { createClient } from "next-sanity";
 
-export const fetchSanityData = async (
+const client = createClient({
+  projectId: "us9jz0mn",
+  dataset: "production",
+  apiVersion: "2025-08-04",
+  useCdn: true,
+});
+
+export const fetchSanityDataServer = async (
   query: string,
   params: Record<string, unknown> = {}
 ) => {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-
   try {
-    const response = await axios.post(
-      `${baseUrl}/api/sanity`,
-      {
-        query,
-        params,
-      },
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-
-    return response.data;
+    return await client.fetch(query, params);
   } catch (error) {
-    console.warn("Failed to fetch sanity data:", error);
+    console.warn("Sanity fetch failed:", error);
   }
 };
