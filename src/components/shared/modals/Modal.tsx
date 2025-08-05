@@ -29,9 +29,9 @@ export default function NotificationModal({
       <div className="absolute z-[70] top-[18px] xl:top-[22px] right-[18px] xl:right-[22px]">
         <IconButton
           handleClick={() => setIsPopUpShown(false)}
-          className="size-6 xl:size-8"
+          className="size-6 p-1"
         >
-          {<CrossIcon className="size-full" />}
+          {<CrossIcon />}
         </IconButton>
       </div>
       {children}
