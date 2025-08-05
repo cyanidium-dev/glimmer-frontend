@@ -1,8 +1,12 @@
+import AboutHero from "@/components/aboutPage/AboutHero";
 import Breadcrumbs from "@/components/shared/breadcrumbs/Breadcrumbs";
+import Instagram from "@/components/shared/instagram/Instagram";
 import MarqueeLine from "@/components/shared/marquee/MarqueeLine";
 import TelegramCTA from "@/components/shared/telegramCTA/TelegramCTA";
+import { fetchSanityDataServer } from "@/utils/fetchSanityData";
+import { allInstagramPostsQuery } from "@/lib/queries";
 
-export default function AboutPage() {
+export default async function AboutPage() {
   const crumbs = [
     { label: "Головна", href: "/" },
     {
@@ -11,9 +15,13 @@ export default function AboutPage() {
     },
   ];
 
+  const allInstagramPosts = await fetchSanityDataServer(allInstagramPostsQuery);
+
   return (
     <>
       <Breadcrumbs crumbs={crumbs} />
+      <AboutHero />
+      <Instagram instagramPosts={allInstagramPosts?.posts} />
       <MarqueeLine />
       <TelegramCTA />
     </>
