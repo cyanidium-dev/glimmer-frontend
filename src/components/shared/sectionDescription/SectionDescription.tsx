@@ -1,4 +1,6 @@
 import { ReactNode } from "react";
+import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 interface SectionDescriptionProps {
   children?: ReactNode;
@@ -11,7 +13,12 @@ export default function SectionDescription({
 }: SectionDescriptionProps) {
   return (
     <p
-      className={`lg:max-w-[338px] text-[12px] lg:text-[15px] leading-[120%] font-light  ${className}`}
+      className={twMerge(
+        clsx(
+          `lg:max-w-[338px] text-[12px] lg:text-[15px] leading-[120%] font-light`
+        ),
+        className
+      )}
     >
       {children}
     </p>
