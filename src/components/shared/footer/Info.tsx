@@ -1,11 +1,10 @@
-import React from "react";
 import Socials from "./Socials";
+import { WORKING_HOURS } from "@/constants/constants";
 
 export default function Info() {
   return (
     <div className="min-h-full lg:flex flex-col justify-between">
       <div className="mb-8">
-        {" "}
         <a
           href="tel:0800550130"
           target="_blank"
@@ -18,7 +17,7 @@ export default function Info() {
           Безкоштовно
         </p>
         <p className="text-white text-[16px] lg:text-[18px] font-semibold">
-          Пн-Сб: 10:00-18:00
+          {WORKING_HOURS}
         </p>
       </div>
       <Socials />
