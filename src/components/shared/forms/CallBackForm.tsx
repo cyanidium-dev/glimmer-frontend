@@ -6,7 +6,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { callBackValidation } from "@/schemas/callBackValidation";
 
 import CustomizedInput from "../formComponents/CustomizedInput";
-// import SubmitButton from '../formComponents/SubmitButton';
+import MainButton from "../buttons/MainButton";
 
 export interface ValuesCallBackFormType {
   name: string;
@@ -47,6 +47,7 @@ export default function CallBackForm({
       `<b>Email:</b> ${values.email.trim()}\n` +
       `<b>Повідомлення:</b> ${values.message.trim()}\n`;
     try {
+      setIsError(false);
       setIsLoading(true);
 
       await axios({
@@ -57,7 +58,6 @@ export default function CallBackForm({
           "Content-Type": "application/json",
         },
       });
-
       resetForm();
       setIsNotificationShown(true);
     } catch (error) {
@@ -77,7 +77,7 @@ export default function CallBackForm({
     >
       {({ errors, touched, dirty, isValid }) => (
         <Form className={`${className}`}>
-          <div className="flex flex-col w-full gap-y-5">
+          <div className="flex flex-col w-full gap-y-5 mb-5">
             <CustomizedInput
               fieldName="name"
               placeholder={"Ім'я"}
@@ -101,16 +101,18 @@ export default function CallBackForm({
               isRequired
               errors={errors}
               touched={touched}
-              fieldClassName="h-[120px] md:h-[233px] py-4 rounded-[12px]"
+              fieldClassName="h-[120px] md:h-[168px] py-4 rounded-[12px]"
             />
           </div>
-          {/* <SubmitButton
-            dirty={dirty}
-            isValid={isValid}
+          <MainButton
+            type="submit"
+            disabled={!(dirty && isValid) || isLoading}
             isLoading={isLoading}
-            text={t('submitButton')}
-            className="h-10 md:h-12"
-          /> */}
+            loadingText="Надсилання..."
+            className="h-[45px]"
+          >
+            Надіслати питання
+          </MainButton>
         </Form>
       )}
     </Formik>
