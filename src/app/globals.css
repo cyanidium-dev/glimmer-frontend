@@ -56,6 +56,19 @@
 }
 
 @layer utilities {
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .rotation {
+    animation: rotation 1600ms linear infinite;
+  }
+
   @keyframes shimmer {
     0% {
       background-position: -200% 0;
