@@ -1,13 +1,12 @@
-'use client';
-import { Form, Formik, FormikHelpers } from 'formik';
-import axios from 'axios';
-import { Dispatch, SetStateAction, useState } from 'react';
+"use client";
+import { Form, Formik, FormikHelpers } from "formik";
+import axios from "axios";
+import { Dispatch, SetStateAction, useState } from "react";
 
+import { callBackValidation } from "@/schemas/callBackValidation";
 
-import { CallBackValidation } from '@/shared/schemas/callbackFormValidation';
-
-import CustomizedInput from '../formComponents/CustomizedInput';
-import SubmitButton from '../formComponents/SubmitButton';
+import CustomizedInput from "../formComponents/CustomizedInput";
+// import SubmitButton from '../formComponents/SubmitButton';
 
 export interface ValuesCallBackFormType {
   name: string;
@@ -25,18 +24,17 @@ interface CallBackFormProps {
 export default function CallBackForm({
   setIsError,
   setIsNotificationShown,
-  className = '',
+  className = "",
 }: CallBackFormProps) {
-
   const [isLoading, setIsLoading] = useState(false);
 
   const initialValues = {
-    name: '',
-    email: '',
-    message: '',
+    name: "",
+    email: "",
+    message: "",
   };
 
-  const validationSchema = CallBackValidation();
+  const validationSchema = callBackValidation();
 
   const submitForm = async (
     values: ValuesCallBackFormType,
@@ -52,11 +50,11 @@ export default function CallBackForm({
       setIsLoading(true);
 
       await axios({
-        method: 'post',
-        url: '/api/telegram',
+        method: "post",
+        url: "/api/telegram",
         data,
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
@@ -79,17 +77,15 @@ export default function CallBackForm({
     >
       {({ errors, touched, dirty, isValid }) => (
         <Form className={`${className}`}>
-          <div className="flex flex-col w-full gap-y-3 md:gap-y-5 mb-3 md:mb-5">
-            <div className="flex flex-col gap-y-3 md:flex-row gap-x-5">
-              <CustomizedInput
-                fieldName="name"
-                placeholder={"Ім'я"}
-                isRequired
-                errors={errors}
-                touched={touched}
-           
-              />
-                     </div>
+          <div className="flex flex-col w-full gap-y-5">
+            <CustomizedInput
+              fieldName="name"
+              placeholder={"Ім'я"}
+              isRequired
+              errors={errors}
+              touched={touched}
+            />
+
             <CustomizedInput
               fieldName="email"
               inputType="email"
@@ -97,7 +93,6 @@ export default function CallBackForm({
               isRequired
               errors={errors}
               touched={touched}
-         
             />
             <CustomizedInput
               fieldName="message"
@@ -106,7 +101,7 @@ export default function CallBackForm({
               isRequired
               errors={errors}
               touched={touched}
-              fieldClassName="h-[99px] md:h-[150px] py-3"
+              fieldClassName="h-[120px] md:h-[233px] py-4 rounded-[12px]"
             />
           </div>
           {/* <SubmitButton

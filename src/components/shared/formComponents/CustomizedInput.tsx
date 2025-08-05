@@ -10,6 +10,8 @@ import {
 import MaskedInput from "react-text-mask";
 import { useId } from "react";
 import LoaderIcon from "../icons/LoaderIcon";
+import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 interface Values {
   [fieldName: string]: string;
@@ -31,11 +33,11 @@ interface CustomizedInputProps {
   isLoading?: boolean;
   inputType?: string;
   fieldFontSize?: string;
- }
+}
 
 const labelStyles = "relative flex flex-col w-full";
 const fieldStyles =
-  "relative w-full px-3 py-2 text-dark bg-white placeholder-transparent border-2 rounded-full outline-none resize-none transition duration-300 ease-out";
+  "relative w-full px-4 py-2 text-dark bg-white placeholder-transparent border-2 rounded-full outline-none resize-none transition duration-300 ease-out";
 const errorStyles =
   "absolute bottom-[-11px] left-2 text-[9px] font-normal leading-none text-red-500";
 
@@ -74,17 +76,22 @@ export default function CustomizedInput({
           autoComplete="on"
           onChange={onChange || handleChange}
           onFocus={onFocus}
-          className={`${fieldStyles} ${fieldClassName} ${fieldFontSize} ${
-            isError && isTouched ? "border-red-500" : "border-gray"
-          }`}
+          className={twMerge(
+            clsx(
+              `${fieldStyles}  ${
+                isError && isTouched ? "border-red-500" : "border-gray"
+              }`,
+              fieldClassName,
+              fieldFontSize
+            )
+          )}
         />
         {isLoading && <LoaderIcon />}
         <span
-          className={`pointer-events-none absolute left-5 ${
-            as === "textarea" ? "top-3" : "top-1/2 -translate-y-1/2"
+          className={`pointer-events-none absolute left-4 ${
+            as === "textarea" ? "top-4" : "top-1/2 -translate-y-1/2"
           } text-placeholder whitespace-nowrap`}
         >
-    
           {showPlaceholder && (
             <>
               <span>

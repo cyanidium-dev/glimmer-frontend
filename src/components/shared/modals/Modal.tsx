@@ -10,7 +10,7 @@ interface ModalProps {
   className?: string;
 }
 
-export default function NotificationModal({
+export default function Modal({
   isPopUpShown,
   setIsPopUpShown,
   children,
