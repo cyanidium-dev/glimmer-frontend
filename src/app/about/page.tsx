@@ -5,6 +5,7 @@ import MarqueeLine from "@/components/shared/marquee/MarqueeLine";
 import TelegramCTA from "@/components/shared/telegramCTA/TelegramCTA";
 import { fetchSanityDataServer } from "@/utils/fetchSanityData";
 import { allInstagramPostsQuery } from "@/lib/queries";
+import About from "@/components/aboutPage/About";
 
 export default async function AboutPage() {
   const crumbs = [
@@ -21,6 +22,7 @@ export default async function AboutPage() {
     <>
       <Breadcrumbs crumbs={crumbs} />
       <AboutHero />
+      <About />
       <Instagram instagramPosts={allInstagramPosts?.posts} />
       <MarqueeLine />
       <TelegramCTA />
