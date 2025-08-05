@@ -2,7 +2,7 @@ import MarqueeLine from "@/components/shared/marquee/MarqueeLine";
 import TelegramCTA from "@/components/shared/telegramCTA/TelegramCTA";
 import { fetchSanityDataServer } from "@/utils/fetchSanityData";
 import { allInstagramPostsQuery } from "@/lib/queries";
-import Instagram from "@/components/homePage/instagram/Instagram";
+import Instagram from "@/components/shared/instagram/Instagram";
 import { Suspense } from "react";
 import Loader from "@/components/shared/loader/Loader";
 import Bestsellers from "@/components/homePage/bestsellers/Bestsellers";
