@@ -35,7 +35,7 @@ interface CustomizedInputProps {
 
 const labelStyles = "relative flex flex-col w-full";
 const fieldStyles =
-  "relative w-full px-3 py-2 text-dark bg-white placeholder-transparent border rounded-full outline-none resize-none transition duration-300 ease-out";
+  "relative w-full px-3 py-2 text-dark bg-white placeholder-transparent border-2 rounded-full outline-none resize-none transition duration-300 ease-out";
 const errorStyles =
   "absolute bottom-[-11px] left-2 text-[9px] font-normal leading-none text-red-500";
 
@@ -75,7 +75,7 @@ export default function CustomizedInput({
           onChange={onChange || handleChange}
           onFocus={onFocus}
           className={`${fieldStyles} ${fieldClassName} ${fieldFontSize} ${
-            isError && isTouched ? "border-red-500" : "border-black"
+            isError && isTouched ? "border-red-500" : "border-gray"
           }`}
         />
         {isLoading && <LoaderIcon />}
