@@ -12,13 +12,16 @@
     "@sanity/image-url": "^1.1.0",
     "axios": "^1.11.0",
     "clsx": "^2.1.1",
+    "formik": "^2.4.6",
     "next": "15.4.5",
     "next-sanity": "^10.0.6",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-fast-marquee": "^1.6.5",
+    "react-text-mask": "^5.5.0",
     "tailwind-merge": "^3.3.1",
-    "tailwind-scrollbar": "^4.0.2"
+    "tailwind-scrollbar": "^4.0.2",
+    "yup": "^1.7.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -26,6 +29,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-text-mask": "^5.4.14",
     "eslint": "^9",
     "eslint-config-next": "15.4.5",
     "tailwindcss": "^4",
