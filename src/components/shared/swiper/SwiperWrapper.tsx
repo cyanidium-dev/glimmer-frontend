@@ -10,7 +10,6 @@ import { createPagination } from "./CustomPagination";
 
 interface SwiperWrapperProps {
   children: ReactNode;
-  slidesPerView?: number | "auto" | undefined;
   breakpoints: SwiperOptions["breakpoints"];
   swiperClassName: string;
   loop?: boolean;
@@ -19,7 +18,6 @@ interface SwiperWrapperProps {
 
 export default function SwiperWrapper({
   children,
-  slidesPerView = "auto",
   breakpoints,
   swiperClassName,
   loop = false,
@@ -27,7 +25,6 @@ export default function SwiperWrapper({
 }: SwiperWrapperProps) {
   return (
     <Swiper
-      slidesPerView={slidesPerView}
       pagination={isPagination ? createPagination(3) : false}
       breakpoints={breakpoints}
       navigation={true}
