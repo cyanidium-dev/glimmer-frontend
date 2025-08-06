@@ -12,8 +12,6 @@ interface BestsellersProps {
 export default function Bestsellers({ bestsellers }: BestsellersProps) {
   if (!bestsellers || !bestsellers?.length) return null;
 
-  console.log(bestsellers);
-
   return (
     <Section>
       <Container>

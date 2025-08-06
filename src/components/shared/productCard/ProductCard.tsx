@@ -25,7 +25,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div className="flex flex-col pb-3 rounded-[10px]">
-      <div className="flex items-center justify-between px-2">
+      <div className="flex items-center justify-between px-2 mb-2 lg:mb-[14px]">
         {isBestseller ? (
           <>
             <Image
@@ -80,11 +80,15 @@ export default function ProductCard({ product }: ProductCardProps) {
         ) : null}
         <FavoriteButton currentProduct={product} />
       </div>
-      <div className="px-2 mb-2 lg:mb-[14px]"></div>
       <Link
         href={`/catalog/${categorySlug}/${genreSlug}/${slug}`}
         className="relative block w-full h-[197px] lg:h-[275px] mb-2 lg:mb-3"
       >
+        {discountPrice ? (
+          <div className="absolute left-2 -top-1.5 lg:-top-1 z-10 p-0.5 lg:p-1 text-[12px] lg:text-[15px] font-semibold leading-[120%] text-white bg-accent rounded-[6px]">
+            {Math.round(((discountPrice - price) / price) * 100)}%
+          </div>
+        ) : null}
         <Image
           src={mainImage || ""}
           alt={title}
@@ -120,7 +124,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             </span>
           </div>
         ) : (
-          <div className="inline-block mb-[3.5px] text-[12px] lg:text-[14px] font-semibold">
+          <div className="inline-block mb-[3.5px] text-[12px] lg:text-[14px] font-semibold shrink-0">
             {price} грн
           </div>
         )}
