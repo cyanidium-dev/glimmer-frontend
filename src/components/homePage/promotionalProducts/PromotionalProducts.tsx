@@ -2,8 +2,16 @@ import Container from "@/components/shared/container/Container";
 import Section from "@/components/shared/section/Section";
 import SectionTitle from "@/components/shared/titles/SectionTitle";
 import SectionDescription from "@/components/shared/sectionDescription/SectionDescription";
+import PromotionalProductsSlider from "./PromotionalProductsSlider";
+import { Product } from "@/types/product";
 
-export default function PromotionalProducts() {
+interface PromotionalProductsProps {
+  promotionalProducts: Product[];
+}
+
+export default function PromotionalProducts({
+  promotionalProducts,
+}: PromotionalProductsProps) {
   return (
     <Section>
       <Container>
@@ -15,6 +23,7 @@ export default function PromotionalProducts() {
             замовити за вигідною ціною.
           </SectionDescription>
         </div>
+        <PromotionalProductsSlider promotionalProducts={promotionalProducts} />
       </Container>
     </Section>
   );

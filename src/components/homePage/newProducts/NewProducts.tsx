@@ -2,8 +2,14 @@ import Container from "@/components/shared/container/Container";
 import Section from "@/components/shared/section/Section";
 import SectionTitle from "@/components/shared/titles/SectionTitle";
 import SectionDescription from "@/components/shared/sectionDescription/SectionDescription";
+import NewProductsSlider from "./NewProductsSlider";
+import { Product } from "@/types/product";
 
-export default function NewProducts() {
+interface NewProductsProps {
+  newProducts: Product[];
+}
+
+export default function NewProducts({ newProducts }: NewProductsProps) {
   return (
     <Section>
       <Container>
@@ -14,6 +20,7 @@ export default function NewProducts() {
             нашому сайті!
           </SectionDescription>
         </div>
+        <NewProductsSlider newProducts={newProducts} />
       </Container>
     </Section>
   );
