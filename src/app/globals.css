@@ -5,7 +5,7 @@
 }
 
 @theme inline {
-  --breakpoint-xs: 440px;
+  --breakpoint-xs: 27rem;
 
   --color-white: #ffffff;
   --color-black: #494949;
@@ -122,7 +122,8 @@
   /* Swiper */
 
   .swiper.bestsellers,
-  .swiper.newProducts {
+  .swiper.newProducts,
+  .swiper.promotionalProducts {
     padding: 0px 0px 48px 0px !important;
 
     @media screen and (min-width: 1024px) {
@@ -144,13 +145,30 @@
     width: 24px !important;
     height: 24px !important;
     z-index: 20 !important;
-    transition: all 300ms ease-in-out;
+    transition: background-color 300ms ease-in-out;
     top: calc(100% - 6px) !important;
+    border-radius: 5px;
 
     @media screen and (min-width: 1024px) {
       width: 40px !important;
       height: 40px !important;
-      top: calc(100% - 16px) !important;
+      top: calc(100% - 17px) !important;
+    }
+
+    @media screen and (min-width: 1280px) {
+      &:hover {
+        background-color: rgba(228, 228, 231, 0.5);
+      }
+    }
+  }
+
+  .heroProducts .swiper-button-next,
+  .heroProducts .swiper-button-prev {
+    top: calc(100% - 40px) !important;
+    @media screen and (min-width: 1280px) {
+      &:hover {
+        background-color: rgba(73, 73, 73, 0.4);
+      }
     }
   }
 
@@ -167,6 +185,22 @@
 
     @media screen and (min-width: 1024px) {
       right: calc(50% - 112px) !important;
+    }
+  }
+
+  .heroProducts .swiper-button-prev {
+    left: calc(50% - 50px) !important;
+
+    @media screen and (min-width: 1024px) {
+      left: calc(50% - 80px) !important;
+    }
+  }
+
+  .heroProducts .swiper-button-next {
+    right: calc(50% - 50px) !important;
+
+    @media screen and (min-width: 1024px) {
+      right: calc(50% - 80px) !important;
     }
   }
 
@@ -188,6 +222,14 @@
     background-size: contain;
   }
 
+  .heroProducts .swiper-button-prev::after {
+    background: url("/images/icons/arrowLeftWhite.svg") center no-repeat;
+  }
+
+  .heroProducts .swiper-button-next::after {
+    background: url("/images/icons/arrowRightWhite.svg") center no-repeat;
+  }
+
   .swiper-pagination-bullet {
     margin-left: 8px;
     margin-right: 8px;
@@ -195,8 +237,16 @@
     font-size: 12px;
     font-weight: 400;
     background-color: transparent !important;
+    transition: color 300ms ease-in-out;
+
     @media screen and (min-width: 1024px) {
       font-size: 16px;
+    }
+
+    @media screen and (min-width: 1280px) {
+      &:hover {
+        color: var(--color-main) !important;
+      }
     }
   }
 

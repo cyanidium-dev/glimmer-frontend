@@ -13,7 +13,7 @@ export default function PromotionalProductsSlider({
 }: PromotionalProductsSliderProps) {
   return (
     <SwiperWrapper
-      swiperClassName="newProducts"
+      swiperClassName="promotionalProducts"
       loop
       breakpoints={{
         0: {

@@ -1,3 +1,3 @@
 export default function PublicContractPage() {
-  return <></>;
+  return <div className="pt-[85px]"></div>;
 }

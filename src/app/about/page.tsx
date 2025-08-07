@@ -19,13 +19,13 @@ export default async function AboutPage() {
   const allInstagramPosts = await fetchSanityDataServer(allInstagramPostsQuery);
 
   return (
-    <>
+    <div className="pt-[85px]">
       <Breadcrumbs crumbs={crumbs} />
       <AboutHero />
       <About />
       <Instagram instagramPosts={allInstagramPosts?.posts} />
       <MarqueeLine />
       <TelegramCTA />
-    </>
+    </div>
   );
 }
