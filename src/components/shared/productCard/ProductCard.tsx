@@ -82,7 +82,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       </div>
       <Link
         href={`/catalog/${categorySlug}/${genreSlug}/${slug}`}
-        className="relative block w-full h-[197px] lg:h-[275px] mb-2 lg:mb-3"
+        className="group relative block w-full h-[197px] lg:h-[275px] mb-2 lg:mb-3"
       >
         {discountPrice ? (
           <div className="absolute left-2 -top-1.5 lg:-top-1 z-10 p-0.5 lg:p-1 text-[12px] lg:text-[15px] font-semibold leading-[120%] text-white bg-accent rounded-[6px]">
@@ -93,7 +93,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           src={mainImage || ""}
           alt={title}
           fill
-          className="object-contain"
+          className="object-contain xl:group-hover:scale-[105%] transition duration-700 ease-in-out"
         />
       </Link>
       <Link

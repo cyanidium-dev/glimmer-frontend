@@ -12,6 +12,7 @@ import { Product } from "@/types/product";
 import PromoBanner from "@/components/homePage/promoBanner/PromoBanner";
 import { HomepageBanner } from "@/types/promoBanner";
 import Container from "@/components/shared/container/Container";
+import Hero from "@/components/homePage/hero/Hero";
 
 export default async function HomePage() {
   const homePageData = await fetchSanityDataServer(homepageCombinedQuery);
@@ -40,6 +41,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <Hero banners={heroBanners} />
       <MarqueeLine />
       <Suspense fallback={<Loader />}>
         <Bestsellers bestsellers={bestsellers} />

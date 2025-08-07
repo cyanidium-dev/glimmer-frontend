@@ -5,7 +5,7 @@
 }
 
 @theme inline {
-  --breakpoint-xs: 440px;
+  --breakpoint-xs: 27rem;
 
   --color-white: #ffffff;
   --color-black: #494949;

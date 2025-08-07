@@ -19,13 +19,13 @@ export default async function ContactsPage() {
   const allInstagramPosts = await fetchSanityDataServer(allInstagramPostsQuery);
 
   return (
-    <>
+    <div className="pt-[85px]">
       <Breadcrumbs crumbs={crumbs} />
       <ContactsInfo />
       <CallBack />
       <Instagram instagramPosts={allInstagramPosts?.posts} />
       <MarqueeLine />
       <TelegramCTA />
-    </>
+    </div>
   );
 }

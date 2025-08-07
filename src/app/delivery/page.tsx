@@ -15,13 +15,13 @@ export default function DeliveryPage() {
   ];
 
   return (
-    <>
+    <div className="pt-[85px]">
       <Breadcrumbs crumbs={crumbs} />
       <DeliveryInfo />
       <DeliveryConditions />
       <PaymentMethods />
       <MarqueeLine />
       <TelegramCTA />
-    </>
+    </div>
   );
 }
