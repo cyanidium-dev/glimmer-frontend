@@ -22,8 +22,14 @@ export default function Hero({ banners }: HeroProps) {
   return (
     <section>
       <SwiperWrapper
-        swiperClassName="newProducts"
+        swiperClassName="heroProducts"
         loop
+        isPagination={false}
+        autoplay={{
+          delay: 15000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: false,
+        }}
         breakpoints={{
           1280: {
             slidesPerView: 1,

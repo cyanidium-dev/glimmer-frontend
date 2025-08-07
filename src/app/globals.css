@@ -157,7 +157,17 @@
 
     @media screen and (min-width: 1280px) {
       &:hover {
-        background-color: var(--color-gray);
+        background-color: rgba(228, 228, 231, 0.5);
+      }
+    }
+  }
+
+  .heroProducts .swiper-button-next,
+  .heroProducts .swiper-button-prev {
+    top: calc(100% - 40px) !important;
+    @media screen and (min-width: 1280px) {
+      &:hover {
+        background-color: rgba(73, 73, 73, 0.4);
       }
     }
   }
@@ -178,6 +188,22 @@
     }
   }
 
+  .heroProducts .swiper-button-prev {
+    left: calc(50% - 50px) !important;
+
+    @media screen and (min-width: 1024px) {
+      left: calc(50% - 80px) !important;
+    }
+  }
+
+  .heroProducts .swiper-button-next {
+    right: calc(50% - 50px) !important;
+
+    @media screen and (min-width: 1024px) {
+      right: calc(50% - 80px) !important;
+    }
+  }
+
   .swiper-button-prev::after {
     content: "" !important;
     display: flex;
@@ -194,6 +220,14 @@
     height: 100%;
     background: url("/images/icons/arrowRight.svg") center no-repeat;
     background-size: contain;
+  }
+
+  .heroProducts .swiper-button-prev::after {
+    background: url("/images/icons/arrowLeftWhite.svg") center no-repeat;
+  }
+
+  .heroProducts .swiper-button-next::after {
+    background: url("/images/icons/arrowRightWhite.svg") center no-repeat;
   }
 
   .swiper-pagination-bullet {
