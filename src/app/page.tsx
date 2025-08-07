@@ -28,8 +28,6 @@ export default async function HomePage() {
     (banner: HomepageBanner) => banner.order === 2
   );
 
-  console.log(heroBanners, homePageBanners);
-
   const bestsellers = allProducts?.filter(
     (product: Product) => product.isBestseller
   );
