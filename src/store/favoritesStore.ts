@@ -30,7 +30,7 @@ export const useFavoritesStore = create<FavoritesState>()(
       isFavorite: (slug) => get().favorites.some((fav) => fav.slug === slug),
     }),
     {
-      name: "art-lover-favorites-storage",
+      name: "glimmer-favorites-storage",
     }
   )
 );

@@ -18,7 +18,7 @@ export default function Header() {
           <div className="flex items-center gap-[22px]">
             <Search />
             <Link href="favorites" className="group">
-              <HeartIcon className="text-white xl:group-hover:text-main group-focus:text-main group-active:text-main transition duration-300 ease-in-out" />
+              <HeartIcon className="text-white xl:group-hover:text-main group-focus-visible:text-main group-active:text-main transition duration-300 ease-in-out" />
             </Link>
             <CartButton />
           </div>
