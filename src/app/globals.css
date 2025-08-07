@@ -5,12 +5,15 @@
 }
 
 @theme inline {
+  --breakpoint-xs: 440px;
+
   --color-white: #ffffff;
   --color-black: #494949;
   --color-accent: #940b0e;
   --color-main: #94c5e8;
   --color-gray: #e4e4e7;
   --color-placeholder: #71717a;
+
   --font-montserrat: var(--font-montserrat);
 }
 
