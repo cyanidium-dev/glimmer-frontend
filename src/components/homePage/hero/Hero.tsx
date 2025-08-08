@@ -18,7 +18,6 @@ interface HeroProps {
 }
 
 export default function Hero({ banners }: HeroProps) {
-  console.log(banners);
   return (
     <section>
       <SwiperWrapper

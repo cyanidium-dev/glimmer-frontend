@@ -1,5 +1,3 @@
-export const revalidate = 60;
-
 import MarqueeLine from "@/components/shared/marquee/MarqueeLine";
 import TelegramCTA from "@/components/shared/telegramCTA/TelegramCTA";
 import { fetchSanityDataServer } from "@/utils/fetchSanityData";
