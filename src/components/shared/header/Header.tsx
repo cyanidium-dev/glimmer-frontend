@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Container from "../container/Container";
 import LogoIcon from "../icons/LogoIcon";
@@ -5,8 +8,34 @@ import CartButton from "../buttons/CartButton";
 import HeartIcon from "../icons/HeartIcon";
 import Search from "./Search";
 import NavMenu from "./NavMenu";
+import { Category } from "@/types/category";
 
-export default function Header() {
+interface HeaderProps {
+  categories: Category[];
+}
+
+export default function Header({ categories }: HeaderProps) {
+  const [isOpenCatalogMenu, setIsOpenCatalogMenu] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+
+  // Активуємо рендер тільки після гідратації
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  if (!hydrated) {
+    // Рендер стабільного, мінімального HTML на сервері
+    return (
+      <header className="fixed z-30 top-0 left-0 w-dvw py-6 bg-black">
+        <Container className="flex items-center justify-between">
+          <Link href="/" className="group">
+            <LogoIcon className="text-white" />
+          </Link>
+        </Container>
+      </header>
+    );
+  }
+
   return (
     <header className="fixed z-30 top-0 left-0 w-dvw py-6 bg-black">
       <Container className="flex items-center justify-between">
@@ -14,7 +43,11 @@ export default function Header() {
           <LogoIcon className="text-white xl:group-hover:text-main group-focus-visible:text-main group-active:text-main transition duration-300 ease-in-out" />
         </Link>
         <div className="flex items-center gap-[72px]">
-          <NavMenu />
+          <NavMenu
+            categories={categories}
+            isOpenCatalogMenu={isOpenCatalogMenu}
+            setIsOpenCatalogMenu={setIsOpenCatalogMenu}
+          />
           <div className="flex items-center gap-[22px]">
             <Search />
             <Link href="favorites" className="group">
