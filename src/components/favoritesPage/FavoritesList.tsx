@@ -7,6 +7,7 @@ import NoItems from "./NoItems";
 import Pagination from "../shared/pagination/Pagination";
 import { useFavoritesItemsPerPage } from "@/hooks/useFavoritesItemsPerPage";
 import ProductCard from "../shared/productCard/ProductCard";
+import FiltersSortPanel from "../shared/filtersSortPanel/FiltersSortPanel";
 
 const SECTION_ID = "favorites-page-list";
 
@@ -27,6 +28,7 @@ export default function FavoritesList() {
 
   return (
     <Container>
+      <FiltersSortPanel />
       {!favorites || !favorites?.length ? (
         <NoItems />
       ) : (
