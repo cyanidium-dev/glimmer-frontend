@@ -8,6 +8,19 @@ export const allInstagramPostsQuery = `
   }
 `;
 
+export const allCategoriesQuery = `
+  *[_type == "category"]{
+    "id": _id,
+    title,
+    "slug": slug.current,
+    order,
+    genres[]->{
+      "title": name,
+      "slug": slug.current
+    }
+  }
+`;
+
 export const allProductsQuery = `*[_type == "product"]{
     "slug": slug.current,
     title,
