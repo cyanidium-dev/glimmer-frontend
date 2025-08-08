@@ -45,6 +45,7 @@ export const homepageCombinedQuery = `{
     order
   },
   "products": *[_type == "product"]{
+    "id": _id,
     "slug": slug.current,
     title,
     author,

@@ -25,70 +25,72 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div className="flex flex-col pb-3 rounded-[10px]">
-      <div className="flex items-center justify-between px-2 mb-2 lg:mb-[14px]">
-        {isBestseller ? (
-          <>
-            <Image
-              src="/images/icons/topMob.svg"
-              alt="top icon"
-              className="lg:hidden"
-              width="95"
-              height="29"
-            />
-            <Image
-              src="/images/icons/topDesk.svg"
-              alt="top icon"
-              className="hidden lg:block"
-              width="95"
-              height="29"
-            />
-          </>
-        ) : discountPrice ? (
-          <>
-            <Image
-              src="/images/icons/promoMob.svg"
-              alt="top icon"
-              className="lg:hidden"
-              width="106"
-              height="20"
-            />
-            <Image
-              src="/images/icons/promoDesk.svg"
-              alt="top icon"
-              className="hidden lg:block"
-              width="109"
-              height="29"
-            />
-          </>
-        ) : isNew ? (
-          <>
-            <Image
-              src="/images/icons/newMob.svg"
-              alt="top icon"
-              className="lg:hidden"
-              width="106"
-              height="20"
-            />
-            <Image
-              src="/images/icons/newDesk.svg"
-              alt="top icon"
-              className="hidden lg:block"
-              width="141"
-              height="30"
-            />
-          </>
-        ) : null}
-        <FavoriteButton currentProduct={product} />
+      <div className="relative flex items-center justify-between px-2 mb-2 lg:mb-[14px]">
+        <div className="absolute top-[1px] left-0 z-10 flex flex-col gap-1">
+          {isBestseller ? (
+            <>
+              <Image
+                src="/images/icons/topMob.svg"
+                alt="top icon"
+                className="lg:hidden"
+                width="106"
+                height="20"
+              />
+              <Image
+                src="/images/icons/topDesk.svg"
+                alt="top icon"
+                className="hidden lg:block"
+                width="95"
+                height="29"
+              />
+            </>
+          ) : null}
+          {isNew ? (
+            <>
+              <Image
+                src="/images/icons/newMob.svg"
+                alt="top icon"
+                className="lg:hidden"
+                width="106"
+                height="20"
+              />
+              <Image
+                src="/images/icons/newDesk.svg"
+                alt="top icon"
+                className="hidden lg:block"
+                width="141"
+                height="30"
+              />
+            </>
+          ) : null}
+          {discountPrice ? (
+            <div className="relative">
+              <Image
+                src="/images/icons/promoMob.svg"
+                alt="top icon"
+                className="lg:hidden"
+                width="106"
+                height="20"
+              />
+              <Image
+                src="/images/icons/promoDesk.svg"
+                alt="top icon"
+                className="hidden lg:block"
+                width="109"
+                height="29"
+              />
+              <div className="absolute left-0 -bottom-[22px] lg:-bottom-[30px] z-10 p-0.5 lg:p-1 text-[12px] lg:text-[15px] font-semibold leading-[120%] text-white bg-accent rounded-[6px]">
+                {Math.round(((discountPrice - price) / price) * 100)}%
+              </div>
+            </div>
+          ) : null}{" "}
+        </div>
+        <FavoriteButton currentProduct={product} className="ml-auto" />
       </div>
       <Link
         href={`/catalog/${categorySlug}/${genreSlug}/${slug}`}
         className="group relative block w-full h-[197px] lg:h-[275px] mb-2 lg:mb-3"
       >
-        {discountPrice ? (
-          <div className="absolute left-2 -top-1.5 lg:-top-1 z-10 p-0.5 lg:p-1 text-[12px] lg:text-[15px] font-semibold leading-[120%] text-white bg-accent rounded-[6px]">
-            {Math.round(((discountPrice - price) / price) * 100)}%
-          </div>
-        ) : null}
         <Image
           src={mainImage || ""}
           alt={title}

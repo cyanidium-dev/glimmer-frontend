@@ -6,10 +6,12 @@ import { Product } from "@/types/product";
 
 interface FavoriteButtonProps {
   currentProduct: Product;
+  className?: string;
 }
 
 export default function FavoriteButton({
   currentProduct,
+  className = "",
 }: FavoriteButtonProps) {
   const { addFavorite, removeFavorite, isFavorite } = useFavoritesStore();
 
@@ -35,10 +37,10 @@ export default function FavoriteButton({
     <button
       onClick={toggleFavorite}
       aria-label="add to favorites"
-      className="group cursor-pointer flex items-center justify-center shrink-0  active:scale-95 transition duration-300 ease-in-out"
+      className={`group cursor-pointer flex items-center justify-center shrink-0 active:scale-95 transition duration-300 ease-in-out ${className}`}
     >
       <EmptyHeartIcon
-        className={` ${
+        className={`w-auto h-5 lg:h-[25px] ${
           isFavorite(currentProduct.slug)
             ? "text-main xl:hover:brightness-110 focus-visible:brightness-110"
             : "text-white xl:group-hover:text-main focus-visible:text-main"

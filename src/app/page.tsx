@@ -40,7 +40,7 @@ export default async function HomePage() {
   const newProducts = allProducts?.filter((product: Product) => product.isNew);
 
   return (
-    <>
+    <div className="pt-[85px] lg:pt-0">
       <Hero banners={heroBanners} />
       <MarqueeLine />
       <Suspense fallback={<Loader />}>
@@ -68,6 +68,6 @@ export default async function HomePage() {
       </Suspense>
       <MarqueeLine />
       <TelegramCTA />
-    </>
+    </div>
   );
 }

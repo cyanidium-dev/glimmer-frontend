@@ -1,5 +1,7 @@
+"use client";
 import { HomepageBanner } from "@/types/promoBanner";
 import Image from "next/image";
+import Link from "next/link";
 
 interface PromoBanner {
   banner: HomepageBanner;
@@ -7,10 +9,10 @@ interface PromoBanner {
 }
 
 export default function PromoBanner({ banner, className = "" }: PromoBanner) {
-  const { imageSmall, imageLarge } = banner;
+  const { imageSmall, imageLarge, link } = banner;
 
-  return (
-    <div className={`${className} md:w-[calc(50%-8px)]`}>
+  const content = (
+    <>
       <Image
         src={imageSmall}
         alt="promo banner"
@@ -25,6 +27,14 @@ export default function PromoBanner({ banner, className = "" }: PromoBanner) {
         height={268}
         className="w-full h-auto hidden xs:block"
       />
-    </div>
+    </>
+  );
+
+  return link ? (
+    <Link href={link} className={`${className} md:w-[calc(50%-8px)] block`}>
+      {content}
+    </Link>
+  ) : (
+    <div className={`${className} md:w-[calc(50%-8px)]`}>{content}</div>
   );
 }
