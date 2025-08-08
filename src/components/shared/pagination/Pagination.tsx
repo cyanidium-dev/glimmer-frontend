@@ -6,7 +6,6 @@ import ArrowIcon from "../icons/ArrowIcon";
 interface PaginationProps<T> {
   items: T[];
   renderItems: (items: T[]) => ReactNode;
-  scrollTargetId: string;
   useItemsPerPage: () => number;
   maxVisiblePages?: number;
   className?: string;
@@ -15,7 +14,6 @@ interface PaginationProps<T> {
 export default function Pagination<T>({
   items,
   renderItems,
-  scrollTargetId,
   useItemsPerPage,
   maxVisiblePages = 4,
   className = "",
@@ -62,20 +60,11 @@ export default function Pagination<T>({
 
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", page.toString());
-    router.push(`?${params.toString()}`, { scroll: false });
+    router.push(`?${params.toString()}`);
 
-    const targetElement = document.getElementById(scrollTargetId);
-    if (targetElement) {
-      const yOffset = -120; // Зміщення на 120px вгору
-      const yPosition =
-        targetElement.getBoundingClientRect().top +
-        window.pageYOffset +
-        yOffset;
-
-      window.scrollTo({
-        top: yPosition,
-      });
-    }
+    window.scrollTo({
+      top: 0,
+    });
   };
 
   return (

@@ -78,7 +78,7 @@ export default function Sorting() {
         </button>
 
         <div
-          className={`${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"} absolute right-0 w-full mt-1 bg-white rounded-[14px] 
+          className={`${isOpen ? "opacity-100 z-20" : "opacity-0 pointer-events-none"} absolute right-0 w-full mt-1 bg-white rounded-[14px] 
             shadow-[0_4px_6px_-1px_rgba(0,0,0,0.10),0_2px_4px_-2px_rgba(0,0,0,0.10)] overflow-hidden text-[12px] lg:text-[14px] font-light transition duration-500 ease-in-out`}
         >
           {sortingOptions.map((option) => (
