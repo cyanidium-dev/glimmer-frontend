@@ -19,8 +19,8 @@ export default function CartButton({
         disabled={disabled}
         id="cart-button"
         onClick={onClick}
-        className={`relative z-10 w-full lg:w-auto px-3 enabled:cursor-pointer flex items-center justify-center h-9 rounded-[6.4px] 
-            ${status === "inStock" ? "bg-main disabled:bg-main/50 text-black enabled:xl:hover:brightness-110 enabled:focus-visible:brightness-110" : "bg-black text-white disabled:bg-black/50 enabled:xl:hover:brightness-125 enabled:focus-visible:brightness-125"}
+        className={`relative z-10 w-full lg:w-auto enabled:cursor-pointer flex items-center justify-center h-9 rounded-[6.4px] 
+            ${status === "inStock" ? "px-3 bg-main disabled:bg-main/50 text-black enabled:xl:hover:brightness-110 enabled:focus-visible:brightness-110" : "px-2 bg-black text-white disabled:bg-black/50 enabled:xl:hover:brightness-125 enabled:focus-visible:brightness-125"}
         xl:hover:-translate-y-0.5 xl:hover:translate-x-0.5 transition duration-300 ease-in-out ${className}`}
       >
         <CartIcon

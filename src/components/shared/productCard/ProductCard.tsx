@@ -114,7 +114,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           {title}
         </p>
       </Link>
-      <div className="px-2 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+      <div className="px-2 flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
         {discountPrice && discountPrice < price ? (
           <div className="lg:flex flex-col-reverse shrink-0">
             <span className="text-[15px] lg:text-[16px] font-semibold leading-[120%] text-accent">

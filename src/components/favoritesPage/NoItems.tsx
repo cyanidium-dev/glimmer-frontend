@@ -11,9 +11,9 @@ export default function NoItems() {
         Зберігайте книги, які вас зацікавили — натисніть сердечко біля товару.
         Ми збережемо їх тут для вас.
       </p>
-      <Link href="/catalog">
+      <Link href="/">
         <MainButton className="w-[262px] h-[45px]">
-          Перейти до каталогу
+          Повернутись на головну
         </MainButton>
       </Link>
     </div>

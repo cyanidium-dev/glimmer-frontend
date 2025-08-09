@@ -144,7 +144,8 @@ export const allProductsByCategoryQuery = `
       status,
       preOrderShippingDate,
       isBestseller,
-      isNew
+      isNew,
+      "categorySlug": category->slug.current,
     }
   },
   "catalogBanner": *[
@@ -171,7 +172,62 @@ export const allProductsByCategoryQuery = `
     },
     status,
     isBestseller,
-    isNew
+    isNew,
+    "categorySlug": category->slug.current,
   }
 }
+`;
+
+export const productBySlugQuery = `
+  *[_type == "product" && slug.current == $productSlug][0]{
+    "id": _id,
+    "slug": slug.current,
+    title,
+    author,
+    price,
+    discountPrice,
+    "mainImage": gallery[0].asset->url,
+    status,
+    isBestseller,
+    isNew,
+    "categorySlug": category->slug.current,
+    "categoryTitle": category->title,
+    "genreSlug": genre->slug.current,
+    "genreTitle": genre->name,
+    description,
+    "gallery": gallery[].asset->url,
+    "bookScreens": bookScreens[].asset->url,
+    sku,
+    preOrderShippingDate,
+    features[]{
+      "featureName": feature->name,
+      value
+    },
+    reviews[]{
+      "author": name,
+      rating,
+      text,
+      "photo": photo.asset->url,
+      date
+    }
+  }
+`;
+
+export const allRecommendedProductsQuery = `
+  *[_type == "product" && genre->slug.current == $genreSlug && slug.current != $currentSlug]{
+    "id": _id,
+    "slug": slug.current,
+    title,
+    author,
+    price,
+    discountPrice,
+    "mainImage": gallery[0].asset->url,
+    status,
+    isBestseller,
+    isNew,
+    "categorySlug": category->slug.current,
+    "categoryTitle": category->title,
+    "genreSlug": genre->slug.current,
+    "genreTitle": genre->title
+  }
 `;
