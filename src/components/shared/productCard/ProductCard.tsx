@@ -19,7 +19,6 @@ export default function ProductCard({ product }: ProductCardProps) {
     price,
     discountPrice,
     categorySlug,
-    genreSlug,
     status,
   } = product;
 
@@ -88,7 +87,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <FavoriteButton currentProduct={product} className="ml-auto" />
       </div>
       <Link
-        href={`/catalog/${categorySlug}/${genreSlug}/${slug}`}
+        href={`/catalog/${categorySlug}/${slug}`}
         className="group relative block w-full h-[197px] lg:h-[275px] mb-2 lg:mb-3"
       >
         <Image
@@ -99,7 +98,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         />
       </Link>
       <Link
-        href={`/catalog/${categorySlug}/${genreSlug}/${slug}`}
+        href={`/catalog/${categorySlug}/${slug}`}
         className="group block mb-2 lg:mb-[14px] px-2"
       >
         <p
