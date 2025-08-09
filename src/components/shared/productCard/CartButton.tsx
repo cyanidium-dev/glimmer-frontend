@@ -14,13 +14,14 @@ export default function CartButton({
   status,
 }: CartButtonProps) {
   return (
-    <>
+    <div className="group relative w-fit">
       <button
         disabled={disabled}
         id="cart-button"
         onClick={onClick}
-        className={`w-full lg:w-auto px-3 enabled:cursor-pointer relative flex items-center justify-center h-9 rounded-[6.4px] ${status === "inStock" ? "bg-main disabled:bg-main/50 text-black enabled:xl:hover:brightness-110 enabled:focus-visible:brightness-110" : "bg-black text-white disabled:bg-black/50 enabled:xl:hover:brightness-125 enabled:focus-visible:brightness-125"}
-         enabled:active:scale-95 transition duration-300 ease-in-out ${className}`}
+        className={`relative z-10 w-full lg:w-auto px-3 enabled:cursor-pointer flex items-center justify-center h-9 rounded-[6.4px] 
+            ${status === "inStock" ? "bg-main disabled:bg-main/50 text-black enabled:xl:hover:brightness-110 enabled:focus-visible:brightness-110" : "bg-black text-white disabled:bg-black/50 enabled:xl:hover:brightness-125 enabled:focus-visible:brightness-125"}
+        xl:hover:-translate-y-0.5 xl:hover:translate-x-0.5 transition duration-300 ease-in-out ${className}`}
       >
         <CartIcon
           className={status === "inStock" ? "mr-2 lg:mr-0" : "hidden"}
@@ -32,6 +33,10 @@ export default function CartButton({
           {status === "inStock" ? "Купити" : "Передзамовлення"}
         </span>
       </button>
-    </>
+      <div
+        className={`absolute top-0 left-0 -z-10 w-full h-full rounded-[6.4px] blur-xs xl:group-hover:translate-y-0.5 
+      xl:group-hover:-translate-x-0.5 transition duration-300 ease-in-out ${status === "inStock" ? "bg-main/60" : "bg-black/40"}`}
+      ></div>
+    </div>
   );
 }
