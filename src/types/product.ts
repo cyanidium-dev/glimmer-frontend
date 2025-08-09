@@ -13,5 +13,20 @@ export type Product = {
   categoryTitle: string;
   genreSlug?: string;
   genreTitle?: string;
-  reviews: { author: string; rating: number; text: string }[];
+  description?: string;
+  gallery?: string[];
+  bookScreens?: string[];
+  sku: string;
+  preOrderShippingDate?: string;
+  features?: {
+    featureName: string;
+    value: string;
+  }[];
+  reviews: {
+    author: string;
+    rating: number;
+    text: string;
+    photo?: string;
+    date?: string;
+  }[];
 };

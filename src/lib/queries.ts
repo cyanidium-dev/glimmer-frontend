@@ -177,3 +177,38 @@ export const allProductsByCategoryQuery = `
   }
 }
 `;
+
+export const productBySlugQuery = `
+  *[_type == "product" && slug.current == $slug][0]{
+    "id": _id,
+    "slug": slug.current,
+    title,
+    author,
+    price,
+    discountPrice,
+    "mainImage": gallery[0].asset->url,
+    status,
+    isBestseller,
+    isNew,
+    "categorySlug": category->slug.current,
+    "categoryTitle": category->title,
+    "genreSlug": genre->slug.current,
+    "genreTitle": genre->title,
+    description,
+    "gallery": gallery[].asset->url,
+    "bookScreens": bookScreens[].asset->url,
+    sku,
+    preOrderShippingDate,
+    features[]{
+      "featureName": feature->name,
+      value
+    },
+    reviews[]{
+      "author": name,
+      rating,
+      text,
+      "photo": photo.asset->url,
+      date
+    }
+  }
+`;
