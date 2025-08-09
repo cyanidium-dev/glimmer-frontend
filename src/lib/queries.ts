@@ -144,7 +144,8 @@ export const allProductsByCategoryQuery = `
       status,
       preOrderShippingDate,
       isBestseller,
-      isNew
+      isNew,
+      "categorySlug": category->slug.current,
     }
   },
   "catalogBanner": *[
@@ -171,7 +172,8 @@ export const allProductsByCategoryQuery = `
     },
     status,
     isBestseller,
-    isNew
+    isNew,
+    "categorySlug": category->slug.current,
   }
 }
 `;
