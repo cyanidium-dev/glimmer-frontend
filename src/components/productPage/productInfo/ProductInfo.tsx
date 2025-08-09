@@ -2,6 +2,7 @@
 import { Product } from "@/types/product";
 import { useEffect } from "react";
 import { useReviewedProductsStore } from "@/store/reviewedProductsStore";
+import Container from "@/components/shared/container/Container";
 
 interface ProductInfoProps {
   currentProduct: Product;
@@ -18,5 +19,9 @@ export default function ProductInfo({ currentProduct }: ProductInfoProps) {
     }
   }, [currentProduct, addReviewedProduct]);
 
-  return <div>ProductInfo</div>;
+  return (
+    <section className="pb-8 lg:pb-10">
+      <Container></Container>
+    </section>
+  );
 }

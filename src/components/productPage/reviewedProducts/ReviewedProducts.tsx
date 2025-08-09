@@ -1,6 +1,6 @@
 "use client";
-import Container from "../shared/container/Container";
-import SectionTitle from "../shared/titles/SectionTitle";
+import Container from "../../shared/container/Container";
+import SectionTitle from "../../shared/titles/SectionTitle";
 import ReviewedSlider from "./ReviewedSlider";
 import { useReviewedProductsStore } from "@/store/reviewedProductsStore";
 

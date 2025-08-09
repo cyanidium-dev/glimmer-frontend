@@ -5,17 +5,16 @@ import Header from "@/components/shared/header/Header";
 import Footer from "@/components/shared/footer/Footer";
 import { fetchSanityDataServer } from "@/utils/fetchSanityData";
 import { allCategoriesQuery } from "@/lib/queries";
+import { getDefaultMetadata } from "@/utils/getDefaultMetadata";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin", "cyrillic"],
 });
 
-export const metadata: Metadata = {
-  title: "Glimmer - твій книжковий всесвіт",
-  description:
-    "Величезний вибір художньої літератури. Glimmer — ваш улюблений книжковий простір. Швидка доставка, вигідні ціни, новинки й бестселери.",
-};
+export async function generateMetadata() {
+  return getDefaultMetadata();
+}
 
 export default async function RootLayout({
   children,

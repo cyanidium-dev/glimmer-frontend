@@ -1,10 +1,10 @@
-import RecommendedProducts from "@/components/productPage/RecommendedProducts";
-import ReviewedProducts from "@/components/productPage/ReviewedProducts";
+import RecommendedProducts from "@/components/productPage/recommendedProducts/RecommendedProducts";
+import ReviewedProducts from "@/components/productPage/reviewedProducts/ReviewedProducts";
 import MarqueeLine from "@/components/shared/marquee/MarqueeLine";
 import TelegramCTA from "@/components/shared/telegramCTA/TelegramCTA";
 import { fetchSanityDataServer } from "@/utils/fetchSanityData";
 import { productBySlugQuery } from "@/lib/queries";
-import ProductInfo from "@/components/productPage/ProductInfo";
+import ProductInfo from "@/components/productPage/productInfo/ProductInfo";
 import type { Metadata } from "next";
 import { getDefaultMetadata } from "@/utils/getDefaultMetadata";
 
