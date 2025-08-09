@@ -1,7 +1,5 @@
 import Image from "next/image";
 import Container from "../container/Container";
-import MainButton from "../buttons/MainButton";
-import Link from "next/link";
 import NavMenu from "./NavMenu";
 import Info from "./Info";
 
@@ -24,11 +22,6 @@ export default function Footer() {
             height={76}
             className="mb-8 lg:mb-[58px]"
           />
-          <Link href="/catalog">
-            <MainButton variant="secondary" className="h-[53px]">
-              Переглянути каталог
-            </MainButton>
-          </Link>
         </div>
         <NavMenu />
         <Info />

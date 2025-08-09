@@ -212,3 +212,22 @@ export const productBySlugQuery = `
     }
   }
 `;
+
+export const allRecommendedProductsQuery = `
+  *[_type == "product" && genre->slug.current == $genreSlug && slug.current != $currentSlug]{
+    "id": _id,
+    "slug": slug.current,
+    title,
+    author,
+    price,
+    discountPrice,
+    "mainImage": gallery[0].asset->url,
+    status,
+    isBestseller,
+    isNew,
+    "categorySlug": category->slug.current,
+    "categoryTitle": category->title,
+    "genreSlug": genre->slug.current,
+    "genreTitle": genre->title
+  }
+`;

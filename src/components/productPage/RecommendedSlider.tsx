@@ -1,18 +1,19 @@
+"use client";
 import SwiperWrapper from "@/components/shared/swiper/SwiperWrapper";
 import { SwiperSlide } from "swiper/react";
 import ProductCard from "@/components/shared/productCard/ProductCard";
 import { Product } from "@/types/product";
 
-interface ReviewedSliderProps {
-  reviewedProducts: Product[];
+interface RecommendedSliderProps {
+  recommendedProducts: Product[];
 }
 
-export default function ReviewedSlider({
-  reviewedProducts,
-}: ReviewedSliderProps) {
+export default function RecommendedSlider({
+  recommendedProducts,
+}: RecommendedSliderProps) {
   return (
     <SwiperWrapper
-      swiperClassName="reviewedProducts"
+      swiperClassName="recommendedProducts"
       loop
       breakpoints={{
         0: {
@@ -27,7 +28,7 @@ export default function ReviewedSlider({
         },
       }}
     >
-      {reviewedProducts.map((product, idx) => (
+      {recommendedProducts.map((product, idx) => (
         <SwiperSlide key={idx}>
           <ProductCard product={product} />
         </SwiperSlide>
