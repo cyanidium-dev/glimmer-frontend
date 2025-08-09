@@ -31,6 +31,11 @@ export const allProductsQuery = `*[_type == "product"]{
     status,
     isBestseller,
     isNew,
+    "reviews": reviews[]{
+      author,
+      rating,
+      text
+    },
     "categorySlug": category->slug.current,
     "categoryTitle": category->title,
     "genreSlug": genre->slug.current,
@@ -68,6 +73,11 @@ export const homepageCombinedQuery = `{
     status,
     isBestseller,
     isNew,
+    "reviews": reviews[]{
+      author,
+      rating,
+      text
+    },
     "categorySlug": category->slug.current,
     "categoryTitle": category->title,
     "genreSlug": genre->slug.current,
@@ -83,7 +93,8 @@ export const homepageCombinedQuery = `{
 }`;
 
 export const allDiscountedProductsQuery = `
-  *[_type == "product" && defined(discountPrice)]{
+{
+  "allProducts": *[_type == "product" && defined(discountPrice)]{
     "id": _id,
     "slug": slug.current,
     title,
@@ -98,7 +109,14 @@ export const allDiscountedProductsQuery = `
     "categoryTitle": category->title,
     "genreSlug": genre->slug.current,
     "genreTitle": genre->title
+  },
+  "catalogBanner": *[
+    _type == "homepageBanner" && showOnCatalog == true
+  ][0]{
+    "imageCatalog": imageCatalog.asset->url,
+    link
   }
+}
 `;
 
 export const allProductsByCategoryQuery = `
@@ -118,7 +136,7 @@ export const allProductsByCategoryQuery = `
       price,
       discountPrice,
       "mainImage": gallery[0].asset->url,
-       "reviews": reviews[]{
+      "reviews": reviews[]{
         author,
         rating,
         text
@@ -128,6 +146,12 @@ export const allProductsByCategoryQuery = `
       isBestseller,
       isNew
     }
+  },
+  "catalogBanner": *[
+    _type == "homepageBanner" && showOnCatalog == true
+  ][0]  {
+  "imageCatalog": imageCatalog.asset->url,
+  link,
   },
   "allProducts": *[
     _type == "product" && references(^._id)

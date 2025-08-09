@@ -18,7 +18,7 @@ export default function Filters() {
     { title: "В наявності", value: "in-stock" },
   ];
 
-  const initialFilter = searchParams.get("filters") || "all";
+  const initialFilter = searchParams.get("filter") || "all";
   const initialSelected =
     filtersOptions.find((opt) => opt.value === initialFilter) ||
     filtersOptions[0];

@@ -1,3 +1,5 @@
+import Catalog from "@/components/catalogPage/Catalog";
+import Breadcrumbs from "@/components/shared/breadcrumbs/Breadcrumbs";
 import MarqueeLine from "@/components/shared/marquee/MarqueeLine";
 import TelegramCTA from "@/components/shared/telegramCTA/TelegramCTA";
 import {
@@ -22,8 +24,21 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   console.log(res);
 
+  const currentCategory =
+    category === "promo"
+      ? { label: "Акції", href: "/catalog/promo" }
+      : { label: res?.categoryTitle, href: `/catalog/${res?.categorySlug}` };
+
+  const crumbs = [{ label: "Головна", href: "/" }, currentCategory];
+
   return (
     <div className="pt-[85px]">
+      <Breadcrumbs crumbs={crumbs} />
+      <Catalog
+        catalogBanner={res?.catalogBanner}
+        allProducts={res?.allProducts}
+        subcategories={res?.genres}
+      />
       <MarqueeLine />
       <TelegramCTA />
     </div>
