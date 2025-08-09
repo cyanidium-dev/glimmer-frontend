@@ -193,7 +193,7 @@ export const productBySlugQuery = `
     "categorySlug": category->slug.current,
     "categoryTitle": category->title,
     "genreSlug": genre->slug.current,
-    "genreTitle": genre->title,
+    "genreTitle": genre->name,
     description,
     "gallery": gallery[].asset->url,
     "bookScreens": bookScreens[].asset->url,

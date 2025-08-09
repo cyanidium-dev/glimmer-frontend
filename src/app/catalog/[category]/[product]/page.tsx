@@ -7,6 +7,7 @@ import { productBySlugQuery } from "@/lib/queries";
 import ProductInfo from "@/components/productPage/productInfo/ProductInfo";
 import type { Metadata } from "next";
 import { getDefaultMetadata } from "@/utils/getDefaultMetadata";
+import Breadcrumbs from "@/components/shared/breadcrumbs/Breadcrumbs";
 
 interface ProductPageProps {
   params: Promise<{ category: string; product: string }>;
@@ -55,13 +56,23 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   if (!currentProduct) return null;
 
+  const { categorySlug, categoryTitle, genreTitle, genreSlug, title, slug } =
+    currentProduct;
+
+  const crumbs = [
+    { label: "Головна", href: "/" },
+    {
+      label: `${categoryTitle} - ${genreTitle}`,
+      href: `/catalog/${categorySlug}?subcategory=${genreSlug}`,
+    },
+    { label: title, href: slug },
+  ];
+
   return (
     <div className="pt-[85px]">
+      <Breadcrumbs crumbs={crumbs} />
       <ProductInfo currentProduct={currentProduct} />
-      <RecommendedProducts
-        currentSlug={product}
-        genreSlug={currentProduct?.genreSlug}
-      />
+      <RecommendedProducts currentSlug={product} genreSlug={genreSlug} />
       <ReviewedProducts />
       <MarqueeLine />
       <TelegramCTA />
