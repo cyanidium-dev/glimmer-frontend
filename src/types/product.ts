@@ -13,4 +13,5 @@ export type Product = {
   categoryTitle: string;
   genreSlug?: string;
   genreTitle?: string;
+  reviews: { author: string; rating: number; text: string }[];
 };

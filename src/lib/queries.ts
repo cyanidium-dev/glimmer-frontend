@@ -31,6 +31,11 @@ export const allProductsQuery = `*[_type == "product"]{
     status,
     isBestseller,
     isNew,
+    "reviews": reviews[]{
+      author,
+      rating,
+      text
+    },
     "categorySlug": category->slug.current,
     "categoryTitle": category->title,
     "genreSlug": genre->slug.current,
@@ -68,6 +73,11 @@ export const homepageCombinedQuery = `{
     status,
     isBestseller,
     isNew,
+    "reviews": reviews[]{
+      author,
+      rating,
+      text
+    },
     "categorySlug": category->slug.current,
     "categoryTitle": category->title,
     "genreSlug": genre->slug.current,
@@ -81,3 +91,87 @@ export const homepageCombinedQuery = `{
     }
   }
 }`;
+
+export const allDiscountedProductsQuery = `
+{
+  "allProducts": *[_type == "product" && defined(discountPrice)]{
+    "id": _id,
+    "slug": slug.current,
+    title,
+    author,
+    price,
+    discountPrice,
+    "mainImage": gallery[0].asset->url,
+    status,
+    isBestseller,
+    isNew,
+    "categorySlug": category->slug.current,
+    "categoryTitle": category->title,
+    "genreSlug": genre->slug.current,
+    "genreTitle": genre->title
+  },
+  "catalogBanner": *[
+    _type == "homepageBanner" && showOnCatalog == true
+  ][0]{
+    "imageCatalog": imageCatalog.asset->url,
+    link
+  }
+}
+`;
+
+export const allProductsByCategoryQuery = `
+*[_type == "category" && slug.current == $categorySlug][0]{
+  "categoryTitle": title,
+  "categorySlug": slug.current,
+  "genres": genres[]->{
+    "genreTitle": name,
+    "genreSlug": slug.current,
+    "products": *[
+      _type == "product" && references(^._id)
+    ]{
+      "id": _id,
+      title,
+      author,
+      "slug": slug.current,
+      price,
+      discountPrice,
+      "mainImage": gallery[0].asset->url,
+      "reviews": reviews[]{
+        author,
+        rating,
+        text
+      },
+      status,
+      preOrderShippingDate,
+      isBestseller,
+      isNew
+    }
+  },
+  "catalogBanner": *[
+    _type == "homepageBanner" && showOnCatalog == true
+  ][0]  {
+  "imageCatalog": imageCatalog.asset->url,
+  link,
+  },
+  "allProducts": *[
+    _type == "product" && references(^._id)
+  ]{
+    "id": _id,
+    title,
+    author,
+    "slug": slug.current,
+    price,
+    discountPrice,
+    description,
+    "mainImage": gallery[0].asset->url,
+    "reviews": reviews[]{
+      author,
+      rating,
+      text
+    },
+    status,
+    isBestseller,
+    isNew
+  }
+}
+`;

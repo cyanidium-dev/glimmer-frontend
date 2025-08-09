@@ -19,13 +19,12 @@ export default function ProductCard({ product }: ProductCardProps) {
     price,
     discountPrice,
     categorySlug,
-    genreSlug,
     status,
   } = product;
 
   return (
     <div className="flex flex-col pb-3 rounded-[10px]">
-      <div className="relative flex items-center justify-between px-2 mb-2 lg:mb-[14px]">
+      <div className="relative flex items-center justify-between px-2 mb-2 lg:mb-[14px] h-[25px]">
         <div className="absolute top-[1px] left-0 z-10 flex flex-col gap-1">
           {isBestseller ? (
             <>
@@ -88,7 +87,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <FavoriteButton currentProduct={product} className="ml-auto" />
       </div>
       <Link
-        href={`/catalog/${categorySlug}/${genreSlug}/${slug}`}
+        href={`/catalog/${categorySlug}/${slug}`}
         className="group relative block w-full h-[197px] lg:h-[275px] mb-2 lg:mb-3"
       >
         <Image
@@ -99,7 +98,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         />
       </Link>
       <Link
-        href={`/catalog/${categorySlug}/${genreSlug}/${slug}`}
+        href={`/catalog/${categorySlug}/${slug}`}
         className="group block mb-2 lg:mb-[14px] px-2"
       >
         <p

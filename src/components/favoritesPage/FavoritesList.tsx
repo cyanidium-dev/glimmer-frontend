@@ -9,7 +9,8 @@ import Pagination from "../shared/pagination/Pagination";
 import { useFavoritesItemsPerPage } from "@/hooks/useFavoritesItemsPerPage";
 import ProductCard from "../shared/productCard/ProductCard";
 import FiltersSortPanel from "../shared/filtersSortPanel/FiltersSortPanel";
-import { Product } from "@/types/product";
+import { filterProducts } from "@/utils/filterProducts";
+import { sortProducts } from "@/utils/sortProducts";
 
 export default function FavoritesList() {
   const { favorites } = useFavoritesStore();
@@ -24,58 +25,25 @@ export default function FavoritesList() {
     setHydrated(true);
   }, []);
 
-  // фільтрація
-  const filteredFavorites = useMemo(() => {
-    if (!favorites) return [];
-
-    switch (filterParam) {
-      case "bestseller":
-        return favorites.filter((p) => p.isBestseller);
-      case "new":
-        return favorites.filter((p) => p.isNew);
-      case "discount":
-        return favorites.filter((p) => p.discountPrice);
-      case "pre-order":
-        return favorites.filter((p) => p.status === "preOrder");
-      case "in-stock":
-        return favorites.filter((p) => p.status === "inStock");
-      default:
-        return favorites;
-    }
+  const filteredProducts = useMemo(() => {
+    return filterProducts(favorites, filterParam);
   }, [favorites, filterParam]);
 
-  // сортування
-  const sortedFavorites = useMemo(() => {
-    const items = [...filteredFavorites];
-
-    const getFinalPrice = (product: Product) => {
-      if (product.discountPrice) {
-        return product.discountPrice;
-      }
-      return product.price || 0;
-    };
-
-    switch (sortParam) {
-      case "price-ascending":
-        return items.sort((a, b) => getFinalPrice(a) - getFinalPrice(b));
-      case "price-descending":
-        return items.sort((a, b) => getFinalPrice(b) - getFinalPrice(a));
-      default:
-        return items;
-    }
-  }, [filteredFavorites, sortParam]);
+  const sortedProducts = useMemo(() => {
+    return sortProducts(filteredProducts, sortParam);
+  }, [filteredProducts, sortParam]);
 
   if (!hydrated) return <Loader />;
 
   return (
     <Container>
       <FiltersSortPanel />
-      {!sortedFavorites.length ? (
+      {!sortedProducts.length ? (
         <NoItems />
       ) : (
         <div className="pt-8 lg:pt-10">
           <Pagination
-            items={sortedFavorites}
+            items={sortedProducts}
             useItemsPerPage={() => itemsPerPage}
             renderItems={(currentItems) => (
               <ul className="flex flex-row flex-wrap gap-x-4 gap-y-8 lg:gap-y-10">
