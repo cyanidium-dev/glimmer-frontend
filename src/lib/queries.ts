@@ -179,7 +179,7 @@ export const allProductsByCategoryQuery = `
 `;
 
 export const productBySlugQuery = `
-  *[_type == "product" && slug.current == $slug][0]{
+  *[_type == "product" && slug.current == $productSlug][0]{
     "id": _id,
     "slug": slug.current,
     title,
