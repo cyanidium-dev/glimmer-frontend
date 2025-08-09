@@ -24,7 +24,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div className="flex flex-col pb-3 rounded-[10px]">
-      <div className="relative flex items-center justify-between px-2 mb-2 lg:mb-[14px]">
+      <div className="relative flex items-center justify-between px-2 mb-2 lg:mb-[14px] h-[25px]">
         <div className="absolute top-[1px] left-0 z-10 flex flex-col gap-1">
           {isBestseller ? (
             <>

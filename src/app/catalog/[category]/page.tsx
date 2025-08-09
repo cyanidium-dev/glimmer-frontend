@@ -22,8 +22,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           categorySlug: category,
         });
 
-  console.log(res);
-
   const currentCategory =
     category === "promo"
       ? { label: "Акції", href: "/catalog/promo" }
