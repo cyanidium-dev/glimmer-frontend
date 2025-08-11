@@ -83,6 +83,12 @@ export const homepageCombinedQuery = `{
     "genreSlug": genre->slug.current,
     "genreTitle": genre->name
   },
+  "genres": *[_type == "genre"] | order(order asc) {
+    name,
+    "slug": slug.current,
+    order,
+    "image": image.asset->url
+  },
   "instagram": *[_type == "instagram"][0]{
     "posts": posts[] {
       "image": image.asset->url,
