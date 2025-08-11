@@ -13,7 +13,7 @@ export default function TelegramButton({
         type="button"
         className={`group cursor-pointer flex items-center justify-between gap-8 lg:gap-[54px] h-12 lg:h-16 rounded-full bg-black pl-8 lg:pl-10 pr-1.5 lg:pr-2 py-1.5
          lg:py-2 transition duration-300 xl:group-hover:brightness-125 group-focus-visible:brightness-125 group-active:brightness-125 group-active:scale-[98%] ease-in-out
-         xl:hover:-translate-y-1 xl:hover:translate-x-1 ${className}`}
+         xl:hover:-translate-y-1 xl:hover:translate-x-1 will-change-transform ${className}`}
       >
         <span className="text-white text-[12px] lg:text-[15px] font-medium">
           Підписатися

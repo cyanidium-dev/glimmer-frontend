@@ -203,11 +203,10 @@ export const productBySlugQuery = `
       "featureName": feature->name,
       value
     },
-    reviews[]{
+    "reviews": reviews[] | order(date desc){
       "author": name,
       rating,
       text,
-      "photo": photo.asset->url,
       date
     }
   }
