@@ -42,7 +42,7 @@ export default function FavoriteButton({
       duration-300 ease-in-out will-change-transform ${className}`}
     >
       <EmptyHeartIcon
-        className={`w-[25px] h-auto  ${
+        className={`w-[25px] h-auto transition duration-300 ease-in-out ${
           isFavorite(currentProduct.slug)
             ? "text-main xl:hover:brightness-110 focus-visible:brightness-110"
             : "text-white xl:group-hover:text-main focus-visible:text-main"

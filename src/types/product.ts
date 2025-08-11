@@ -16,7 +16,7 @@ export type Product = {
   genreSlug?: string;
   genreTitle?: string;
   description?: string;
-  gallery?: string[];
+  gallery: string[];
   bookScreens?: string[];
   sku: string;
   preOrderShippingDate?: string;

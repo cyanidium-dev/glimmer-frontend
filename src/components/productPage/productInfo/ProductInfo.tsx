@@ -18,9 +18,10 @@ interface ProductInfoProps {
 export default function ProductInfo({ currentProduct }: ProductInfoProps) {
   const { addReviewedProduct } = useReviewedProductsStore();
 
-  const { description, bookScreens, features, reviews } = currentProduct;
+  const { description, bookScreens, features, reviews, gallery } =
+    currentProduct;
 
-  console.log(currentProduct);
+  console.log(gallery);
 
   useEffect(() => {
     if (currentProduct) {
@@ -32,7 +33,7 @@ export default function ProductInfo({ currentProduct }: ProductInfoProps) {
     <section className="pb-8 lg:pb-10">
       <Container className="md:flex gap-5">
         <div className="md:w-[calc(50%-10px)]">
-          <ImagePicker />
+          <ImagePicker photos={gallery} />
           <div className="hidden md:block">
             <Reviews reviews={reviews} />
           </div>
