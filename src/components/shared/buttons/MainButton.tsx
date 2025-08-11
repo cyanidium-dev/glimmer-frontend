@@ -38,8 +38,8 @@ export default function MainButton({
                 ? "bg-white text-black"
                 : "border-1 border-black text-black bg-white"
           } 
-         enabled:focus-visible:brightness-125 enabled:active:brightness-125
-        disabled:opacity-60 transition duration-300 ease-in-out`,
+         
+        disabled:opacity-60 enabled:active:scale-[98%] will-change-transform transition duration-300 ease-in-out`,
           "w-full",
           "text-[12px] lg:text-[15px] font-medium leading-[120%]",
           className

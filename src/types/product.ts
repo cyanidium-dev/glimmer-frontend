@@ -1,3 +1,5 @@
+import { Review } from "./review";
+
 export type Product = {
   id: string;
   slug: string;
@@ -14,7 +16,7 @@ export type Product = {
   genreSlug?: string;
   genreTitle?: string;
   description?: string;
-  gallery?: string[];
+  gallery: string[];
   bookScreens?: string[];
   sku: string;
   preOrderShippingDate?: string;
@@ -22,11 +24,5 @@ export type Product = {
     featureName: string;
     value: string;
   }[];
-  reviews: {
-    author: string;
-    rating: number;
-    text: string;
-    photo?: string;
-    date?: string;
-  }[];
+  reviews: Review[];
 };

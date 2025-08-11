@@ -37,7 +37,7 @@ export default function FavoriteButton({
     <button
       onClick={toggleFavorite}
       aria-label="add to favorites"
-      className={`group cursor-pointer flex items-center justify-center shrink-0 active:scale-95 transition duration-300 ease-in-out ${className}`}
+      className={`group cursor-pointer flex items-center justify-center shrink-0 active:scale-95 will-change-transform transition duration-300 ease-in-out ${className}`}
     >
       <EmptyHeartIcon
         className={`w-auto h-5 lg:h-[25px] ${

@@ -1,6 +1,6 @@
-export function getAverageRating(
-  reviews: { author: string; rating: number; text: string }[]
-): number {
+import { Review } from "@/types/review";
+
+export function getAverageRating(reviews: Review[]): number {
   if (!reviews?.length) return 0;
 
   const sum = reviews.reduce((acc, review) => acc + review.rating, 0);
