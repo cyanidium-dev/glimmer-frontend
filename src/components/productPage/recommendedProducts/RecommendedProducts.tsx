@@ -20,8 +20,6 @@ export default async function RecommendedProducts({
     { genreSlug, currentSlug }
   );
 
-  console.log(recommendedProducts);
-
   if (!recommendedProducts || !recommendedProducts?.length) return null;
 
   return (
