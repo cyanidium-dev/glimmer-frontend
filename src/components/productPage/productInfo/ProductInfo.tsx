@@ -21,8 +21,6 @@ export default function ProductInfo({ currentProduct }: ProductInfoProps) {
   const { description, bookScreens, features, reviews, gallery } =
     currentProduct;
 
-  console.log(gallery);
-
   useEffect(() => {
     if (currentProduct) {
       addReviewedProduct(currentProduct);

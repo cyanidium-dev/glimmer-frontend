@@ -3,8 +3,6 @@ interface FeaturesProps {
 }
 
 export default function Features({ features }: FeaturesProps) {
-  console.log(features);
-
   return (
     <div className="py-4 lg:py-6 border-t border-black/60">
       <h3 className="mb-4 text-[14px] lg:text-[18px] font-medium leading-[120%]">
