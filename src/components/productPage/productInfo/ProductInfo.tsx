@@ -33,7 +33,7 @@ export default function ProductInfo({ currentProduct }: ProductInfoProps) {
         <div className="md:w-[calc(50%-10px)]">
           <ImagePicker photos={gallery} />
           <div className="hidden md:block">
-            <Reviews reviews={reviews} />
+            <Reviews reviews={reviews} currentProduct={currentProduct} />
           </div>
         </div>
         <div className="md:w-[calc(50%-10px)]">
@@ -42,12 +42,12 @@ export default function ProductInfo({ currentProduct }: ProductInfoProps) {
           {description || bookScreens ? (
             <div className="flex flex-col gap-4 lg:gap-6 py-4 lg:py-6 border-t border-black/60">
               {description ? <Description description={description} /> : null}
-              {bookScreens ? <ReadPassage /> : null}
+              {bookScreens ? <ReadPassage bookScreens={bookScreens} currentProduct={currentProduct} /> : null}
             </div>
           ) : null}
           {features ? <Features features={features} /> : null}
           <div className="md:hidden">
-            <Reviews reviews={reviews} />
+            <Reviews reviews={reviews} currentProduct={currentProduct} />
           </div>
         </div>
       </Container>

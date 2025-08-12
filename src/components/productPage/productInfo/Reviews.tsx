@@ -5,12 +5,14 @@ import { Rating } from "react-simple-star-rating";
 import StarEmptyIcon from "@/components/shared/icons/StarEmptyIcon";
 import StarFilledIcon from "@/components/shared/icons/StarFilledIcon";
 import WriteReview from "./WriteReview";
+import { Product } from "@/types/product";
 
 interface ReviewsProps {
   reviews: Review[];
+  currentProduct: Product;
 }
 
-export default function Reviews({ reviews }: ReviewsProps) {
+export default function Reviews({ reviews, currentProduct }: ReviewsProps) {
   const [showAll, setShowAll] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const [maxHeight, setMaxHeight] = useState("0px");
@@ -120,7 +122,7 @@ export default function Reviews({ reviews }: ReviewsProps) {
             {showAll ? "Показати менше відгуків" : "Показати більше відгуків"}
           </MainButton>
         )}
-        <WriteReview />
+        <WriteReview currentProduct={currentProduct} />
       </div>
     </div>
   );
