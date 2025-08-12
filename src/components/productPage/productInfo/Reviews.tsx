@@ -4,6 +4,7 @@ import { Review } from "@/types/review";
 import { Rating } from "react-simple-star-rating";
 import StarEmptyIcon from "@/components/shared/icons/StarEmptyIcon";
 import StarFilledIcon from "@/components/shared/icons/StarFilledIcon";
+import WriteReview from "./WriteReview";
 
 interface ReviewsProps {
   reviews: Review[];
@@ -39,9 +40,7 @@ export default function Reviews({ reviews }: ReviewsProps) {
       </h3>
 
       {!reviews?.length ? (
-        <p className="my-6 lg:my-12 text-black/60 text-center">
-          Ще немає відгуків
-        </p>
+        <p className="my-6 text-black/60 text-center">Ще немає відгуків</p>
       ) : (
         <>
           {/* Перші два відгуки */}
@@ -121,7 +120,7 @@ export default function Reviews({ reviews }: ReviewsProps) {
             {showAll ? "Показати менше відгуків" : "Показати більше відгуків"}
           </MainButton>
         )}
-        <MainButton className="h-[45px]">Написати відгук</MainButton>
+        <WriteReview />
       </div>
     </div>
   );
