@@ -13,6 +13,8 @@ import PromoBanner from "@/components/homePage/promoBanner/PromoBanner";
 import { HomepageBanner } from "@/types/promoBanner";
 import Container from "@/components/shared/container/Container";
 import Hero from "@/components/homePage/hero/Hero";
+import Genres from "@/components/homePage/genres/Genres";
+import { Genre } from "@/types/genre";
 
 export default async function HomePage() {
   const homePageData = await fetchSanityDataServer(homepageCombinedQuery);
@@ -20,6 +22,10 @@ export default async function HomePage() {
   const allProducts = homePageData?.products;
   const heroBanners = homePageData?.heroBanners;
   const homePageBanners = homePageData?.homepageBanners;
+
+  const genres = homePageData?.genres;
+
+  const sortedGenres = genres?.slice().sort((a:Genre, b: Genre) => a.order - b.order);
 
   const promoBannerFirst = homePageBanners?.find(
     (banner: HomepageBanner) => banner.order === 1
@@ -43,6 +49,9 @@ export default async function HomePage() {
     <div className="pt-[85px] lg:pt-0">
       <Hero banners={heroBanners} />
       <MarqueeLine />
+      <Suspense fallback={<Loader />}>
+        <Genres genres={sortedGenres} />
+      </Suspense>
       <Suspense fallback={<Loader />}>
         <Bestsellers bestsellers={bestsellers} />
       </Suspense>

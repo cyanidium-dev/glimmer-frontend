@@ -125,7 +125,8 @@
   .swiper.newProducts,
   .swiper.promotionalProducts,
   .swiper.reviewedProducts,
-  .swiper.recommendedProducts {
+  .swiper.recommendedProducts,
+  .swiper.genres {
     padding: 0px 0px 48px 0px !important;
 
     @media screen and (min-width: 1024px) {
@@ -133,13 +134,50 @@
     }
   }
 
+  .swiper:has(.swiper-button-lock) {
+    padding: 0 !important;
+  }
+
   .swiper-wrapper {
     align-items: stretch !important;
+  }
+
+  .genres .swiper-wrapper {
+    max-width: 100%;
+    padding-left: 20px;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+
+    @media screen and (min-width: 640px) {
+      margin-left: calc((100vw - 640px) / 2);
+    }
+
+    @media screen and (min-width: 768px) {
+      margin-left: calc((100vw - 768px) / 2);
+    }
+
+    @media screen and (min-width: 1024px) {
+      margin-left: calc((100vw - 1024px) / 2);
+      padding-left: 50px;
+    }
+
+    @media screen and (min-width: 1280px) {
+      max-width: 1180px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 50px;
+      padding-right: 50px;
+    }
   }
 
   .swiper-slide {
     flex-grow: 1 0;
     height: auto !important;
+  }
+
+  .genres .swiper-slide {
+    width: 180px !important;
   }
 
   .swiper-button-next,
