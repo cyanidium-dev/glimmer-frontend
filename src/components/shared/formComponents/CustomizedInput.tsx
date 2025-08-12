@@ -90,7 +90,7 @@ export default function CustomizedInput({
         <span
           className={`pointer-events-none absolute left-4 ${
             as === "textarea" ? "top-4" : "top-1/2 -translate-y-1/2"
-          } text-placeholder whitespace-nowrap`}
+          } text-placeholder`}
         >
           {showPlaceholder && (
             <>

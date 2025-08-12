@@ -8,6 +8,7 @@ import ProductInfo from "@/components/productPage/productInfo/ProductInfo";
 import type { Metadata } from "next";
 import { getDefaultMetadata } from "@/utils/getDefaultMetadata";
 import Breadcrumbs from "@/components/shared/breadcrumbs/Breadcrumbs";
+import WriteReviewFormWithNotifications from "@/components/productPage/productInfo/WriteReviewFormWIthNotifications";
 
 interface ProductPageProps {
   params: Promise<{ category: string; product: string }>;
@@ -72,6 +73,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     <div className="pt-[85px]">
       <Breadcrumbs crumbs={crumbs} />
       <ProductInfo currentProduct={currentProduct} />
+      <WriteReviewFormWithNotifications />
       <RecommendedProducts currentSlug={product} genreSlug={genreSlug} />
       <ReviewedProducts />
       <MarqueeLine />
