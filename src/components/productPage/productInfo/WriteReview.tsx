@@ -3,8 +3,13 @@
 import { useState } from "react";
 import MainButton from "@/components/shared/buttons/MainButton";
 import WriteReviewFormWithNotifications from "./WriteReviewFormWIthNotifications";
+import { Product } from "@/types/product";
 
-export default function WriteReview() {
+interface WriteReviewProps {
+  currentProduct: Product;
+}
+
+export default function WriteReview({ currentProduct }: WriteReviewProps) {
   const [isWriteReviewModalShown, setIsWriteReviewModalShown] = useState(false);
 
   return (
@@ -16,6 +21,7 @@ export default function WriteReview() {
         Написати відгук
       </MainButton>
       <WriteReviewFormWithNotifications
+        currentProduct={currentProduct}
         isWriteReviewModalShown={isWriteReviewModalShown}
         setIsWriteReviewModalShown={setIsWriteReviewModalShown}
       />

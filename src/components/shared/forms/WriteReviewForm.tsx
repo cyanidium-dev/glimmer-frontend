@@ -8,6 +8,7 @@ import { writeReviewValidation } from "@/schemas/writeReviewValidation";
 import CustomizedInput from "../formComponents/CustomizedInput";
 import MainButton from "../buttons/MainButton";
 import RatingField from "../formComponents/RatingField";
+import { Product } from "@/types/product";
 
 export interface ValuesWriteReviewFormType {
   name: string;
@@ -20,6 +21,7 @@ interface WriteReviewFormProps {
   setIsError: Dispatch<SetStateAction<boolean>>;
   setIsNotificationShown: Dispatch<SetStateAction<boolean>>;
   setIsWriteReviewModalShown: Dispatch<SetStateAction<boolean>>;
+  currentProduct: Product;
   setIsPopUpShown?: Dispatch<SetStateAction<boolean>>;
   className?: string;
 }
@@ -27,10 +29,13 @@ interface WriteReviewFormProps {
 export default function WriteReviewForm({
   setIsError,
   setIsWriteReviewModalShown,
+  currentProduct,
   setIsNotificationShown,
   className = "",
 }: WriteReviewFormProps) {
   const [isLoading, setIsLoading] = useState(false);
+
+  const { title, author, sku } = currentProduct;
 
   const initialValues = {
     name: "",
@@ -47,7 +52,7 @@ export default function WriteReviewForm({
   ) => {
     const { resetForm } = formikHelpers;
     const data =
-      `<b>Відгук на товар</b>\n` +
+      `<b>Відгук на товар "${title}" ${author}, код товару: ${sku}</b>\n` +
       `<b>Ім'я:</b> ${values.name.trim()}\n` +
       `<b>Email:</b> ${values.email.trim()}\n` +
       `<b>Рейтинг:</b> ${values.rating}\n` +

@@ -295,6 +295,7 @@
   }
 
   /* React Gallery styles */
+
   .custom-thumbnail {
     border-radius: 12px;
     max-width: 105px !important;
@@ -329,6 +330,14 @@
     }
   }
 
+  .book-screens .image-gallery-slide-wrapper {
+    width: 100% !important;
+    @media screen and (min-width: 768px) {
+      width: calc(100% - 121px) !important;
+      margin-left: 121px;
+    }
+  }
+
   .image-gallery-content {
     @media screen and (min-width: 1280px) {
       padding: 0 27px;
@@ -353,6 +362,16 @@
     @media screen and (min-width: 1280px) {
       width: 405px !important;
       height: 560px !important;
+    }
+  }
+
+  .book-screens .image-gallery-image {
+    width: 320px !important;
+    height: 457px !important;
+
+    @media screen and (min-width: 768px) {
+      width: 421px !important;
+      height: 601px !important;
     }
   }
 

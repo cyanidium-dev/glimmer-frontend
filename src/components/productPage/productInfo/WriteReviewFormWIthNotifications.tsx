@@ -5,16 +5,19 @@ import WriteReviewForm from "@/components/shared/forms/WriteReviewForm";
 import NotificationPopUp from "@/components/shared/pop-ups/NotitficationPopUp";
 import Backdrop from "@/components/shared/backdrop/Backdrop";
 import Modal from "@/components/shared/modals/Modal";
+import { Product } from "@/types/product";
 
 interface WriteReviewFormWithNotificationsProps {
   isWriteReviewModalShown: boolean;
   setIsWriteReviewModalShown: Dispatch<SetStateAction<boolean>>;
+  currentProduct: Product;
   className?: string;
 }
 
 export default function WriteReviewFormWithNotifications({
   isWriteReviewModalShown,
   setIsWriteReviewModalShown,
+  currentProduct,
   className,
 }: WriteReviewFormWithNotificationsProps) {
   const [isError, setIsError] = useState(false);
@@ -32,6 +35,7 @@ export default function WriteReviewFormWithNotifications({
             setIsError={setIsError}
             setIsNotificationShown={setIsNotificationShown}
             setIsWriteReviewModalShown={setIsWriteReviewModalShown}
+            currentProduct={currentProduct}
             className={className}
           />
         </div>
