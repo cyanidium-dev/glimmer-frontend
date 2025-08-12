@@ -19,12 +19,14 @@ export interface ValuesWriteReviewFormType {
 interface WriteReviewFormProps {
   setIsError: Dispatch<SetStateAction<boolean>>;
   setIsNotificationShown: Dispatch<SetStateAction<boolean>>;
+  setIsWriteReviewModalShown: Dispatch<SetStateAction<boolean>>;
   setIsPopUpShown?: Dispatch<SetStateAction<boolean>>;
   className?: string;
 }
 
 export default function WriteReviewForm({
   setIsError,
+  setIsWriteReviewModalShown,
   setIsNotificationShown,
   className = "",
 }: WriteReviewFormProps) {
@@ -62,6 +64,7 @@ export default function WriteReviewForm({
           "Content-Type": "application/json",
         },
       });
+      setIsWriteReviewModalShown(false);
       resetForm();
       setIsNotificationShown(true);
     } catch (error) {
@@ -113,7 +116,7 @@ export default function WriteReviewForm({
               isRequired
               errors={errors}
               touched={touched}
-              fieldClassName="h-[120px] md:h-[168px] py-4 rounded-[12px]"
+              fieldClassName="h-[293px] md:h-[166px] py-4 rounded-[12px]"
             />
           </div>
           <MainButton

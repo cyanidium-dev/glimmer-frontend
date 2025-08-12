@@ -2,11 +2,10 @@ import { Dispatch, ReactNode, SetStateAction } from "react";
 
 import IconButton from "../buttons/IconButton";
 import CrossIcon from "../icons/CrossIcon";
-import Image from "next/image";
 
 interface ModalProps {
   isPopUpShown: boolean;
-  isError: boolean;
+  headerTitle: string;
   setIsPopUpShown: Dispatch<SetStateAction<boolean>>;
   children: ReactNode;
   className?: string;
@@ -14,7 +13,7 @@ interface ModalProps {
 
 export default function Modal({
   isPopUpShown,
-  isError,
+  headerTitle,
   setIsPopUpShown,
   children,
   className = "",
@@ -29,30 +28,9 @@ export default function Modal({
       xl:max-h-[calc(100dvh-188px)] px-5 md:px-6 py-4 md:py-8 overflow-y-auto bg-white md:rounded-[12px] scrollbar scrollbar-w-[3px] scrollbar-thumb-rounded-full 
       scrollbar-track-rounded-full scrollbar-thumb-transparent scrollbar-track-main popup-scroll ${className}`}
     >
-      <Image
-        src="/images/notifications/starsTop.svg"
-        alt="stars"
-        width="85"
-        height="144"
-        className="absolute top-0 left-0 md:hidden"
-      />
-      <Image
-        src="/images/notifications/starsTopDesk.svg"
-        alt="stars"
-        width="82"
-        height="197"
-        className="absolute top-3 left-0 hidden md:block"
-      />
-      <Image
-        src="/images/notifications/starsBottom.svg"
-        alt="stars"
-        width="91"
-        height="92"
-        className="absolute bottom-0 right-0"
-      />
       <div className="flex justify-between items-center pb-4 border-b border-black/10">
         <h3 className="text-[14px] lg:text-[18px] font-medium leading-[120%]">
-          {isError ? "Помилка" : "Успіх"}
+          {headerTitle}
         </h3>
         <IconButton
           handleClick={() => setIsPopUpShown(false)}
@@ -61,9 +39,7 @@ export default function Modal({
           {<CrossIcon />}
         </IconButton>
       </div>
-      <div className="relative flex flex-col justify-center items-center w-full h-[calc(100%-41px)]">
-        {children}
-      </div>
+      {children}
     </div>
   );
 }
