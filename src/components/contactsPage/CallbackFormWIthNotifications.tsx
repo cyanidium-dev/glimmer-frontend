@@ -25,6 +25,7 @@ export default function CallBackFormWithNotifications({
         />
       </div>
       <NotificationPopUp
+        isError={isError}
         title={isError ? "На жаль, щось пішло не так" : "Дякуємо за звернення!"}
         description={
           isError

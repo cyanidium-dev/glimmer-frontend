@@ -1,10 +1,12 @@
 import { Dispatch, SetStateAction } from "react";
 import Modal from "../modals/Modal";
+import MainButton from "../buttons/MainButton";
 
 interface NotificationPopUpProps {
   title: string;
   description: string;
   isPopUpShown: boolean;
+  isError: boolean;
   setIsPopUpShown: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -12,15 +14,26 @@ export default function NotificationPopUp({
   title,
   description,
   isPopUpShown,
+  isError,
   setIsPopUpShown,
 }: NotificationPopUpProps) {
   return (
-    <Modal isPopUpShown={isPopUpShown} setIsPopUpShown={setIsPopUpShown}>
-      <div className="py-10 xl:py-14 px-[38px] mx-auto">
-        <h3 className="max-w-[386px] mx-auto mb-4 text-[20px] xl:text-[28px] font-medium leading-[120%] text-center text-main">
+    <Modal
+      isPopUpShown={isPopUpShown}
+      setIsPopUpShown={setIsPopUpShown}
+      isError={isError}
+    >
+      <div className="md:pt-10">
+        <h3 className="mb-8 lg:mb-10 text-[24px] lg:text-[32px] font-semibold leading-[120%] text-center text-main uppercase">
           {title}
         </h3>
-        <p className="max-w-[386px] mx-auto text-center">{description}</p>
+        <p className="mb-10 md:mb-14 text-center">{description}</p>
+        <MainButton
+          onClick={() => setIsPopUpShown(false)}
+          className="h-[45px] w-[199px] md:w-[291px] mx-auto"
+        >
+          Повернутись
+        </MainButton>
       </div>
     </Modal>
   );

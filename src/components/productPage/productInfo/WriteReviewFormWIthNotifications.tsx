@@ -25,11 +25,14 @@ export default function WriteReviewFormWithNotifications({
         />
       </div>
       <NotificationPopUp
-        title={isError ? "На жаль, щось пішло не так" : "Дякуємо за звернення!"}
+        isError={isError}
+        title={
+          isError ? "На жаль, щось пішло не так" : "Дякуємо за ваш відгук!"
+        }
         description={
           isError
             ? "Спробуйте відправити форму ще раз"
-            : "Наш менеджер скоро зв'яжеться з вами"
+            : "Після модерації він з’явиться на сторінці товару."
         }
         isPopUpShown={isNotificationShown}
         setIsPopUpShown={setIsNotificationShown}
