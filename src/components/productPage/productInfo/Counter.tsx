@@ -1,15 +1,19 @@
 "use client";
+import { Dispatch, SetStateAction } from "react";
 import MinusIcon from "@/components/shared/icons/MinusIcon";
 import PlusIcon from "@/components/shared/icons/PlusIcon";
-import React, { useState } from "react";
 
 interface CounterProps {
+  count: number;
+  setCount: Dispatch<SetStateAction<number>>;
   className?: string;
 }
 
-export default function Counter({ className = "" }: CounterProps) {
-  const [count, setCount] = useState(1);
-
+export default function Counter({
+  count,
+  setCount,
+  className = "",
+}: CounterProps) {
   const onMinusClick = () => {
     setCount(count - 1);
   };

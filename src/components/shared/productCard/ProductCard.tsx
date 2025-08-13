@@ -129,7 +129,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             {price} грн
           </div>
         )}
-        <CartButton status={status} />
+        <CartButton status={status} product={product} />
       </div>
     </div>
   );
