@@ -7,7 +7,6 @@ import IconButton from "../buttons/IconButton";
 import CrossIcon from "../icons/CrossIcon";
 import CartIcon from "../icons/CartIcon";
 import CartList from "./CartList";
-import MarqueeLine from "../marquee/MarqueeLine";
 
 interface CartModalProps {
   isPopUpShown: boolean;

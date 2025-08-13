@@ -76,7 +76,16 @@ export default function Catalog({
 
   return (
     <section className="pb-8 lg:pb-10">
-      <Container>
+      <Container className="relative">
+        {sortedProducts?.length > 8 ? (
+          <Image
+            src="/images/catalogPage/bgImage.svg"
+            alt="background"
+            width="784"
+            height="739"
+            className="hidden xl:block absolute top-[940px] left-[-536px] opacity-10 -z-10"
+          />
+        ) : null}
         <div className="xl:pl-[268px] flex flex-col gap-4">
           {subcategories ? (
             <TabMenu
