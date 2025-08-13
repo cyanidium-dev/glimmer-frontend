@@ -7,7 +7,7 @@ export type Product = {
   author: string;
   price: number;
   discountPrice?: number;
-  mainImage?: string;
+  mainImage: string;
   status: "inStock" | "preOrder";
   isBestseller: boolean;
   isNew: boolean;

@@ -94,7 +94,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           src={mainImage || ""}
           alt={title}
           fill
-          className="object-contain xl:group-hover:scale-[105%] transition duration-700 ease-in-out"
+          className="object-contain will-change-transform xl:group-hover:scale-[105%] transition duration-700 ease-in-out"
         />
       </Link>
       <Link
@@ -129,7 +129,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             {price} грн
           </div>
         )}
-        <CartButton status={status} />
+        <CartButton status={status} product={product} />
       </div>
     </div>
   );

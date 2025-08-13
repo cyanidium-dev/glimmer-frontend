@@ -1,13 +1,19 @@
+"use client";
+import { useState } from "react";
 import MainButton from "@/components/shared/buttons/MainButton";
 import Counter from "./Counter";
 import FavoriteButton from "./FavoriteButton";
 import { Product } from "@/types/product";
+import { useCartStore } from "@/store/cartStore";
 
 interface OrderProductProps {
   currentProduct: Product;
 }
 
 export default function OrderProduct({ currentProduct }: OrderProductProps) {
+  const [count, setCount] = useState(1);
+  const { addToCart } = useCartStore();
+
   const { price, discountPrice } = currentProduct;
 
   return (
@@ -30,11 +36,16 @@ export default function OrderProduct({ currentProduct }: OrderProductProps) {
             {price} грн
           </p>
         )}
-        <Counter />
+        <Counter count={count} setCount={setCount} />
       </div>
       <div className="flex justify-between gap-4">
         <FavoriteButton currentProduct={currentProduct} />
-        <MainButton className="h-[45px] lg:max-w-[170px]">Купити</MainButton>
+        <MainButton
+          onClick={() => addToCart(currentProduct, count)}
+          className="h-[45px] lg:max-w-[170px]"
+        >
+          Купити
+        </MainButton>
       </div>
     </div>
   );

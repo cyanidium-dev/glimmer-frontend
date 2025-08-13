@@ -10,6 +10,7 @@ import { useScreenWidth } from "@/hooks/useScreenWidth";
 import MarqueeLine from "@/components/shared/marquee/MarqueeLine";
 import FavoriteButton from "./FavoriteButton";
 import { Product } from "@/types/product";
+import { useCartStore } from "@/store/cartStore";
 
 interface ReadPassageProps {
   bookScreens: string[];
@@ -22,6 +23,8 @@ export default function ReadPassage({
 }: ReadPassageProps) {
   const screenWidth = useScreenWidth();
   const isDesktop = screenWidth >= 768;
+
+  const { addToCart } = useCartStore();
 
   const [isReadPassageModalShown, setIsReadPassageModalShown] = useState(false);
 
@@ -103,7 +106,10 @@ export default function ReadPassage({
             )}
             <div className="flex justify-between gap-4 px-5 w-full my-4">
               <FavoriteButton currentProduct={currentProduct} />
-              <MainButton className="h-[45px] lg:max-w-[170px]">
+              <MainButton
+                onClick={() => addToCart(currentProduct, 1)}
+                className="h-[45px] lg:max-w-[170px]"
+              >
                 Купити
               </MainButton>
             </div>

@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Container from "../container/Container";
 import LogoIcon from "../icons/LogoIcon";
-import CartButton from "../buttons/CartButton";
 import HeartIcon from "../icons/HeartIcon";
 import Search from "./Search";
 import NavMenu from "./NavMenu";
 import { Category } from "@/types/category";
 import BurgerMenu from "./burgerMenu/BurgerMenu";
+import Cart from "./Cart";
 
 interface HeaderProps {
   categories: Category[];
@@ -18,6 +18,7 @@ interface HeaderProps {
 export default function Header({ categories }: HeaderProps) {
   const [isOpenCatalogMenu, setIsOpenCatalogMenu] = useState(false);
   const [isOpenBurgerMenu, setIsOpenBurgerMenu] = useState(false);
+  const [isCartModalOpened, setIsCartModalOpened] = useState(false);
   const [hydrated, setHydrated] = useState(false);
 
   // Активуємо рендер тільки після гідратації
@@ -55,7 +56,12 @@ export default function Header({ categories }: HeaderProps) {
             <Link href="/favorites" className="group">
               <HeartIcon className="text-white xl:group-hover:text-main group-focus-visible:text-main group-active:text-main transition duration-300 ease-in-out" />
             </Link>
-            <CartButton />
+            <Cart
+              isCartModalOpened={isCartModalOpened}
+              setIsCartModalOpened={setIsCartModalOpened}
+              setIsOpenBurgerMenu={setIsOpenBurgerMenu}
+              setIsOpenCatalogMenu={setIsOpenCatalogMenu}
+            />
             <BurgerMenu
               categories={categories}
               isOpenBurgerMenu={isOpenBurgerMenu}

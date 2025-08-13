@@ -19,7 +19,7 @@ export const fadeInAnimation = ({
   exit: {
     opacity: 0,
     y: 30,
-    transition: { duration: 0.6,  ease: [0.42, 0, 1, 1] as const, },
+    transition: { duration: 0.6, ease: [0.42, 0, 1, 1] as const },
   },
 });
 
@@ -44,23 +44,50 @@ export const catalogMenuVariants = {
   },
 };
 
-  export const burgerMenuVariants = {
-    hidden: { x: "100%", opacity: 0 },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] as const },
-    },
-    exit: {
-      x: "100%",
-      opacity: 0,
-      transition: { duration: 0.3, ease: [0.42, 0, 1, 1] as const },
-    },
-  };
+export const burgerMenuVariants = {
+  hidden: { x: "100%", opacity: 0 },
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] as const },
+  },
+  exit: {
+    x: "100%",
+    opacity: 0,
+    transition: { duration: 0.3, ease: [0.42, 0, 1, 1] as const },
+  },
+};
 
-  export const burgerListVariants = {
-    hidden: { opacity: 0, x: -10 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
-    exit: { opacity: 0, x: 10, transition: { duration: 0.2 } },
-  };
+export const burgerListVariants = {
+  hidden: { opacity: 0, x: -10 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
+  exit: { opacity: 0, x: 10, transition: { duration: 0.2 } },
+};
 
+export const cartModalVariants = {
+  hidden: { x: "100%", opacity: 0 },
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const },
+  },
+  exit: {
+    x: "100%",
+    opacity: 0,
+    transition: { duration: 0.5, ease: [0.42, 0, 1, 1] as const },
+  },
+};
+
+export const cartItemVariants = {
+  hidden: { opacity: 0, y: 0 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const },
+  },
+  exit: {
+    opacity: 0,
+    x: 30,
+    transition: { duration: 0.3, ease: [0.42, 0, 1, 1] as const },
+  },
+};

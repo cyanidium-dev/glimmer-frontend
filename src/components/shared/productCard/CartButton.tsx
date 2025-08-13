@@ -1,24 +1,29 @@
+"use client";
+import { Product } from "@/types/product";
 import CartIcon from "../icons/CartIcon";
+import { useCartStore } from "@/store/cartStore";
 
 interface CartButtonProps {
-  onClick?: () => void;
   className?: string;
   disabled?: boolean;
   status: "inStock" | "preOrder";
+  product: Product;
 }
 
 export default function CartButton({
-  onClick,
+  product,
   className,
   disabled,
   status,
 }: CartButtonProps) {
+  const { addToCart } = useCartStore();
+
   return (
-    <div className="group relative w-fit">
+    <div className="group relative w-full lg:w-fit">
       <button
         disabled={disabled}
         id="cart-button"
-        onClick={onClick}
+        onClick={() => addToCart(product, 1)}
         className={`group relative z-10 w-full lg:w-auto enabled:cursor-pointer flex items-center justify-center h-9 rounded-[6.4px] 
             ${status === "inStock" ? "px-3 bg-main disabled:bg-main/50 text-black enabled:xl:hover:brightness-110 enabled:focus-visible:brightness-110" : "px-2 bg-black text-white disabled:bg-black/50 enabled:xl:hover:brightness-125 enabled:focus-visible:brightness-125"}
         xl:hover:-translate-y-0.5 xl:hover:translate-x-0.5 enabled:active:scale-[98%] will-change-transform transition duration-300 ease-in-out ${className}`}

@@ -25,10 +25,16 @@ export default function PlusIcon({
         r="16.6667"
         fill={bgColor}
         stroke="#494949"
+        style={{
+          transition: "fill 0.3s ease, stroke 0.3s ease",
+        }}
       />
       <path
         d="M25 20.2586L20 20.2586M20 20.2586L15 20.2586M20 20.2586L20 15.2585M20 20.2586L20 25.2585"
         stroke={iconColor}
+        style={{
+          transition: "stroke 0.3s ease",
+        }}
         strokeLinecap="round"
       />
     </svg>

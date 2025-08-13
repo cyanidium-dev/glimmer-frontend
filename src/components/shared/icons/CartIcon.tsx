@@ -1,8 +1,12 @@
 interface CartIconProps {
   className?: string;
+  fillColor?: string;
 }
 
-export default function CartIcon({ className }: CartIconProps) {
+export default function CartIcon({
+  className,
+  fillColor = "transparent",
+}: CartIconProps) {
   return (
     <svg
       width="20"
@@ -16,6 +20,7 @@ export default function CartIcon({ className }: CartIconProps) {
       <path
         d="M0.907227 6.94929L1.93523 17.0828C2.04077 18.1236 2.52891 19.0881 3.30506 19.7896C4.08121 20.491 5.0901 20.8793 6.13623 20.8793H13.8632C14.9094 20.8793 15.9182 20.491 16.6944 19.7896C17.4705 19.0881 17.9587 18.1236 18.0642 17.0828L19.0922 6.94879L0.907227 6.94929Z"
         stroke="currentColor"
+        fill={fillColor}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
