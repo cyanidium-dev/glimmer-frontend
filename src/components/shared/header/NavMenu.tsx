@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import Link from "next/link";
 import ArrowIcon from "../icons/ArrowIcon";
-import CatalogMenuDesk from "./CatalogMenuDesk";
+import CatalogMenuDesk from "./catalogMenu/CatalogMenuDesk";
 import { Category } from "@/types/category";
 
 interface NavMenuProps {
@@ -10,17 +10,17 @@ interface NavMenuProps {
   setIsOpenCatalogMenu: Dispatch<SetStateAction<boolean>>;
 }
 
+export const navList = [
+  { title: "Про нас", link: "/about" },
+  { title: "Контакти", link: "/contacts" },
+  { title: "Доставка та оплата", link: "/delivery" },
+];
+
 export default function NavMenu({
   categories,
   isOpenCatalogMenu,
   setIsOpenCatalogMenu,
 }: NavMenuProps) {
-  const navList = [
-    { title: "Про нас", link: "/about" },
-    { title: "Контакти", link: "/contacts" },
-    { title: "Доставка та оплата", link: "/delivery" },
-  ];
-
   const sortedCategories = categories.sort((a, b) => a.order - b.order);
 
   const catalogList = [{ title: "Акції", slug: "promo" }, ...sortedCategories];

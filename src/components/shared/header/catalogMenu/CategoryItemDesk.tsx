@@ -1,6 +1,6 @@
 "use client";
 
-import ArrowIcon from "../icons/ArrowIcon";
+import ArrowIcon from "../../icons/ArrowIcon";
 import Link from "next/link";
 import { CatalogItem } from "@/types/catalogItem";
 

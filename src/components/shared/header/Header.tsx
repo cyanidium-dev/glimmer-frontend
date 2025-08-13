@@ -9,6 +9,7 @@ import HeartIcon from "../icons/HeartIcon";
 import Search from "./Search";
 import NavMenu from "./NavMenu";
 import { Category } from "@/types/category";
+import BurgerMenu from "./burgerMenu/BurgerMenu";
 
 interface HeaderProps {
   categories: Category[];
@@ -16,6 +17,7 @@ interface HeaderProps {
 
 export default function Header({ categories }: HeaderProps) {
   const [isOpenCatalogMenu, setIsOpenCatalogMenu] = useState(false);
+  const [isOpenBurgerMenu, setIsOpenBurgerMenu] = useState(false);
   const [hydrated, setHydrated] = useState(false);
 
   // Активуємо рендер тільки після гідратації
@@ -54,6 +56,11 @@ export default function Header({ categories }: HeaderProps) {
               <HeartIcon className="text-white xl:group-hover:text-main group-focus-visible:text-main group-active:text-main transition duration-300 ease-in-out" />
             </Link>
             <CartButton />
+            <BurgerMenu
+              categories={categories}
+              isOpenBurgerMenu={isOpenBurgerMenu}
+              setIsOpenBurgerMenu={setIsOpenBurgerMenu}
+            />
           </div>
         </div>
       </Container>
