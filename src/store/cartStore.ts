@@ -18,11 +18,14 @@ interface CartStore {
   addToCart: (product: Product, quantity?: number) => void;
   removeFromCart: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
+  increaseQuantity: (productId: string) => void;
+  decreaseQuantity: (productId: string) => void;
   clearCart: () => void;
   applyPromoCode: (code: string, discountPercent: number) => void;
   removePromoCode: () => void;
   getCartTotal: () => number;
   getPromoDiscountTotal: () => number;
+  getItemFinalPrice: (productId: string) => number;
 }
 
 export const useCartStore = create<CartStore>()(
@@ -59,9 +62,26 @@ export const useCartStore = create<CartStore>()(
         }
       },
 
+      increaseQuantity: (productId) => {
+        const cart = get().cart.slice();
+        const item = cart.find((i) => i.product.id === productId);
+        if (item) {
+          item.quantity += 1;
+          set({ cart });
+        }
+      },
+
+      decreaseQuantity: (productId) => {
+        const cart = get().cart.slice();
+        const item = cart.find((i) => i.product.id === productId);
+        if (item && item.quantity > 1) {
+          item.quantity -= 1;
+          set({ cart });
+        }
+      },
+
       clearCart: () => set({ cart: [], promoCode: null }),
 
-      // Застосування промокоду
       applyPromoCode: (code: string, discountPercent: number) => {
         set({ promoCode: { code, discountPercent } });
       },
@@ -87,6 +107,17 @@ export const useCartStore = create<CartStore>()(
           const discount = price * (promoCode.discountPercent / 100);
           return sum + discount * item.quantity;
         }, 0);
+      },
+
+      getItemFinalPrice: (productId) => {
+        const { cart, promoCode } = get();
+        const item = cart.find((i) => i.product.id === productId);
+        if (!item) return 0;
+
+        const basePrice = item.product.discountPrice ?? item.product.price;
+        return promoCode
+          ? basePrice * (1 - promoCode.discountPercent / 100)
+          : basePrice;
       },
     }),
     {

@@ -25,8 +25,18 @@ export default function MinusIcon({
         r="16.6667"
         fill={bgColor}
         stroke="#494949"
+        style={{
+          transition: "fill 0.3s ease, stroke 0.3s ease",
+        }}
       />
-      <path d="M25 20.2585H15" stroke={iconColor} strokeLinecap="round" />
+      <path
+        d="M25 20.2585H15"
+        stroke={iconColor}
+        strokeLinecap="round"
+        style={{
+          transition: "stroke 0.3s ease",
+        }}
+      />
     </svg>
   );
 }

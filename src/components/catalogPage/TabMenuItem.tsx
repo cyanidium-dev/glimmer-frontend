@@ -15,7 +15,7 @@ export default function TabMenuItem({
       <button
         onClick={handleTabClick}
         className={`cursor-pointer flex items-center justify-center w-full h-7 px-4 border-[0.5px] border-black/70 rounded-full
-            text-[12px] lg:text-[14px] font-light leading-none xl:hover:bg-main xl:hover:brightness-110
+            text-[12px] lg:text-[14px] font-light leading-none will-change-transform xl:hover:bg-main xl:hover:brightness-110
               focus-visible:bg-main transition duration-300 ease-in-out ${
                 value === activeTab ? "bg-main" : "bg-white"
               }`}

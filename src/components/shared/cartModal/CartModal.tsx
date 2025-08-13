@@ -8,6 +8,7 @@ import { fadeInAnimation, cartModalVariants } from "@/utils/animationVariants";
 import IconButton from "../buttons/IconButton";
 import CrossIcon from "../icons/CrossIcon";
 import CartIcon from "../icons/CartIcon";
+import CartList from "./CartList";
 
 interface CartModalProps {
   isPopUpShown: boolean;
@@ -54,7 +55,7 @@ export default function CartModal({
                   {<CrossIcon />}
                 </IconButton>
               </motion.div>
-              {/* <CartList setIsPopUpShown={setIsPopUpShown} /> */}
+              <CartList setIsPopUpShown={setIsPopUpShown} />
             </div>
           </div>
           {/* <CartTotal cartItems={cartItems} setIsPopUpShown={setIsPopUpShown} /> */}
