@@ -26,6 +26,7 @@ export default function HeroSlide({ banner }: HeroSlideProps) {
         alt="hero banner"
         fill
         sizes="100vw"
+        priority
         className="-z-10 object-cover"
       />
       <Container
