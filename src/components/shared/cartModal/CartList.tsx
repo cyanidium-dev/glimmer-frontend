@@ -22,7 +22,7 @@ export default function CartList({ setIsPopUpShown }: CartListProps) {
           exit="exit"
           viewport={{ once: true, amount: 0.2 }}
           variants={fadeInAnimation({ y: 30, delay: 0.9, duration: 1 })}
-          className="flex flex-col gap-y-4 h-[calc(100dvh-320px)] xl:h-[calc(100dvh-390px)] pr-1 overflow-x-hidden overflow-y-auto
+          className="flex flex-col gap-y-4 py-0.5 h-[calc(100dvh-284px)] lg:h-[calc(100dvh-303px)] pr-1.5 overflow-x-hidden overflow-y-auto
            scrollbar scrollbar-w-[3px] scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-main/50 scrollbar-track-transparent"
         >
           <AnimatePresence mode="sync">

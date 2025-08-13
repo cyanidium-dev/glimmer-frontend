@@ -1,14 +1,13 @@
 import { Dispatch, SetStateAction } from "react";
-// import CartList from './CartList';
-// import CartTotal from './CartTotal';
+import CartTotal from "./CartTotal";
 import { AnimatePresence, motion } from "framer-motion";
-
-// import { useCartStore } from "@/shared/store/cartStore";
+import { useCartStore } from "@/store/cartStore";
 import { fadeInAnimation, cartModalVariants } from "@/utils/animationVariants";
 import IconButton from "../buttons/IconButton";
 import CrossIcon from "../icons/CrossIcon";
 import CartIcon from "../icons/CartIcon";
 import CartList from "./CartList";
+import MarqueeLine from "../marquee/MarqueeLine";
 
 interface CartModalProps {
   isPopUpShown: boolean;
@@ -19,7 +18,7 @@ export default function CartModal({
   isPopUpShown,
   setIsPopUpShown,
 }: CartModalProps) {
-  //   const { cartItems } = useCartStore();
+  const { cart, clearCart } = useCartStore();
 
   return (
     <AnimatePresence>
@@ -40,7 +39,7 @@ export default function CartModal({
                 exit="exit"
                 viewport={{ once: true, amount: 0.5 }}
                 variants={fadeInAnimation({ y: 30, delay: 0.6 })}
-                className="flex items-center justify-between mb-10"
+                className="flex items-center justify-between mb-4"
               >
                 <div className="flex items-center gap-2">
                   <CartIcon fillColor="#94C5E8" />
@@ -55,10 +54,30 @@ export default function CartModal({
                   {<CrossIcon />}
                 </IconButton>
               </motion.div>
+              {cart?.length ? (
+                <div className="flex items-center justify-between  mb-4">
+                  <p className="text-[12px] font-light leading-[120%] text-black/60">
+                    {cart.length} товари
+                  </p>
+                  <button
+                    onClick={() => clearCart()}
+                    type="button"
+                    className="cursor-pointer text-[12px] font-light leading-[120%] text-black/60 active:text-main focus-visible:text-main 
+                    xl:hover:text-main transition duration-300 ease-in-out"
+                  >
+                    Видалити все
+                  </button>
+                </div>
+              ) : null}
               <CartList setIsPopUpShown={setIsPopUpShown} />
             </div>
           </div>
-          {/* <CartTotal cartItems={cartItems} setIsPopUpShown={setIsPopUpShown} /> */}
+
+          <CartTotal
+            cartItems={cart}
+            setIsPopUpShown={setIsPopUpShown}
+            isPopUpShown={isPopUpShown}
+          />
         </motion.div>
       )}
     </AnimatePresence>

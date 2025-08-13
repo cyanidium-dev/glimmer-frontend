@@ -24,7 +24,7 @@ export default async function RootLayout({
   const allCategories = await fetchSanityDataServer(allCategoriesQuery);
 
   return (
-    <html lang="uk" className="scroll-smooth">
+    <html lang="uk" className="scroll-smooth antialiased">
       <body
         className={`${montserrat.variable} flex min-h-dvh flex-col antialiased text-[12px] lg:text-[15px] font-light leading-[120%]`}
       >
