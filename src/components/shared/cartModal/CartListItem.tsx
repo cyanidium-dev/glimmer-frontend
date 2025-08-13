@@ -98,9 +98,17 @@ export default function CartListItem({
                     <span className="text-[10px] lg:text-[12px] font-light leading-[120%] line-through">
                       {price} грн
                     </span>
-                    <span className="text-[12px] lg:text-[15px] font-semibold leading-[120%] text-accent">
-                      {getItemFinalPrice(id)}&nbsp;грн
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[12px] lg:text-[15px] font-semibold leading-[120%] text-accent">
+                        {getItemFinalPrice(id)}&nbsp;грн
+                      </span>
+                      <div className="p-1 text-[10px] lg:text-[12px] font-semibold leading-[120%] text-white bg-accent rounded-[6px]">
+                        {Math.round(
+                          ((getItemFinalPrice(id) - price) / price) * 100
+                        )}
+                        %
+                      </div>
+                    </div>
                   </p>
                 ) : (
                   <p className="text-[12px] lg:text-[15px] font-semibold leading-[120%]">
