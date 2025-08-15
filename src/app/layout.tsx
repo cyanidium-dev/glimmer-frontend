@@ -3,7 +3,7 @@ import "./globals.css";
 import "react-image-gallery/styles/css/image-gallery.css";
 import Header from "@/components/shared/header/Header";
 import Footer from "@/components/shared/footer/Footer";
-import { fetchSanityDataServer } from "@/utils/fetchSanityData";
+import { fetchSanityDataServer } from "@/utils/fetchSanityDataServer";
 import { allCategoriesQuery } from "@/lib/queries";
 import { getDefaultMetadata } from "@/utils/getDefaultMetadata";
 

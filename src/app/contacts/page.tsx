@@ -4,7 +4,7 @@ import Breadcrumbs from "@/components/shared/breadcrumbs/Breadcrumbs";
 import Instagram from "@/components/shared/instagram/Instagram";
 import MarqueeLine from "@/components/shared/marquee/MarqueeLine";
 import TelegramCTA from "@/components/shared/telegramCTA/TelegramCTA";
-import { fetchSanityDataServer } from "@/utils/fetchSanityData";
+import { fetchSanityDataServer } from "@/utils/fetchSanityDataServer";
 import { allInstagramPostsQuery } from "@/lib/queries";
 
 export default async function ContactsPage() {

@@ -151,6 +151,7 @@ export const allProductsByCategoryQuery = `
       preOrderShippingDate,
       isBestseller,
       isNew,
+      "genreSlug": genre->slug.current,
       "categorySlug": category->slug.current,
     }
   },
@@ -179,6 +180,7 @@ export const allProductsByCategoryQuery = `
     status,
     isBestseller,
     isNew,
+    "genreSlug": genre->slug.current,
     "categorySlug": category->slug.current,
   }
 }

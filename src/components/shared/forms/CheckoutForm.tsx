@@ -10,7 +10,7 @@ import { useCartStore } from "@/store/cartStore";
 // import { useMonopayBasketOrder } from "@/shared/hooks/useMonopayBasketOrder";
 import CustomizedInput from "../formComponents/CustomizedInput";
 import CheckoutSubTitle from "./CheckoutSubtitle";
-import { fetchSanityDataServer } from "@/utils/fetchSanityData";
+import { fetchSanityDataServer } from "@/utils/fetchSanityDataServer";
 import { promocodeByCodeQuery } from "@/lib/queries";
 import CartList from "../cartModal/CartList";
 import RecommendedProducts from "./RecommendedProducts";
@@ -169,7 +169,6 @@ export default function CheckoutForm({
               className="py-9 md:p-8 md:rounded-[12px] border-t md:border-none border-black/10 md:shadow-sm"
             >
               <CheckoutSubTitle>Доставка</CheckoutSubTitle>
-
               <DeliveryBlock />
             </motion.div>
 
@@ -208,19 +207,16 @@ export default function CheckoutForm({
               staggerChildren: 0.2,
               delayChildren: 0.4,
             })}
-            className="flex flex-col md:gap-6 w-full md:w-[calc(50%-16px)] md:p-8 md:rounded-[12px] md:shadow-sm md:overflow-hidden"
+            className="flex flex-col md:gap-6 w-full md:w-[calc(50%-16px)] h-fit md:p-8 md:rounded-[12px] md:shadow-sm md:overflow-hidden border-t md:border-none border-black/10"
           >
             <motion.div
               viewport={{ once: true, amount: 0.2 }}
               variants={listItemVariants}
-              className="border-t md:border-none border-black/10"
+              className="py-4 md:p-0"
             >
               <CheckoutSubTitle>Інформація про замовлення</CheckoutSubTitle>
-              <CartList />
-              <div className="py-3 px-2.5 md:p-6 rounded-[12px] bg-main/40">
-                <CheckoutSubTitle>Рекомендовані товари</CheckoutSubTitle>
-                <RecommendedProducts />
-              </div>
+              <CartList variant="checkout" />
+              <RecommendedProducts />
             </motion.div>
             <motion.div
               viewport={{ once: true, amount: 0.2 }}

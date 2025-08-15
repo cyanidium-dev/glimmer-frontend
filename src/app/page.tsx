@@ -1,6 +1,6 @@
 import MarqueeLine from "@/components/shared/marquee/MarqueeLine";
 import TelegramCTA from "@/components/shared/telegramCTA/TelegramCTA";
-import { fetchSanityDataServer } from "@/utils/fetchSanityData";
+import { fetchSanityDataServer } from "@/utils/fetchSanityDataServer";
 import { homepageCombinedQuery } from "@/lib/queries";
 import Instagram from "@/components/shared/instagram/Instagram";
 import { Suspense } from "react";
@@ -25,7 +25,9 @@ export default async function HomePage() {
 
   const genres = homePageData?.genres;
 
-  const sortedGenres = genres?.slice().sort((a:Genre, b: Genre) => a.order - b.order);
+  const sortedGenres = genres
+    ?.slice()
+    .sort((a: Genre, b: Genre) => a.order - b.order);
 
   const promoBannerFirst = homePageBanners?.find(
     (banner: HomepageBanner) => banner.order === 1
