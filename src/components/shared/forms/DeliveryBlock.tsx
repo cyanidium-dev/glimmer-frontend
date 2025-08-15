@@ -39,13 +39,13 @@ export default function DeliveryBlock() {
     <>
       {/* Служби доставки */}
       <div className="relative">
-        <div className="flex gap-4">
+        <div className="flex gap-4 lg:gap-8">
           {deliveryServices.map((service) => (
             <button
               type="button"
               key={service.label}
               onClick={() => setFieldValue("deliveryService", service.label)}
-              className={`cursor-pointer flex items-center gap-2 w-1/2 h-14 xl:h-[125px] rounded-[12px] p-3 justify-center shadow-sm ${
+              className={`cursor-pointer flex items-center gap-2 w-1/2 h-12 rounded-[12px] p-3 justify-center shadow-sm ${
                 values.deliveryService === service.label
                   ? "bg-main"
                   : "bg-white"

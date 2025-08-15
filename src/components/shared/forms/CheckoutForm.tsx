@@ -19,6 +19,7 @@ import CartList from "../cartModal/CartList";
 import RecommendedProducts from "./RecommendedProducts";
 import CartTotal from "../cartModal/CartTotal";
 import DeliveryBlock from "./DeliveryBlock";
+import PaymentBlock from "./PaymentBlock";
 
 export interface ValuesCheckoutFormType {
   name: string;
@@ -212,16 +213,7 @@ export default function CheckoutForm({
               className="py-9 md:p-8 md:rounded-[12px] border-t md:border-none border-black/10 md:shadow-sm"
             >
               <CheckoutSubTitle>Оплата</CheckoutSubTitle>
-              {/* <RadioButtonInput
-                fieldName="payment"
-                label={"Оплата картою онлайн Visa, Mastercard"}
-                value="Оплата картою онлайн Visa, Mastercard"
-              />
-              <RadioButtonInput
-                fieldName="payment"
-                label={"Оплата під час отримання товару"}
-                value="Оплата під час отримання товару"
-              /> */}
+              <PaymentBlock />
             </motion.div>
 
             <motion.div
