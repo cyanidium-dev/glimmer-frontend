@@ -2,10 +2,7 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import Link from "next/link";
 import MainButton from "../buttons/MainButton";
-import { motion } from "framer-motion";
 import { useCartStore } from "@/store/cartStore";
-import { fadeInAnimation } from "@/utils/animationVariants";
-import { CartItem } from "@/types/cartItem";
 import MarqueeLine from "../marquee/MarqueeLine";
 
 interface CartTotalProps {

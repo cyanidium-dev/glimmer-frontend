@@ -1,18 +1,15 @@
 "use client";
 import { Form, Formik, FormikHelpers } from "formik";
 import { Dispatch, SetStateAction, useState } from "react";
-import MaskedInput from "react-text-mask";
 import { motion } from "framer-motion";
 import { listVariants, listItemVariants } from "@/utils/animationVariants";
 import { useRouter } from "next/navigation";
 import { checkoutValidation } from "@/schemas/checkoutValidation";
 // import { handleSubmitForm } from "@/shared/utils/handleSubmitForm";
-import { phoneMask } from "@/regex/regex";
 import { useCartStore } from "@/store/cartStore";
 // import { useMonopayBasketOrder } from "@/shared/hooks/useMonopayBasketOrder";
 import CustomizedInput from "../formComponents/CustomizedInput";
 import CheckoutSubTitle from "./CheckoutSubtitle";
-import RadioButtonInput from "../formComponents/RadioButtonInput";
 import { fetchSanityDataServer } from "@/utils/fetchSanityData";
 import { promocodeByCodeQuery } from "@/lib/queries";
 import CartList from "../cartModal/CartList";
@@ -20,6 +17,7 @@ import RecommendedProducts from "./RecommendedProducts";
 import CartTotal from "../cartModal/CartTotal";
 import DeliveryBlock from "./DeliveryBlock";
 import PaymentBlock from "./PaymentBlock";
+import ContactsBlock from "./ContactsBlock";
 
 export interface ValuesCheckoutFormType {
   name: string;
@@ -162,39 +160,7 @@ export default function CheckoutForm({
               className="py-9 md:p-8 md:rounded-[12px] border-t md:border-none border-black/10 md:shadow-sm"
             >
               <CheckoutSubTitle>Контактна інформація</CheckoutSubTitle>
-              <div className="flex flex-col gap-y-4">
-                <CustomizedInput
-                  fieldName="name"
-                  placeholder={"Ім'я"}
-                  isRequired
-                  errors={errors}
-                  touched={touched}
-                />
-                <CustomizedInput
-                  fieldName="surname"
-                  placeholder={"Прізвище"}
-                  isRequired
-                  errors={errors}
-                  touched={touched}
-                />
-                <CustomizedInput
-                  fieldName="phone"
-                  inputType="tel"
-                  placeholder={"Номер телефону"}
-                  isRequired
-                  errors={errors}
-                  touched={touched}
-                  as={MaskedInput}
-                  mask={phoneMask}
-                />
-                <CustomizedInput
-                  fieldName="email"
-                  inputType="email"
-                  placeholder={"Електронна пошта"}
-                  errors={errors}
-                  touched={touched}
-                />
-              </div>
+              <ContactsBlock />
             </motion.div>
 
             <motion.div
