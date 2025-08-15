@@ -12,14 +12,13 @@ import { useCartStore } from "@/store/cartStore";
 // import { useMonopayBasketOrder } from "@/shared/hooks/useMonopayBasketOrder";
 import CustomizedInput from "../formComponents/CustomizedInput";
 import CheckoutSubTitle from "./CheckoutSubtitle";
-// import RadioButtonInput from "../../formComponents/RadioButtonInput";
-// import DeliveryBlockUkraine from "./DeliveryBlockUkraine";
+import RadioButtonInput from "../formComponents/RadioButtonInput";
 import { fetchSanityDataServer } from "@/utils/fetchSanityData";
 import { promocodeByCodeQuery } from "@/lib/queries";
-import MainButton from "../buttons/MainButton";
 import CartList from "../cartModal/CartList";
 import RecommendedProducts from "./RecommendedProducts";
 import CartTotal from "../cartModal/CartTotal";
+import DeliveryBlock from "./DeliveryBlock";
 
 export interface ValuesCheckoutFormType {
   name: string;
@@ -204,7 +203,7 @@ export default function CheckoutForm({
             >
               <CheckoutSubTitle>Доставка</CheckoutSubTitle>
 
-              {/* <DeliveryBlockUkraine /> */}
+              <DeliveryBlock />
             </motion.div>
 
             <motion.div
