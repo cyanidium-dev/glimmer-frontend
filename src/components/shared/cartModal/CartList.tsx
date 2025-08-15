@@ -86,7 +86,7 @@ export default function CartList({
             transition: { duration: 1, delay: 0.4 },
           }}
           exit={{ opacity: 0, y: 30, transition: { duration: 0.3 } }}
-          className="h-[calc(100dvh-320px)] xl:h-[calc(100dvh-390px)] text-[14px] lg:text-[18px] font-normal leading-[120%] text-center py-[140px] text-black/50"
+          className={`flex justify-center items-center text-[14px] lg:text-[18px] font-normal leading-[120%] text-center text-black/50 py-6`}
         >
           Ваш кошик порожній
         </motion.div>

@@ -215,7 +215,10 @@ export default function CheckoutForm({
               className="py-4 md:p-0"
             >
               <CheckoutSubTitle>Інформація про замовлення</CheckoutSubTitle>
-              <CartList variant="checkout" />
+              <CartList
+                variant="checkout"
+                className="max-h-[201px] lg:max-h-[234px]"
+              />
               <RecommendedProducts />
             </motion.div>
             <motion.div
