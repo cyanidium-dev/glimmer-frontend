@@ -236,3 +236,16 @@ export const allRecommendedProductsQuery = `
     "genreTitle": genre->title
   }
 `;
+
+export const promocodeByCodeQuery = `
+  *[_type == "promocode" && code == $promocode][0]{
+    "id": _id,
+    code,
+    discountPercent,
+    expirationDate,
+    "publishers": publishers[]->{
+      "id": _id,
+      name
+    }
+  }
+`;

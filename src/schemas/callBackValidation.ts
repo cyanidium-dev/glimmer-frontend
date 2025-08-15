@@ -9,7 +9,6 @@ export const callBackValidation = () => {
       .max(30, "Повинно містити від 2 до 30 символів")
       .matches(nameRegex, "Допустимі літери та дефіс, апостроф, лапки")
       .required("Дане поле є обов'язковим до заповнення"),
-
     email: yup
       .string()
       .matches(emailRegex, "Введіть валідний email")

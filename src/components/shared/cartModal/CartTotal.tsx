@@ -9,20 +9,24 @@ import { CartItem } from "@/types/cartItem";
 import MarqueeLine from "../marquee/MarqueeLine";
 
 interface CartTotalProps {
-  cartItems: CartItem[];
-  isPopUpShown: boolean;
-  setIsPopUpShown: Dispatch<SetStateAction<boolean>>;
+  isPopUpShown?: boolean;
+  setIsPopUpShown?: Dispatch<SetStateAction<boolean>>;
+  variant?: "cart" | "checkout";
+  disabled?: boolean;
+  isLoading?: boolean;
 }
 
 export default function CartTotal({
   isPopUpShown,
   setIsPopUpShown,
-  cartItems,
+  variant = "cart",
+  disabled = false,
+  isLoading = false,
 }: CartTotalProps) {
   const [total, setTotal] = useState(0);
   const [discountTotal, setDiscountTotal] = useState(0);
 
-  const { getCartTotal, getPromoDiscountTotal } = useCartStore();
+  const { cart, getCartTotal, getPromoDiscountTotal } = useCartStore();
 
   const sum = getCartTotal();
   const promodIscountTotal = getPromoDiscountTotal();
@@ -33,16 +37,15 @@ export default function CartTotal({
   }, [sum, promodIscountTotal]);
 
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      exit="exit"
-      viewport={{ once: true, amount: 0.2 }}
-      variants={fadeInAnimation({ y: 30, delay: 1.1 })}
-      className="absolute bottom-0 right-0 w-full max-w-[400px] bg-white"
-    >
-      {isPopUpShown ? <MarqueeLine /> : null}
-      <div className="px-6 py-4 flex flex-col gap-4">
+    <>
+      {variant === "checkout" || isPopUpShown ? (
+        <div className="w-screen relative left-1/2 -translate-x-1/2 overflow-visible">
+          <MarqueeLine />
+        </div>
+      ) : null}
+      <div
+        className={`flex flex-col gap-4 py-4 ${variant === "cart" ? "px-6" : ""}`}
+      >
         <div className="flex flex-row items-center justify-between">
           <p className="text-[12px] lg:text-[15px] font-medium leading-[120%]">
             Загальна вартість
@@ -60,15 +63,27 @@ export default function CartTotal({
         <p className="text-[10px] lg:text-[12px] font-normal leading-[120%] text-black/60">
           Безкоштовна доставка від 999 грн
         </p>
-        <Link href="/checkout" onClick={() => setIsPopUpShown(false)}>
+        {variant === "cart" ? (
+          <Link
+            href="/checkout"
+            onClick={setIsPopUpShown ? () => setIsPopUpShown(false) : undefined}
+          >
+            <MainButton disabled={!cart?.length} className="w-full h-[45px]">
+              Оформити замовлення
+            </MainButton>
+          </Link>
+        ) : (
           <MainButton
-            disabled={!cartItems?.length}
-            className="w-full h-9 xl:h-12"
+            type="submit"
+            disabled={disabled}
+            isLoading={isLoading}
+            loadingText="Надсилання..."
+            className="h-[45px]"
           >
             Оформити замовлення
           </MainButton>
-        </Link>
+        )}
       </div>
-    </motion.div>
+    </>
   );
 }

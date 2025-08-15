@@ -6,7 +6,7 @@ import { fadeInAnimation, cartItemVariants } from "@/utils/animationVariants";
 import CartListItem from "./CartListItem";
 
 interface CartListProps {
-  setIsPopUpShown: Dispatch<SetStateAction<boolean>>;
+  setIsPopUpShown?: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function CartList({ setIsPopUpShown }: CartListProps) {
