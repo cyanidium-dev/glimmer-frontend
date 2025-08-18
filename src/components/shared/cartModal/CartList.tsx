@@ -6,30 +6,63 @@ import { fadeInAnimation, cartItemVariants } from "@/utils/animationVariants";
 import CartListItem from "./CartListItem";
 
 interface CartListProps {
-  setIsPopUpShown: Dispatch<SetStateAction<boolean>>;
+  setIsPopUpShown?: Dispatch<SetStateAction<boolean>>;
+  className?: string;
+  variant?: "cart" | "checkout";
 }
 
-export default function CartList({ setIsPopUpShown }: CartListProps) {
-  const { cart } = useCartStore();
+export default function CartList({
+  setIsPopUpShown,
+  className = "",
+  variant = "cart",
+}: CartListProps) {
+  const { cart, clearCart } = useCartStore();
+
+  function getProductWord(count: number) {
+    const mod10 = count % 10;
+    const mod100 = count % 100;
+
+    if (mod10 === 1 && mod100 !== 11) return "товар";
+    if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20))
+      return "товари";
+    return "товарів";
+  }
 
   return (
     <AnimatePresence mode="wait">
+      {cart?.length ? (
+        <div className="flex items-center justify-between  mb-4">
+          <p className="text-[12px] font-light leading-[120%] text-black/60">
+            {cart?.length} {getProductWord(cart?.length)}
+          </p>
+          <button
+            onClick={() => clearCart()}
+            type="button"
+            className="cursor-pointer text-[12px] font-light leading-[120%] text-black/60 active:text-main focus-visible:text-main 
+                    xl:hover:text-main transition duration-300 ease-in-out"
+          >
+            Видалити все
+          </button>
+        </div>
+      ) : null}
       {cart.length > 0 ? (
         <motion.ul
           layout
+          key={variant}
           initial="hidden"
           animate="visible"
           exit="exit"
           viewport={{ once: true, amount: 0.2 }}
           variants={fadeInAnimation({ y: 30, delay: 0.9, duration: 1 })}
-          className="flex flex-col gap-y-4 py-0.5 h-[calc(100dvh-284px)] lg:h-[calc(100dvh-303px)] pr-1.5 overflow-x-hidden overflow-y-auto
-           scrollbar scrollbar-w-[3px] scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-main/50 scrollbar-track-transparent"
+          className={`flex flex-col gap-y-4 py-0.5 pr-1.5 overflow-x-hidden overflow-y-auto
+           scrollbar scrollbar-w-[3px] scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-main/50 
+           scrollbar-track-transparent ${className}`}
         >
           <AnimatePresence mode="sync">
-            {cart.map((cartItem) => (
+            {cart.map((cartItem, idx) => (
               <motion.li
                 variants={cartItemVariants}
-                key={cartItem?.product?.id}
+                key={`${variant}-${cartItem?.product?.id ?? `${variant}-idx-${idx}`}`}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
@@ -53,7 +86,7 @@ export default function CartList({ setIsPopUpShown }: CartListProps) {
             transition: { duration: 1, delay: 0.4 },
           }}
           exit={{ opacity: 0, y: 30, transition: { duration: 0.3 } }}
-          className="h-[calc(100dvh-320px)] xl:h-[calc(100dvh-390px)] text-[14px] lg:text-[18px] font-normal leading-[120%] text-center py-[140px] text-black/50"
+          className={`flex justify-center items-center text-[14px] lg:text-[18px] font-normal leading-[120%] text-center text-black/50 py-6`}
         >
           Ваш кошик порожній
         </motion.div>

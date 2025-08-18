@@ -10,6 +10,7 @@ interface CatalogListProps {
 
 export default function CatalogList({ currentProducts }: CatalogListProps) {
   const itemsPerPage = useCatalogItemsPerPage();
+
   return (
     <div className="w-full">
       <Pagination

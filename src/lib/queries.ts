@@ -31,6 +31,11 @@ export const allProductsQuery = `*[_type == "product"]{
     status,
     isBestseller,
     isNew,
+    sku,
+    features[]{
+      "featureName": feature->name,
+      value
+    },
     "reviews": reviews[]{
       author,
       rating,
@@ -73,6 +78,11 @@ export const homepageCombinedQuery = `{
     status,
     isBestseller,
     isNew,
+    sku,
+    features[]{
+      "featureName": feature->name,
+      value
+    },
     "reviews": reviews[]{
       author,
       rating,
@@ -111,6 +121,11 @@ export const allDiscountedProductsQuery = `
     status,
     isBestseller,
     isNew,
+    sku,
+    features[]{
+      "featureName": feature->name,
+      value
+    },
     "categorySlug": category->slug.current,
     "categoryTitle": category->title,
     "genreSlug": genre->slug.current,
@@ -151,6 +166,12 @@ export const allProductsByCategoryQuery = `
       preOrderShippingDate,
       isBestseller,
       isNew,
+      sku,
+      features[]{
+      "featureName": feature->name,
+      value
+      },
+      "genreSlug": genre->slug.current,
       "categorySlug": category->slug.current,
     }
   },
@@ -179,6 +200,12 @@ export const allProductsByCategoryQuery = `
     status,
     isBestseller,
     isNew,
+    sku,
+    features[]{
+      "featureName": feature->name,
+      value
+    },
+    "genreSlug": genre->slug.current,
     "categorySlug": category->slug.current,
   }
 }
@@ -205,6 +232,7 @@ export const productBySlugQuery = `
     "bookScreens": bookScreens[].asset->url,
     sku,
     preOrderShippingDate,
+    sku,
     features[]{
       "featureName": feature->name,
       value
@@ -230,9 +258,34 @@ export const allRecommendedProductsQuery = `
     status,
     isBestseller,
     isNew,
+    sku,
+    features[]{
+      "featureName": feature->name,
+      value
+    },
     "categorySlug": category->slug.current,
     "categoryTitle": category->title,
     "genreSlug": genre->slug.current,
     "genreTitle": genre->title
   }
 `;
+
+export const promocodeByCodeQuery = `
+  *[_type == "promocode" && code == $promocode][0]{
+    "id": _id,
+    code,
+    discountPercent,
+    expirationDate,
+    "publishers": publishers[]->{
+      "id": _id,
+      name
+    }
+  }
+`;
+
+export const productsByIds = `*[_type == "product" && _id in $ids]{
+  "id":_id,
+  price,
+  discountPrice,
+  status,
+ }`;

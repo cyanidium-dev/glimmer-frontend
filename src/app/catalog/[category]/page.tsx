@@ -6,7 +6,7 @@ import {
   allDiscountedProductsQuery,
   allProductsByCategoryQuery,
 } from "@/lib/queries";
-import { fetchSanityDataServer } from "@/utils/fetchSanityData";
+import { fetchSanityDataServer } from "@/utils/fetchSanityDataServer";
 
 interface CategoryPageProps {
   params: Promise<{ category: string }>;

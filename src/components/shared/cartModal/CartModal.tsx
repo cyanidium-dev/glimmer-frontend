@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import CartTotal from "./CartTotal";
 import { AnimatePresence, motion } from "framer-motion";
-import { useCartStore } from "@/store/cartStore";
 import { fadeInAnimation, cartModalVariants } from "@/utils/animationVariants";
 import IconButton from "../buttons/IconButton";
 import CrossIcon from "../icons/CrossIcon";
@@ -17,8 +16,6 @@ export default function CartModal({
   isPopUpShown,
   setIsPopUpShown,
 }: CartModalProps) {
-  const { cart, clearCart } = useCartStore();
-
   return (
     <AnimatePresence>
       {isPopUpShown && (
@@ -28,7 +25,7 @@ export default function CartModal({
           exit="exit"
           variants={cartModalVariants}
           className={`fixed z-[70] top-0 right-0 w-dvw h-dvh xs:max-w-[400px] py-4 px-5 lg:px-6
-       bg-white max-h-[100dvh]`}
+       bg-white max-h-[100dvh] overflow-hidden`}
         >
           <div className="flex flex-col justify-between">
             <div className="">
@@ -53,30 +50,26 @@ export default function CartModal({
                   {<CrossIcon />}
                 </IconButton>
               </motion.div>
-              {cart?.length ? (
-                <div className="flex items-center justify-between  mb-4">
-                  <p className="text-[12px] font-light leading-[120%] text-black/60">
-                    {cart.length} товари
-                  </p>
-                  <button
-                    onClick={() => clearCart()}
-                    type="button"
-                    className="cursor-pointer text-[12px] font-light leading-[120%] text-black/60 active:text-main focus-visible:text-main 
-                    xl:hover:text-main transition duration-300 ease-in-out"
-                  >
-                    Видалити все
-                  </button>
-                </div>
-              ) : null}
-              <CartList setIsPopUpShown={setIsPopUpShown} />
+
+              <CartList
+                setIsPopUpShown={setIsPopUpShown}
+                className="h-[calc(100dvh-284px)] lg:h-[calc(100dvh-303px)] "
+              />
             </div>
           </div>
-
-          <CartTotal
-            cartItems={cart}
-            setIsPopUpShown={setIsPopUpShown}
-            isPopUpShown={isPopUpShown}
-          />
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            exit="exit"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={fadeInAnimation({ y: 30, delay: 1.1 })}
+            className="absolute bottom-0 right-0 w-full max-w-[400px] bg-white"
+          >
+            <CartTotal
+              setIsPopUpShown={setIsPopUpShown}
+              isPopUpShown={isPopUpShown}
+            />
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>

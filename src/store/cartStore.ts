@@ -10,6 +10,7 @@ interface CartItem {
 interface PromoCode {
   code: string;
   discountPercent: number;
+  publishers: { id: string; name: string }[];
 }
 
 interface CartStore {
@@ -21,7 +22,11 @@ interface CartStore {
   increaseQuantity: (productId: string) => void;
   decreaseQuantity: (productId: string) => void;
   clearCart: () => void;
-  applyPromoCode: (code: string, discountPercent: number) => void;
+  applyPromoCode: (
+    code: string,
+    discountPercent: number,
+    publishers: { id: string; name: string }[]
+  ) => void;
   removePromoCode: () => void;
   getCartTotal: () => number;
   getPromoDiscountTotal: () => number;
@@ -82,8 +87,8 @@ export const useCartStore = create<CartStore>()(
 
       clearCart: () => set({ cart: [], promoCode: null }),
 
-      applyPromoCode: (code: string, discountPercent: number) => {
-        set({ promoCode: { code, discountPercent } });
+      applyPromoCode: (code, discountPercent, publishers) => {
+        set({ promoCode: { code, discountPercent, publishers } });
       },
 
       removePromoCode: () => set({ promoCode: null }),
@@ -91,20 +96,49 @@ export const useCartStore = create<CartStore>()(
       getCartTotal: () => {
         const { cart, promoCode } = get();
         return cart.reduce((sum, item) => {
-          const price = item.product.discountPrice ?? item.product.price;
-          const discountedPrice = promoCode
-            ? price * (1 - promoCode.discountPercent / 100)
-            : price;
-          return sum + discountedPrice * item.quantity;
+          const basePrice = item.product.discountPrice ?? item.product.price;
+
+          const publisherFeature = item.product.features?.find(
+            (f) => f.featureName.toLowerCase() === "видавництво"
+          );
+          const publisherValue = publisherFeature?.value;
+
+          const isEligible =
+            promoCode &&
+            publisherValue &&
+            promoCode.publishers.some(
+              (pub) => pub.name.toLowerCase() === publisherValue.toLowerCase()
+            );
+
+          const finalPrice = isEligible
+            ? basePrice * (1 - promoCode.discountPercent / 100)
+            : basePrice;
+
+          return sum + finalPrice * item.quantity;
         }, 0);
       },
 
       getPromoDiscountTotal: () => {
         const { cart, promoCode } = get();
         if (!promoCode) return 0;
+
         return cart.reduce((sum, item) => {
-          const price = item.product.discountPrice ?? item.product.price;
-          const discount = price * (promoCode.discountPercent / 100);
+          const basePrice = item.product.discountPrice ?? item.product.price;
+
+          const publisherFeature = item.product.features?.find(
+            (f) => f.featureName.toLowerCase() === "видавництво"
+          );
+          const publisherValue = publisherFeature?.value;
+
+          const isEligible =
+            publisherValue &&
+            promoCode.publishers.some(
+              (pub) => pub.name.toLowerCase() === publisherValue.toLowerCase()
+            );
+
+          if (!isEligible) return sum;
+
+          const discount = basePrice * (promoCode.discountPercent / 100);
           return sum + discount * item.quantity;
         }, 0);
       },
@@ -115,7 +149,21 @@ export const useCartStore = create<CartStore>()(
         if (!item) return 0;
 
         const basePrice = item.product.discountPrice ?? item.product.price;
-        return promoCode
+
+        const publisherFeature = item.product.features?.find(
+          (f) => f.featureName.toLowerCase() === "видавництво"
+        );
+
+        const publisherValue = publisherFeature?.value;
+
+        const isEligible =
+          promoCode &&
+          publisherValue &&
+          promoCode.publishers.some(
+            (pub) => pub.name.toLowerCase() === publisherValue.toLowerCase()
+          );
+
+        return isEligible
           ? basePrice * (1 - promoCode.discountPercent / 100)
           : basePrice;
       },

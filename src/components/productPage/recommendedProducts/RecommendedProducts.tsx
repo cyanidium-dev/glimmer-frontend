@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import Container from "../../shared/container/Container";
 import SectionTitle from "../../shared/titles/SectionTitle";
 import Loader from "../../shared/loader/Loader";
-import { fetchSanityDataServer } from "@/utils/fetchSanityData";
+import { fetchSanityDataServer } from "@/utils/fetchSanityDataServer";
 import { allRecommendedProductsQuery } from "@/lib/queries";
 import RecommendedSlider from "./RecommendedSlider";
 
