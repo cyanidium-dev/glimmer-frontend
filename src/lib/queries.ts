@@ -31,6 +31,10 @@ export const allProductsQuery = `*[_type == "product"]{
     status,
     isBestseller,
     isNew,
+    features[]{
+      "featureName": feature->name,
+      value
+    },
     "reviews": reviews[]{
       author,
       rating,
@@ -73,6 +77,10 @@ export const homepageCombinedQuery = `{
     status,
     isBestseller,
     isNew,
+    features[]{
+      "featureName": feature->name,
+      value
+    },
     "reviews": reviews[]{
       author,
       rating,
@@ -111,6 +119,10 @@ export const allDiscountedProductsQuery = `
     status,
     isBestseller,
     isNew,
+    features[]{
+      "featureName": feature->name,
+      value
+    },
     "categorySlug": category->slug.current,
     "categoryTitle": category->title,
     "genreSlug": genre->slug.current,
@@ -151,6 +163,10 @@ export const allProductsByCategoryQuery = `
       preOrderShippingDate,
       isBestseller,
       isNew,
+      features[]{
+      "featureName": feature->name,
+      value
+      },
       "genreSlug": genre->slug.current,
       "categorySlug": category->slug.current,
     }
@@ -180,6 +196,10 @@ export const allProductsByCategoryQuery = `
     status,
     isBestseller,
     isNew,
+    features[]{
+      "featureName": feature->name,
+      value
+    },
     "genreSlug": genre->slug.current,
     "categorySlug": category->slug.current,
   }
@@ -232,6 +252,10 @@ export const allRecommendedProductsQuery = `
     status,
     isBestseller,
     isNew,
+    features[]{
+      "featureName": feature->name,
+      value
+    },
     "categorySlug": category->slug.current,
     "categoryTitle": category->title,
     "genreSlug": genre->slug.current,

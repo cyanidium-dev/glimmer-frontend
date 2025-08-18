@@ -18,6 +18,7 @@ import CartTotal from "../cartModal/CartTotal";
 import DeliveryBlock from "./DeliveryBlock";
 import PaymentBlock from "./PaymentBlock";
 import ContactsBlock from "./ContactsBlock";
+import { fetchSanityDataClient } from "@/utils/fetchSanityDataClient";
 
 export interface ValuesCheckoutFormType {
   name: string;
@@ -81,17 +82,30 @@ export default function CheckoutForm({
   ) => {
     try {
       setIsLoadingPromocode(true);
-      const promocode = await fetchSanityDataServer(promocodeByCodeQuery, {
-        code: values.promocode,
+      const promocode = await fetchSanityDataClient(promocodeByCodeQuery, {
+        promocode: values.promocode,
       });
+
       if (promocode) {
+        const now = new Date();
+        const expirationDate = promocode.expirationDate
+          ? new Date(promocode.expirationDate)
+          : null;
+
+        if (expirationDate && expirationDate < now) {
+          setFieldError("promocode", "Термін дії промокоду вичерпано");
+          return;
+        }
         const discount = promocode.discountPercent;
-        applyPromoCode(values.promocode, discount);
+        const publishers = promocode.publishers;
+        console.log(publishers);
+        applyPromoCode(values.promocode, discount, publishers);
       } else {
         setFieldError("promocode", "Промокод не знайдений");
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
+      setFieldError("promocode", "Сталася помилка. Спробуйте ще раз");
     } finally {
       setIsLoadingPromocode(false);
     }
@@ -241,8 +255,9 @@ export default function CheckoutForm({
                     : () => verifyPromo(values, setFieldError)
                 }
                 type="button"
-                className="mt-1.5 block w-fit ml-auto cursor-pointer text-[10px] xl:text-[12px] font-medium leading-[120%] text-black/60 xl:hover:text-main 
-                focus-visible:text-main active:text-main transition duration-300 ease-in-out"
+                disabled={!values.promocode}
+                className="mt-1.5 block w-fit ml-auto enabled:cursor-pointer text-[10px] xl:text-[12px] font-medium leading-[120%] disabled:opacity-60 text-black/60 xl:enabled:hover:text-main 
+                enabled:focus-visible:text-main enabled:active:text-main transition duration-300 ease-in-out"
               >
                 {promoCode ? "Видалити промокод" : "Застосувати промокод"}
               </button>

@@ -47,6 +47,8 @@ export default async function HomePage() {
 
   const newProducts = allProducts?.filter((product: Product) => product.isNew);
 
+  console.log(allProducts);
+
   return (
     <div className="pt-[85px] lg:pt-0">
       <Hero banners={heroBanners} />
