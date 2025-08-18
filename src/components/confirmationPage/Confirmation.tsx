@@ -1,9 +1,17 @@
+"use client";
 import Link from "next/link";
 import MainButton from "../shared/buttons/MainButton";
 import Container from "../shared/container/Container";
 import Image from "next/image";
+import { useOrderStore } from "@/store/orderStore";
 
 export default function Confirmation() {
+  const { order } = useOrderStore();
+
+  if (!order) return null;
+
+  const { orderNumber } = order;
+
   return (
     <section className="relative py-[116px] lg:py-50">
       <Image
@@ -41,9 +49,9 @@ export default function Confirmation() {
           Дякуємо за замовлення!
         </h1>
         <p className="mb-8 text-[12px] lg:text-[15px] font-medium leading-[120%] text-center">
-          Ваше замовлення №123456 прийнято в обробку.
+          {`Ваше замовлення №${orderNumber} прийнято в обробку.`}
         </p>
-        <p className="mb-10 text-center">
+        <p className="max-w-[497px] mb-10 mx-auto text-center">
           Ми вже надіслали квитанцію на вашу електронну пошту. Якщо бажаєте, ви
           можете також завантажити її зараз.
         </p>

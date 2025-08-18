@@ -24,7 +24,10 @@ export const checkoutValidation = () => {
         (value) => !!value && value.length >= 6 && value[5] === "0"
       )
       .required("Дане поле є обов'язковим до заповнення"),
-    email: yup.string().matches(emailRegex, "Введіть валідний email"),
+    email: yup
+      .string()
+      .matches(emailRegex, "Введіть валідний email")
+      .required("Дане поле є обов'язковим до заповнення"),
     deliveryService: yup.string().required("Оберіть сервіс доставки"),
     deliveryType: yup.string().required("Оберіть спосіб доставки"),
     city: yup.string().required("Дане поле є обов'язковим до заповнення"),
