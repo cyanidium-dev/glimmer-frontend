@@ -1,19 +1,196 @@
 "use client";
+
 import Link from "next/link";
 import MainButton from "../shared/buttons/MainButton";
 import Container from "../shared/container/Container";
 import Image from "next/image";
 import { useOrderStore } from "@/store/orderStore";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+
+pdfMake.vfs = pdfFonts.vfs;
 
 export default function Confirmation() {
   const { order } = useOrderStore();
 
   if (!order) return null;
 
-  const { orderNumber } = order;
+  const {
+    orderNumber,
+    orderDate,
+    name,
+    surname,
+    phone,
+    city,
+    branchNumber,
+    address,
+    cart,
+    totalOrderSum,
+  } = order;
+
+  const handleDownloadPDF = () => {
+    const docDefinition: any = {
+      content: [
+        // Заголовок квитанції
+        {
+          text: `Квитанція № ${orderNumber} від ${orderDate}`,
+          style: "header",
+          margin: [0, 0, 0, 20], // відстань до підкреслення
+        },
+        // Підкреслення
+        {
+          canvas: [
+            {
+              type: "line",
+              x1: 0,
+              y1: 0,
+              x2: 515, // приблизна ширина сторінки A4 без бокових полів
+              y2: 0,
+              lineWidth: 2,
+              lineColor: "#000000",
+            },
+          ],
+          margin: [0, 0, 0, 30], // відстань після підкреслення до наступного блоку
+        },
+        // Виконавець
+        {
+          columns: [
+            {
+              width: "auto",
+              text: [{ text: "Виконавець:\n" }],
+              margin: [0, 0, 58, 0],
+            },
+            {
+              width: "*",
+              text: [
+                {
+                  text: "Glimmer. Publishing house\n",
+                  bold: true,
+                  lineHeight: 1.5,
+                },
+                {
+                  text: "Email: support@glimmer.ua\n",
+                  bold: true,
+                  lineHeight: 1.5,
+                },
+                {
+                  text: "Тел.: +380 (44) 123-45-67\n",
+                  bold: true,
+                  lineHeight: 1.5,
+                },
+              ],
+            },
+          ],
+          margin: [0, 0, 0, 20],
+        },
+        // Замовник
+        {
+          columns: [
+            {
+              width: "auto",
+              text: [{ text: "Замовник:\n" }],
+              margin: [0, 0, 70, 0],
+            },
+            {
+              width: "*",
+              text: [
+                { text: `${name} ${surname}\n`, bold: true, lineHeight: 1.5 },
+                { text: `Тел.: ${phone}\n`, bold: true },
+              ],
+            },
+          ],
+          margin: [0, 0, 0, 20],
+        },
+        // Адреса доставки
+        {
+          columns: [
+            {
+              width: "auto",
+              text: [{ text: "Адреса доставки:\n" }],
+              margin: [0, 0, 30, 0],
+            },
+            {
+              width: "*",
+              text: [
+                {
+                  text: `${city}, ${branchNumber ? "відділення №" + branchNumber : address}\n`,
+                  bold: true,
+                },
+              ],
+            },
+          ],
+          margin: [0, 0, 0, 20],
+        },
+        // Таблиця товарів
+        {
+          table: {
+            widths: ["auto", "*", "auto", 70, 70],
+            body: [
+              [
+                {
+                  text: "№",
+                  bold: true,
+                  fillColor: "#E0E0E0",
+                  alignment: "center",
+                },
+                {
+                  text: "Товари",
+                  bold: true,
+                  fillColor: "#E0E0E0",
+                  alignment: "center",
+                },
+                {
+                  text: "Кількість",
+                  bold: true,
+                  fillColor: "#E0E0E0",
+                  alignment: "center",
+                },
+                {
+                  text: "Ціна",
+                  bold: true,
+                  fillColor: "#E0E0E0",
+                  alignment: "center",
+                },
+                {
+                  text: "Сума",
+                  bold: true,
+                  fillColor: "#E0E0E0",
+                  alignment: "center",
+                },
+              ],
+              ...cart.map((item, index) => {
+                const price = item.product.discountPrice ?? item.product.price;
+                return [
+                  index + 1,
+                  `"${item.product.title}" — ${item.product.author}`,
+                  `${item.quantity} шт.`,
+                  `${price} грн`,
+                  `${price * item.quantity} грн`,
+                ];
+              }),
+            ],
+          },
+        },
+        // Загальна сума
+        {
+          text: `Разом: ${totalOrderSum} грн`,
+          style: "total",
+          alignment: "right",
+          margin: [0, 20, 0, 0],
+        },
+      ],
+      styles: {
+        header: { fontSize: 16, bold: true, margin: [0, 0, 0, 10] },
+        total: { bold: true, fontSize: 14 },
+      },
+    };
+
+    pdfMake.createPdf(docDefinition).download(`order_${orderNumber}.pdf`);
+  };
 
   return (
     <section className="relative py-[116px] lg:py-50">
+      {/* Твої бекграундні картинки */}
       <Image
         src="/images/confirmationPage/bgTopMob.svg"
         alt="background"
@@ -42,10 +219,9 @@ export default function Confirmation() {
         height="344"
         className="hidden lg:block absolute bottom-[-104px] right-0"
       />
+
       <Container>
-        <h1
-          className={`mb-4 text-[24px] lg:text-[32px] leading-[120%] font-semibold uppercase text-main text-center`}
-        >
+        <h1 className="mb-4 text-[24px] lg:text-[32px] leading-[120%] font-semibold uppercase text-main text-center">
           Дякуємо за замовлення!
         </h1>
         <p className="mb-8 text-[12px] lg:text-[15px] font-medium leading-[120%] text-center">
@@ -57,6 +233,7 @@ export default function Confirmation() {
         </p>
         <div className="flex flex-col sm:flex-row gap-3 w-[199px] sm:w-[540px] mx-auto">
           <MainButton
+            onClick={handleDownloadPDF}
             variant="bordered"
             className="sm:w-[calc(50%-6px)] h-[45px] text-[12px] lg:text-[14px] font-normal"
           >

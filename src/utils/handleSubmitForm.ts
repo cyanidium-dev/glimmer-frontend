@@ -50,7 +50,9 @@ export const handleSubmitForm = async <T>(
   const formattedTime = now.toLocaleTimeString("uk-UA");
 
   // Об'єднуємо дату та час
-  const orderDate = `${formattedDate} ${formattedTime}`;
+  const orderDate = formattedDate;
+
+  const orderTime = formattedTime;
 
   //Запитуємо з cms актуальні ціни на товари в кошику
   const productsIds = cart.map((cartItem: CartItem) => cartItem.product.id);
@@ -123,6 +125,7 @@ export const handleSubmitForm = async <T>(
 
   const collectedOrderData = {
     orderDate,
+    orderTime,
     orderNumber,
     name: values.name.trim(),
     surname: values.surname.trim(),
@@ -158,7 +161,7 @@ export const handleSubmitForm = async <T>(
   // Формуємо дані для telegram
   const dataTelegram =
     `<b>Замовлення #${orderNumber}</b>\n` +
-    `<b>Дата замовлення:</b> ${orderDate}\n` +
+    `<b>Дата замовлення:</b> ${orderDate} ${orderTime}\n` +
     `<b>Ім'я:</b> ${values.name.trim()}\n` +
     `<b>Прізвище:</b> ${values.surname.trim()}\n` +
     `<b>Телефон:</b> ${values.phone.replace(/[^\d+]/g, "")}\n` +

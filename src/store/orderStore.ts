@@ -6,6 +6,7 @@ import { PromoCode } from "./cartStore";
 interface OrderData {
   orderNumber: string;
   orderDate: string;
+  orderTime: string;
   name: string;
   surname: string;
   email: string;
