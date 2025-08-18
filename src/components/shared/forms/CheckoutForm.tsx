@@ -5,12 +5,11 @@ import { motion } from "framer-motion";
 import { listVariants, listItemVariants } from "@/utils/animationVariants";
 import { useRouter } from "next/navigation";
 import { checkoutValidation } from "@/schemas/checkoutValidation";
-// import { handleSubmitForm } from "@/shared/utils/handleSubmitForm";
+import { handleSubmitForm } from "@/utils/handleSubmitForm";
 import { useCartStore } from "@/store/cartStore";
 // import { useMonopayBasketOrder } from "@/shared/hooks/useMonopayBasketOrder";
 import CustomizedInput from "../formComponents/CustomizedInput";
 import CheckoutSubTitle from "./CheckoutSubtitle";
-import { fetchSanityDataServer } from "@/utils/fetchSanityDataServer";
 import { promocodeByCodeQuery } from "@/lib/queries";
 import CartList from "../cartModal/CartList";
 import RecommendedProducts from "./RecommendedProducts";
@@ -98,7 +97,7 @@ export default function CheckoutForm({
         }
         const discount = promocode.discountPercent;
         const publishers = promocode.publishers;
-        console.log(publishers);
+
         applyPromoCode(values.promocode, discount, publishers);
       } else {
         setFieldError("promocode", "Промокод не знайдений");
@@ -127,16 +126,16 @@ export default function CheckoutForm({
     values: ValuesCheckoutFormType,
     formikHelpers: FormikHelpers<ValuesCheckoutFormType>
   ) => {
-    // await handleSubmitForm<ValuesCheckoutFormType>(
-    //   formikHelpers,
-    //   setIsLoading,
-    //   setIsError,
-    //   setIsUnavailable,
-    //   setIsNotificationShown,
-    //   values,
-    //   router,
-    //   basketOrder
-    // );
+    await handleSubmitForm<ValuesCheckoutFormType>(
+      formikHelpers,
+      setIsLoading,
+      setIsError,
+      setIsUnavailable,
+      setIsNotificationShown,
+      values,
+      router
+      //   basketOrder
+    );
   };
 
   return (
@@ -144,6 +143,7 @@ export default function CheckoutForm({
       initialValues={initialValues}
       onSubmit={submitForm}
       validationSchema={validationSchema}
+      enableReinitialize
     >
       {({
         errors,

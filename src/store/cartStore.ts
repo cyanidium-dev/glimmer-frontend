@@ -154,8 +154,6 @@ export const useCartStore = create<CartStore>()(
           (f) => f.featureName.toLowerCase() === "видавництво"
         );
 
-        console.log(item.product);
-
         const publisherValue = publisherFeature?.value;
 
         const isEligible =

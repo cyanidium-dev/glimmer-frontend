@@ -31,6 +31,7 @@ export const allProductsQuery = `*[_type == "product"]{
     status,
     isBestseller,
     isNew,
+    sku,
     features[]{
       "featureName": feature->name,
       value
@@ -77,6 +78,7 @@ export const homepageCombinedQuery = `{
     status,
     isBestseller,
     isNew,
+    sku,
     features[]{
       "featureName": feature->name,
       value
@@ -119,6 +121,7 @@ export const allDiscountedProductsQuery = `
     status,
     isBestseller,
     isNew,
+    sku,
     features[]{
       "featureName": feature->name,
       value
@@ -163,6 +166,7 @@ export const allProductsByCategoryQuery = `
       preOrderShippingDate,
       isBestseller,
       isNew,
+      sku,
       features[]{
       "featureName": feature->name,
       value
@@ -196,6 +200,7 @@ export const allProductsByCategoryQuery = `
     status,
     isBestseller,
     isNew,
+    sku,
     features[]{
       "featureName": feature->name,
       value
@@ -227,6 +232,7 @@ export const productBySlugQuery = `
     "bookScreens": bookScreens[].asset->url,
     sku,
     preOrderShippingDate,
+    sku,
     features[]{
       "featureName": feature->name,
       value
@@ -252,6 +258,7 @@ export const allRecommendedProductsQuery = `
     status,
     isBestseller,
     isNew,
+    sku,
     features[]{
       "featureName": feature->name,
       value
@@ -275,3 +282,10 @@ export const promocodeByCodeQuery = `
     }
   }
 `;
+
+export const productsByIds = `*[_type == "product" && _id in $ids]{
+  "id":_id,
+  price,
+  discountPrice,
+  status,
+ }`;

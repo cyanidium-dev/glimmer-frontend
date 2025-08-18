@@ -45,7 +45,6 @@ export default function RecommendedProducts() {
 
     loadData();
   }, [genreSlug, slug]);
-  console.log(recommendedProducts);
 
   if (!recommendedProducts?.length) return null;
 
