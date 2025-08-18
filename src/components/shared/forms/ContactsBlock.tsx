@@ -40,6 +40,7 @@ export default function ContactsBlock() {
         fieldName="email"
         inputType="email"
         placeholder={"Електронна пошта"}
+        isRequired
         errors={errors}
         touched={touched}
       />

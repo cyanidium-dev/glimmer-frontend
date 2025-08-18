@@ -6,6 +6,7 @@ import { generateOrderNumber } from "./generateOrderNumber";
 import { fetchSanityDataClient } from "./fetchSanityDataClient";
 import { productsByIds, promocodeByCodeQuery } from "../lib/queries";
 import { useCartStore } from "../store/cartStore";
+import { useOrderStore } from "@/store/orderStore";
 import { CartItem } from "@/types/cartItem";
 import { Product } from "@/types/product";
 import { useRouter } from "next/navigation";
@@ -29,6 +30,10 @@ export const handleSubmitForm = async <T>(
     removePromoCode,
     getCartTotal,
   } = useCartStore.getState();
+
+  const { clearOrder, setOrder } = useOrderStore.getState();
+
+  clearOrder();
 
   setIsLoading(true);
 
@@ -134,6 +139,9 @@ export const handleSubmitForm = async <T>(
     promoCode,
     totalOrderSum,
   };
+
+  // Записуємо в orderState зібрану та оновлену інформацію по замовленню
+  setOrder(collectedOrderData);
 
   // Формуємо список товарів з переносами на новий рядок для Telegram
   const orderedListProducts = cart

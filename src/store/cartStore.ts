@@ -7,7 +7,7 @@ interface CartItem {
   quantity: number;
 }
 
-interface PromoCode {
+export interface PromoCode {
   code: string;
   discountPercent: number;
   publishers: { id: string; name: string }[];
