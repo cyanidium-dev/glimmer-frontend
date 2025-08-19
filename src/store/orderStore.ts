@@ -1,27 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { CartItem } from "@/types/cartItem";
-import { PromoCode } from "./cartStore";
-
-interface OrderData {
-  orderNumber: string;
-  orderDate: string;
-  orderTime: string;
-  name: string;
-  surname: string;
-  email: string;
-  phone: string;
-  deliveryService: string;
-  deliveryType: string;
-  city: string;
-  branchNumber?: string;
-  address?: string;
-  payment: string;
-  message?: string;
-  cart: CartItem[];
-  promoCode: PromoCode | null;
-  totalOrderSum: number;
-}
+import { OrderData } from "@/types/orderData";
 
 interface OrderStore {
   order: OrderData | null;
