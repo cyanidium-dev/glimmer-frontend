@@ -1,12 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "next-sanity";
-
-const client = createClient({
-  projectId: "us9jz0mn",
-  dataset: "production",
-  apiVersion: "2025-08-07",
-  useCdn: true,
-});
+import { client } from "@/lib/sanityClient";
 
 export async function POST(req: NextRequest) {
   const { query, params } = await req.json();
