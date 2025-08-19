@@ -224,7 +224,20 @@ export const handleSubmitForm = async <T>(
       },
     });
 
-    await sendDataToKeyCrm(collectedOrderData);
+    await axios({
+      method: "post",
+      url: "/api/send-email",
+      data: JSON.stringify({
+        email: collectedOrderData.email,
+        subject: `Glimmer: Підтвердження замовлення №${collectedOrderData.orderNumber}`,
+        message: "Дякуємо за замовлення",
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    // await sendDataToKeyCrm(collectedOrderData);
 
     //Очищаємо форму
     resetForm();
