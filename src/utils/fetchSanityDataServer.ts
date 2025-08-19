@@ -1,11 +1,4 @@
-import { createClient } from "next-sanity";
-
-const client = createClient({
-  projectId: "us9jz0mn",
-  dataset: "production",
-  apiVersion: "2025-08-07",
-  useCdn: true,
-});
+import { client } from "@/lib/sanityClient";
 
 export const fetchSanityDataServer = async (
   query: string,
