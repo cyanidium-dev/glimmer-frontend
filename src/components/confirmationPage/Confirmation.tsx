@@ -7,6 +7,8 @@ import Image from "next/image";
 import { useOrderStore } from "@/store/orderStore";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
+import { EMAIL_CLIENTS, PHONE } from "@/constants/constants";
+import { contactsPhoneRegex } from "@/regex/regex";
 
 pdfMake.vfs = pdfFonts.vfs;
 
@@ -70,12 +72,12 @@ export default function Confirmation() {
                   lineHeight: 1.5,
                 },
                 {
-                  text: "Email: support@glimmer.ua\n",
+                  text: `Email: ${EMAIL_CLIENTS}\n`,
                   bold: true,
                   lineHeight: 1.5,
                 },
                 {
-                  text: "Тел.: +380 (44) 123-45-67\n",
+                  text: `Тел.: ${PHONE.replace(contactsPhoneRegex, "+38 ($1) $2 $3 $4")}\n`,
                   bold: true,
                   lineHeight: 1.5,
                 },
