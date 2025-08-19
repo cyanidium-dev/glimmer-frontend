@@ -18,3 +18,5 @@ export const EMAIL_CLIENTS = "hello@glimmer.com.ua";
 export const EMAIL_AUTHORS = "rights@glimmer.com.ua";
 
 export const EMAIL_COOPERATION = "publishing@glimmer.com.ua";
+
+export const CRM_API_URL = "https://openapi.keycrm.app/v1";

@@ -10,6 +10,7 @@ import { useOrderStore } from "@/store/orderStore";
 import { CartItem } from "@/types/cartItem";
 import { Product } from "@/types/product";
 import { useRouter } from "next/navigation";
+import { sendDataToKeyCrm } from "./sendDataToKeyCrm";
 // import { BasketOrder } from "../hooks/useMonopayBasketOrder";
 
 export const handleSubmitForm = async <T>(
@@ -26,6 +27,8 @@ export const handleSubmitForm = async <T>(
     clearCart,
     cart,
     promoCode,
+    promoDiscountPercent,
+    promoPublishers,
     applyPromoCode,
     removePromoCode,
     getCartTotal,
@@ -63,7 +66,7 @@ export const handleSubmitForm = async <T>(
   //Запитуємо з cms актуальний промокод
   const resPromo = promoCode
     ? await fetchSanityDataClient(promocodeByCodeQuery, {
-        promocode: promoCode.code,
+        promocode: promoCode,
       })
     : null;
 
@@ -140,6 +143,8 @@ export const handleSubmitForm = async <T>(
     message: values.message.trim(),
     cart,
     promoCode,
+    promoDiscountPercent,
+    promoPublishers,
     totalOrderSum,
   };
 
@@ -173,8 +178,8 @@ export const handleSubmitForm = async <T>(
     `<b>Адреса:</b> ${values.address?.trim() || ""}\n` +
     `<b>Оплата:</b> ${values.payment.trim()}\n` +
     `<b>Повідомлення:</b> ${values.message?.trim()}\n` +
-    `<b>Промокод:</b> ${promoCode ? promoCode?.code : ""}\n` +
-    `<b>Розмір знижки за промокодом:</b> ${promoCode ? `${promoCode?.discountPercent} %` : ""}\n` +
+    `<b>Промокод:</b> ${promoCode || ""}\n` +
+    `<b>Розмір знижки за промокодом:</b> ${`${promoDiscountPercent} %` || ""}\n` +
     `<b>Список товарів в замовленні:</b>\n${orderedListProducts}\n` +
     `<b>Сума замовлення:</b> ${totalOrderSum} грн\n`;
 
@@ -219,6 +224,8 @@ export const handleSubmitForm = async <T>(
       },
     });
 
+    await sendDataToKeyCrm(collectedOrderData);
+
     //Очищаємо форму
     resetForm();
     //Очищаємо кошик
@@ -231,7 +238,7 @@ export const handleSubmitForm = async <T>(
     setIsError(true);
     setIsNotificationShown(true);
     console.error(error);
-    return error;
+  } finally {
+    setIsLoading(false);
   }
-  setIsLoading(false);
 };

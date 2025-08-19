@@ -13,6 +13,7 @@ export default function CartButton({ onClick, className }: CartButtonProps) {
   return (
     <>
       <button
+      type="button"
         id="cart-button"
         onClick={onClick}
         className={`enabled:cursor-pointer relative flex items-center justify-center size-6 text-white

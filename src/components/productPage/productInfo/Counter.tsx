@@ -27,6 +27,7 @@ export default function Counter({
       className={`flex items-center justify-between w-[91px] lg:w-[136px] h-fit ${className}`}
     >
       <button
+        type="button"
         className="cursor-pointer flex items-center justify-center rounded-full enabled:active:scale-95 transition duration-300 ease-out"
         onClick={onMinusClick}
         disabled={count === 1}
@@ -42,6 +43,7 @@ export default function Counter({
         {count}
       </span>
       <button
+        type="button"
         className="cursor-pointer flex items-center justify-center rounded-full enabled:active:scale-95 transition duration-300 ease-out"
         onClick={onPlusClick}
         disabled={count === 100}

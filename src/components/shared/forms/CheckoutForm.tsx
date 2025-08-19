@@ -47,13 +47,21 @@ export default function CheckoutForm({
   setIsNotificationShown,
   className = "",
 }: CheckoutFormProps) {
-  const { getCartTotal, promoCode, applyPromoCode, removePromoCode, cart } =
-    useCartStore();
+  const {
+    getCartTotal,
+    promoCode,
+    applyPromoCode,
+    removePromoCode,
+    cart,
+    hydrated,
+  } = useCartStore();
 
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingPromocode, setIsLoadingPromocode] = useState(false);
+
+  if (!hydrated) return null;
 
   const initialValues = {
     name: "",
@@ -67,7 +75,7 @@ export default function CheckoutForm({
     address: "",
     payment: "Оплата картою онлайн Visa, Mastercard",
     message: "",
-    promocode: promoCode?.code || "",
+    promocode: promoCode || "",
   };
 
   const validationSchema = checkoutValidation();
@@ -143,7 +151,6 @@ export default function CheckoutForm({
       initialValues={initialValues}
       onSubmit={submitForm}
       validationSchema={validationSchema}
-      enableReinitialize
     >
       {({
         errors,
@@ -249,11 +256,12 @@ export default function CheckoutForm({
                 touched={touched}
               />
               <button
-                onClick={
-                  promoCode
-                    ? () => removePromo(setFieldValue)
-                    : () => verifyPromo(values, setFieldError)
-                }
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (promoCode) {
+                    removePromo(setFieldValue);
+                  } else verifyPromo(values, setFieldError);
+                }}
                 type="button"
                 disabled={!values.promocode}
                 className="mt-1.5 block w-fit ml-auto enabled:cursor-pointer text-[10px] xl:text-[12px] font-medium leading-[120%] disabled:opacity-60 text-black/60 xl:enabled:hover:text-main 
