@@ -30,11 +30,17 @@ export default function BurgerMenuContent({
   const [selectedCatalog, setSelectedCatalog] = useState<CatalogItem | null>(
     null
   );
+  const [showList, setShowList] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
       setMenuLevel("main");
       setSelectedCatalog(null);
+
+      const t = setTimeout(() => setShowList(true), 400);
+      return () => clearTimeout(t);
+    } else {
+      setShowList(false);
     }
   }, [isOpen]);
 
@@ -83,9 +89,9 @@ export default function BurgerMenuContent({
 
           {/* Меню */}
           <AnimatePresence mode="wait">
-            {menuLevel === "main" && (
+            {isOpen && showList && menuLevel === "main" && (
               <motion.ul
-                key="main"
+                key={`main-${isOpen}`}
                 variants={burgerListVariants}
                 initial="hidden"
                 animate="visible"

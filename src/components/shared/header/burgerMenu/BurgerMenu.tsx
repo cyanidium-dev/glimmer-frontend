@@ -9,16 +9,12 @@ interface BurgerMenuProps {
   categories: Category[];
   isOpenBurgerMenu: boolean;
   setIsOpenBurgerMenu: Dispatch<SetStateAction<boolean>>;
-  //   setIsOpenCatalogMenu: Dispatch<SetStateAction<boolean>>;
-  //   setIsCartModalOpened: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function BurgerMenu({
   categories,
   isOpenBurgerMenu,
   setIsOpenBurgerMenu,
-  //   setIsOpenCatalogMenu,
-  //   setIsCartModalOpened,
 }: BurgerMenuProps) {
   const sortedCategories = categories.sort((a, b) => a.order - b.order);
 
@@ -28,8 +24,6 @@ export default function BurgerMenu({
       <BurgerMenuButton
         onOpen={() => {
           setIsOpenBurgerMenu(true);
-          //   setIsOpenCatalogMenu(false);
-          //   setIsCartModalOpened(false);
         }}
       />
       <BurgerMenuContent
