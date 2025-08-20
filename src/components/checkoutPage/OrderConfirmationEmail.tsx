@@ -65,7 +65,7 @@ export function OrderConfirmationEmail({
         <Container style={container}>
           <Section style={{ textAlign: "center", marginBottom: "40px" }}>
             <Img
-              src="https://glimmer-frontend.vercel.app/images/icons/logoBlue.svg"
+              src="https://glimmer-frontend.vercel.app/images/icons/logoBlue.png"
               width="267"
               alt="Glimmer"
               style={logo}
