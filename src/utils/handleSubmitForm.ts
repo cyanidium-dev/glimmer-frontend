@@ -11,7 +11,9 @@ import { CartItem } from "@/types/cartItem";
 import { Product } from "@/types/product";
 import { useRouter } from "next/navigation";
 import { sendDataToKeyCrm } from "./sendDataToKeyCrm";
+import { OrderConfirmationEmail } from "@/components/checkoutPage/OrderConfirmationEmail";
 // import { BasketOrder } from "../hooks/useMonopayBasketOrder";
+import { render, pretty } from "@react-email/render";
 
 export const handleSubmitForm = async <T>(
   { resetForm, setFieldError }: FormikHelpers<T>,
@@ -179,7 +181,7 @@ export const handleSubmitForm = async <T>(
     `<b>Оплата:</b> ${values.payment.trim()}\n` +
     `<b>Повідомлення:</b> ${values.message?.trim()}\n` +
     `<b>Промокод:</b> ${promoCode || ""}\n` +
-    `<b>Розмір знижки за промокодом:</b> ${`${promoDiscountPercent} %` || ""}\n` +
+    `<b>Розмір знижки за промокодом:</b> ${`${promoDiscountPercent}%` || ""}\n` +
     `<b>Список товарів в замовленні:</b>\n${orderedListProducts}\n` +
     `<b>Сума замовлення:</b> ${totalOrderSum} грн\n`;
 
@@ -224,7 +226,39 @@ export const handleSubmitForm = async <T>(
       },
     });
 
-    await sendDataToKeyCrm(collectedOrderData);
+    const html = await pretty(
+      await render(
+        OrderConfirmationEmail({
+          orderNumber,
+          orderDate,
+          name: values.name.trim(),
+          phone: values.phone.trim(),
+          city: values.city.trim(),
+          deliveryService: values.deliveryService.trim(),
+          deliveryType: values.deliveryType.trim(),
+          branchNumber: values.branchNumber.trim(),
+          address: values.address.trim(),
+          paymentMethod: values.payment.trim(),
+          cart,
+          totalOrderSum,
+        })
+      )
+    );
+
+    await axios({
+      method: "post",
+      url: "/api/send-email",
+      data: JSON.stringify({
+        email: collectedOrderData.email,
+        subject: `Glimmer: Підтвердження замовлення №${collectedOrderData.orderNumber}`,
+        message: html,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    // await sendDataToKeyCrm(collectedOrderData);
 
     //Очищаємо форму
     resetForm();

@@ -9,7 +9,7 @@ export const TELEGRAM_NAME = "@glimmer_bot";
 
 export const TELEGRAM_URL = "https://t.me/";
 
-export const PHONE = "+380981234567";
+export const PHONE = "+380778378453";
 
 export const WORKING_HOURS = "Пн–Сб: 10:00-18:00";
 
