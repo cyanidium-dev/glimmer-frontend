@@ -130,7 +130,7 @@ export const headerVariants = {
   visible: {
     opacity: 1,
 
-    transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] as const },
+    transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] as const },
   },
   exit: {
     opacity: 0,
