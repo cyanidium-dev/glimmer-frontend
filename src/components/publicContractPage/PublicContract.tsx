@@ -2,6 +2,8 @@ import * as motion from "motion/react-client";
 import { fadeInAnimation } from "@/utils/animationVariants";
 import Container from "../shared/container/Container";
 import PublicContractBlock from "./PublicContractBlock";
+import { EMAIL_CLIENTS, PHONE } from "@/constants/constants";
+import { contactsPhoneRegex } from "@/regex/regex";
 
 export default function PublicContract() {
   const listOne = [
@@ -103,8 +105,8 @@ export default function PublicContract() {
 
   const sellerData = [
     "ФОП Ільчишин Олександра Сергіївна",
-    "Тел.: +380 (96) 393 19 88",
-    "e-mail: artlover.ua@gmail.com",
+    `Тел.: ${PHONE.replace(contactsPhoneRegex, "+38 ($1) $2 $3 $4")}`,
+    `e-mail: ${EMAIL_CLIENTS}`,
   ];
 
   return (
