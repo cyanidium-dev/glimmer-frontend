@@ -179,7 +179,7 @@ export const handleSubmitForm = async <T>(
     `<b>Оплата:</b> ${values.payment.trim()}\n` +
     `<b>Повідомлення:</b> ${values.message?.trim()}\n` +
     `<b>Промокод:</b> ${promoCode || ""}\n` +
-    `<b>Розмір знижки за промокодом:</b> ${`${promoDiscountPercent} %` || ""}\n` +
+    `<b>Розмір знижки за промокодом:</b> ${`${promoDiscountPercent}%` || ""}\n` +
     `<b>Список товарів в замовленні:</b>\n${orderedListProducts}\n` +
     `<b>Сума замовлення:</b> ${totalOrderSum} грн\n`;
 
@@ -224,20 +224,20 @@ export const handleSubmitForm = async <T>(
       },
     });
 
-    await axios({
-      method: "post",
-      url: "/api/send-email",
-      data: JSON.stringify({
-        email: collectedOrderData.email,
-        subject: `Glimmer: Підтвердження замовлення №${collectedOrderData.orderNumber}`,
-        message: "Дякуємо за замовлення",
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    // await axios({
+    //   method: "post",
+    //   url: "/api/send-email",
+    //   data: JSON.stringify({
+    //     email: collectedOrderData.email,
+    //     subject: `Glimmer: Підтвердження замовлення №${collectedOrderData.orderNumber}`,
+    //     message: "Дякуємо за замовлення",
+    //   }),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // });
 
-    // await sendDataToKeyCrm(collectedOrderData);
+    await sendDataToKeyCrm(collectedOrderData);
 
     //Очищаємо форму
     resetForm();
