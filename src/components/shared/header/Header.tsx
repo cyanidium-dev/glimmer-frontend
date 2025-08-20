@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import * as motion from "motion/react-client";
 import Container from "../container/Container";
 import LogoIcon from "../icons/LogoIcon";
 import HeartIcon from "../icons/HeartIcon";
@@ -10,6 +11,7 @@ import NavMenu from "./NavMenu";
 import { Category } from "@/types/category";
 import BurgerMenu from "./burgerMenu/BurgerMenu";
 import Cart from "./Cart";
+import { headerVariants } from "@/utils/animationVariants";
 
 interface HeaderProps {
   categories: Category[];
@@ -27,20 +29,33 @@ export default function Header({ categories }: HeaderProps) {
   }, []);
 
   if (!hydrated) {
-    // Рендер стабільного, мінімального HTML на сервері
     return (
-      <header className="fixed z-30 top-0 left-0 w-dvw py-6 bg-black">
+      <motion.header
+        initial="hidden"
+        whileInView="visible"
+        exit="exit"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={headerVariants}
+        className="fixed z-30 top-0 left-0 w-dvw py-6 bg-black"
+      >
         <Container className="flex items-center justify-between">
           <Link href="/" className="group">
             <LogoIcon className="text-white" />
           </Link>
         </Container>
-      </header>
+      </motion.header>
     );
   }
 
   return (
-    <header className="fixed z-30 top-0 left-0 w-dvw py-6 bg-black">
+    <motion.header
+      initial="hidden"
+      whileInView="visible"
+      exit="exit"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={headerVariants}
+      className="fixed z-30 top-0 left-0 w-dvw py-6 bg-black"
+    >
       <Container className="flex items-center justify-between">
         <Link href="/" className="group">
           <LogoIcon className="text-white xl:group-hover:text-main group-focus-visible:text-main group-active:text-main transition duration-300 ease-in-out" />
@@ -70,6 +85,6 @@ export default function Header({ categories }: HeaderProps) {
           </div>
         </div>
       </Container>
-    </header>
+    </motion.header>
   );
 }
