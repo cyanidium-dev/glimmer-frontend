@@ -11,7 +11,9 @@ import { CartItem } from "@/types/cartItem";
 import { Product } from "@/types/product";
 import { useRouter } from "next/navigation";
 import { sendDataToKeyCrm } from "./sendDataToKeyCrm";
+import { OrderConfirmationEmail } from "@/components/checkoutPage/OrderConfirmationEmail";
 // import { BasketOrder } from "../hooks/useMonopayBasketOrder";
+import { render, pretty } from "@react-email/render";
 
 export const handleSubmitForm = async <T>(
   { resetForm, setFieldError }: FormikHelpers<T>,
@@ -224,20 +226,39 @@ export const handleSubmitForm = async <T>(
       },
     });
 
-    // await axios({
-    //   method: "post",
-    //   url: "/api/send-email",
-    //   data: JSON.stringify({
-    //     email: collectedOrderData.email,
-    //     subject: `Glimmer: Підтвердження замовлення №${collectedOrderData.orderNumber}`,
-    //     message: "Дякуємо за замовлення",
-    //   }),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
+    const html = await pretty(
+      await render(
+        OrderConfirmationEmail({
+          orderNumber,
+          orderDate,
+          name: values.name.trim(),
+          phone: values.phone.trim(),
+          city: values.city.trim(),
+          deliveryService: values.deliveryService.trim(),
+          deliveryType: values.deliveryType.trim(),
+          branchNumber: values.branchNumber.trim(),
+          address: values.address.trim(),
+          paymentMethod: values.payment.trim(),
+          cart,
+          totalOrderSum,
+        })
+      )
+    );
 
-    await sendDataToKeyCrm(collectedOrderData);
+    await axios({
+      method: "post",
+      url: "/api/send-email",
+      data: JSON.stringify({
+        email: collectedOrderData.email,
+        subject: `Glimmer: Підтвердження замовлення №${collectedOrderData.orderNumber}`,
+        message: html,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    // await sendDataToKeyCrm(collectedOrderData);
 
     //Очищаємо форму
     resetForm();

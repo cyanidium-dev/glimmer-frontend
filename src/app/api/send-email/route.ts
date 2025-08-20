@@ -9,10 +9,10 @@ export async function POST(req: Request) {
     const { email, subject, message } = body;
 
     const data = await resend.emails.send({
-      from: "onboarding@resend.dev",
+      from: "Glimmer.com.ua <hello@glimmer.com.ua>",
       to: email,
       subject,
-      html: `<p>${message}</p>`,
+      html: message,
     });
 
     return NextResponse.json({ success: true, data });
