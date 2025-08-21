@@ -1,5 +1,11 @@
 import Container from "@/components/shared/container/Container";
 import Image from "next/image";
+import * as motion from "motion/react-client";
+import {
+  fadeInAnimation,
+  listVariants,
+  listItemVariants,
+} from "@/utils/animationVariants";
 
 export default function DeliveryConditions() {
   const deliveryCostsUkraine = [
@@ -33,33 +39,78 @@ export default function DeliveryConditions() {
       <Container>
         <div className="py-8 lg:py-10 border-b border-black/60">
           <div className="flex flex-col md:flex-row-reverse gap-4 md:gap-8 pb-8 border-b border-black/10">
-            <div className="relative w-full md:w-[calc(50%-16px)] h-[198px] sm:h-[280px] lg:h-[356px] rounded-[12px] overflow-hidden">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              exit="exit"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeInAnimation({ scale: 0.95 })}
+              className="relative w-full md:w-[calc(50%-16px)] h-[198px] sm:h-[280px] lg:h-[356px] rounded-[12px] overflow-hidden"
+            >
               <Image
                 src="/images/deliveryPage/deliveryConditions/imageOne.webp"
                 alt="parcel"
                 fill
                 className="object-cover"
               />
-            </div>
+            </motion.div>
             <div className="md:w-[calc(50%-16px)]">
-              <h2 className="mb-4 lg:mb-8 text-[18px] lg:text-[24px] font-medium leading-[120%]">
+              <motion.h2
+                initial="hidden"
+                whileInView="visible"
+                exit="exit"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={fadeInAnimation({ y: 20 })}
+                className="mb-4 lg:mb-8 text-[18px] lg:text-[24px] font-medium leading-[120%]"
+              >
                 Доставка
-              </h2>
-              <div className="flex flex-col gap-4 lg:gap-8 mb-4 lg:mb-8">
-                <p>
+              </motion.h2>
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                exit="exit"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={listVariants({
+                  staggerChildren: 0.2,
+                  delayChildren: 0.2,
+                })}
+                className="flex flex-col gap-4 lg:gap-8 mb-4 lg:mb-8"
+              >
+                <motion.p
+                  viewport={{ once: true, amount: 0.2 }}
+                  variants={listItemVariants}
+                >
                   Доставка здійснюється по всій території України, де працюють
                   відділення поштових перевізників.
-                </p>
-                <p>
+                </motion.p>
+                <motion.p
+                  viewport={{ once: true, amount: 0.2 }}
+                  variants={listItemVariants}
+                >
                   Вартість доставки залежить від тарифів поштового оператора.
-                </p>
-                <p>
+                </motion.p>
+                <motion.p
+                  viewport={{ once: true, amount: 0.2 }}
+                  variants={listItemVariants}
+                >
                   Розрахувати вартість доставки можна за наступними посиланнями:
-                </p>
-              </div>
-              <ul className="flex gap-4 lg:gap-8">
+                </motion.p>
+              </motion.div>
+              <motion.ul
+                initial="hidden"
+                whileInView="visible"
+                exit="exit"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={listVariants({
+                  staggerChildren: 0.2,
+                  delayChildren: 0.2,
+                })}
+                className="flex gap-4 lg:gap-8"
+              >
                 {deliveryCostsUkraine.map(({ title, icon, url }, idx) => (
-                  <li
+                  <motion.li
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={listItemVariants}
                     key={idx}
                     className="w-[calc(50%-8px)] lg:w-[calc(50%-16px)]"
                   >
@@ -80,40 +131,87 @@ export default function DeliveryConditions() {
                       </div>
                       <span>{title}</span>
                     </a>
-                  </li>
+                  </motion.li>
                 ))}
-              </ul>
+              </motion.ul>
             </div>
           </div>
           <div className="flex flex-col md:flex-row gap-4 md:gap-8 pt-8">
-            <div className="relative w-full md:w-[calc(50%-16px)] h-[198px] sm:h-[280px] lg:h-[356px] rounded-[12px] overflow-hidden">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              exit="exit"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeInAnimation({ scale: 0.95 })}
+              className="relative w-full md:w-[calc(50%-16px)] h-[198px] sm:h-[280px] lg:h-[356px] rounded-[12px] overflow-hidden"
+            >
               <Image
                 src="/images/deliveryPage/deliveryConditions/imageTwo.webp"
                 alt="parcel"
                 fill
                 className="object-cover"
               />
-            </div>
+            </motion.div>
             <div className="md:w-[calc(50%-16px)]">
-              <h2 className="mb-4 lg:mb-8 text-[18px] lg:text-[24px] font-medium leading-[120%]">
+              <motion.h2
+                initial="hidden"
+                whileInView="visible"
+                exit="exit"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={fadeInAnimation({ y: 20 })}
+                className="mb-4 lg:mb-8 text-[18px] lg:text-[24px] font-medium leading-[120%]"
+              >
                 Міжнародна доставка
-              </h2>
-              <div className="flex flex-col gap-4 lg:gap-8 mb-4 lg:mb-8">
-                <p>
+              </motion.h2>
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                exit="exit"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={listVariants({
+                  staggerChildren: 0.2,
+                  delayChildren: 0.2,
+                })}
+                className="flex flex-col gap-4 lg:gap-8 mb-4 lg:mb-8"
+              >
+                <motion.p
+                  viewport={{ once: true, amount: 0.2 }}
+                  variants={listItemVariants}
+                >
                   Доставка також проводиться за кордон (крім рф та білорусі).
-                </p>
-                <p>
+                </motion.p>
+                <motion.p
+                  viewport={{ once: true, amount: 0.2 }}
+                  variants={listItemVariants}
+                >
                   Звертаємо увагу, що при замовленні &quot;міжнародної
                   доставки&quot; клієнт додатково сплачує за доставку після
                   підтвердження замовлення нашими спеціалістами. Доставка
                   здійснюється протягом трьох днів після оплати замовлення
                   операторами “Нова пошта” або “Укрпошта” на вибір.
-                </p>
-                <p>Вартість міжнародної доставки:</p>
-              </div>
-              <ul className="flex gap-4 lg:gap-8">
+                </motion.p>
+                <motion.p
+                  viewport={{ once: true, amount: 0.2 }}
+                  variants={listItemVariants}
+                >
+                  Вартість міжнародної доставки:
+                </motion.p>
+              </motion.div>
+              <motion.ul
+                initial="hidden"
+                whileInView="visible"
+                exit="exit"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={listVariants({
+                  staggerChildren: 0.2,
+                  delayChildren: 0.2,
+                })}
+                className="flex gap-4 lg:gap-8"
+              >
                 {deliveryCostsWorldwide.map(({ title, icon, url }, idx) => (
-                  <li
+                  <motion.li
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={listItemVariants}
                     key={idx}
                     className="w-[calc(50%-8px)] lg:w-[calc(50%-16px)]"
                   >
@@ -134,9 +232,9 @@ export default function DeliveryConditions() {
                       </div>
                       <span>{title}</span>
                     </a>
-                  </li>
+                  </motion.li>
                 ))}
-              </ul>
+              </motion.ul>
             </div>
           </div>
         </div>

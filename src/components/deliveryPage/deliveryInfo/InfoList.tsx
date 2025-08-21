@@ -1,4 +1,6 @@
 import Image from "next/image";
+import * as motion from "motion/react-client";
+import { listVariants, listItemVariants } from "@/utils/animationVariants";
 
 export default function InfoList() {
   const infoList = [
@@ -9,9 +11,21 @@ export default function InfoList() {
   ];
 
   return (
-    <ul className="flex flex-col gap-6 md:flex-row md:flex-wrap md:gap-8 xl:gap-20">
+    <motion.ul
+      initial="hidden"
+      whileInView="visible"
+      exit="exit"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={listVariants({
+        staggerChildren: 0.2,
+        delayChildren: 0.2,
+      })}
+      className="flex flex-col gap-6 md:flex-row md:flex-wrap md:gap-8 xl:gap-20"
+    >
       {infoList.map((infoItem, idx) => (
-        <li
+        <motion.li
+          viewport={{ once: true, amount: 0.2 }}
+          variants={listItemVariants}
           key={idx}
           className="flex gap-5 md:items-center md:w-[calc(50%-16px)] xl:w-[calc(50%-40px)]"
         >
@@ -23,8 +37,8 @@ export default function InfoList() {
             className="shrink-0 h-6"
           />
           <p>{infoItem}</p>
-        </li>
+        </motion.li>
       ))}
-    </ul>
+    </motion.ul>
   );
 }
