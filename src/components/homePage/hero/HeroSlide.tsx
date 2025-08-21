@@ -2,6 +2,8 @@ import MainButton from "@/components/shared/buttons/MainButton";
 import Container from "@/components/shared/container/Container";
 import Image from "next/image";
 import Link from "next/link";
+import * as motion from "motion/react-client";
+import { fadeInAnimation } from "@/utils/animationVariants";
 
 interface HeroSlideProps {
   banner: {
@@ -37,27 +39,48 @@ export default function HeroSlide({ banner }: HeroSlideProps) {
             className={`flex flex-col gap-10  mb-10 lg:mb-9 text-white ${button.position === "bottomLeft" ? "md:flex-row md:gap-20 lg:gap-50" : ""}`}
           >
             {title ? (
-              <h1 className="max-w-[320px] lg:max-w-[380px] text-[24px] lg:text-[40px] font-normal leading-[120%] uppercase">
+              <motion.h1
+                initial="hidden"
+                whileInView="visible"
+                exit="exit"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={fadeInAnimation({ x: -30 })}
+                className="max-w-[320px] lg:max-w-[380px] text-[24px] lg:text-[40px] font-normal leading-[120%] uppercase"
+              >
                 {title}
-              </h1>
+              </motion.h1>
             ) : null}
             {description ? (
-              <p
+              <motion.p
+                initial="hidden"
+                whileInView="visible"
+                exit="exit"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={fadeInAnimation({ x: -30 })}
                 className={`${button.position === "bottomLeft" ? "max-w-[150px]" : "max-w-[300px] lg:max-w-[380px]"}`}
               >
                 {description}
-              </p>
+              </motion.p>
             ) : null}
           </div>
         ) : null}
-        <Link
-          href={button?.link}
-          className={`w-fit ${button.position === "bottomRight" ? "ml-auto" : button.position === "bottomLeft" ? "mt-auto" : "ml-auto mb-8"} `}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          exit="exit"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeInAnimation({ y: 30 })}
         >
-          <MainButton variant="secondary" className="w-[230px] h-[53px]">
-            {button?.label}
-          </MainButton>
-        </Link>
+          {" "}
+          <Link
+            href={button?.link}
+            className={`w-fit ${button.position === "bottomRight" ? "ml-auto" : button.position === "bottomLeft" ? "mt-auto" : "ml-auto mb-8"} `}
+          >
+            <MainButton variant="secondary" className="w-[230px] h-[53px]">
+              {button?.label}
+            </MainButton>
+          </Link>
+        </motion.div>
       </Container>
     </div>
   );
