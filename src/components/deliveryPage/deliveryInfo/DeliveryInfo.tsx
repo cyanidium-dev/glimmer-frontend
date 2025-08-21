@@ -2,6 +2,8 @@ import Container from "@/components/shared/container/Container";
 import PageTitle from "@/components/shared/titles/PageTitle";
 import SectionDescription from "@/components/shared/sectionDescription/SectionDescription";
 import InfoList from "./InfoList";
+import * as motion from "motion/react-client";
+import { fadeInAnimation } from "@/utils/animationVariants";
 
 export default function DeliveryInfo() {
   return (
@@ -15,9 +17,16 @@ export default function DeliveryInfo() {
               щоб ваша улюблена книга потрапила до вас якнайшвидше.
             </SectionDescription>
           </div>
-          <h2 className="mb-6 lg:mb-8 text-[18px] lg:text-[24px] font-medium leading-[120%]">
+          <motion.h2
+            initial="hidden"
+            whileInView="visible"
+            exit="exit"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={fadeInAnimation({ y: 20 })}
+            className="mb-6 lg:mb-8 text-[18px] lg:text-[24px] font-medium leading-[120%]"
+          >
             Загальна інформація
-          </h2>
+          </motion.h2>
           <InfoList />
         </div>
       </Container>

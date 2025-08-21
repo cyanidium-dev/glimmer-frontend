@@ -38,7 +38,6 @@ export default function CallBack() {
           variants={fadeInAnimation({ scale: 0.95, delay: 0.4 })}
           className="hidden md:block"
         >
-          {" "}
           <Image
             src="/images/contactsPage/callback/logoFull.svg"
             alt="logo"

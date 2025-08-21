@@ -1,5 +1,11 @@
 import Container from "@/components/shared/container/Container";
 import Image from "next/image";
+import * as motion from "motion/react-client";
+import {
+  fadeInAnimation,
+  listVariants,
+  listItemVariants,
+} from "@/utils/animationVariants";
 
 export default function PaymentMethods() {
   const paymentMethods = [
@@ -23,12 +29,31 @@ export default function PaymentMethods() {
   return (
     <section>
       <Container className="py-8 lg:py-10">
-        <h2 className="mb-4 lg:mb-8 text-[18px] lg:text-[24px] font-medium leading-[120%]">
+        <motion.h2
+          initial="hidden"
+          whileInView="visible"
+          exit="exit"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeInAnimation({ y: 20 })}
+          className="mb-4 lg:mb-8 text-[18px] lg:text-[24px] font-medium leading-[120%]"
+        >
           Способи оплати
-        </h2>
-        <ul className="flex flex-col md:flex-row gap-6 lg:gap-8">
+        </motion.h2>
+        <motion.ul
+          initial="hidden"
+          whileInView="visible"
+          exit="exit"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={listVariants({
+            staggerChildren: 0.2,
+            delayChildren: 0.2,
+          })}
+          className="flex flex-col md:flex-row gap-6 lg:gap-8"
+        >
           {paymentMethods.map(({ title, description, icon }, idx) => (
-            <li
+            <motion.li
+              viewport={{ once: true, amount: 0.2 }}
+              variants={listItemVariants}
               key={idx}
               className="md:w-[calc(33.33%-16px)] lg:w-[calc(33.33%-21.33px)] p-2 lg:p-3 shadow-[0_1px_3px_0_rgba(0,0,0,0.10),0_1px_2px_-1px_rgba(0,0,0,0.10)] rounded-[12px]"
             >
@@ -45,9 +70,9 @@ export default function PaymentMethods() {
               <p className="text-[14px] lg:text-[18px] font-medium leading-[120%]">
                 {description}
               </p>
-            </li>
+            </motion.li>
           ))}
-        </ul>
+        </motion.ul>
       </Container>
     </section>
   );
