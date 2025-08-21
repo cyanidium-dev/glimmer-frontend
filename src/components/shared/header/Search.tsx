@@ -80,7 +80,7 @@ export default function Search({ isOpen, setIsOpen, products }: SearchProps) {
             animate="visible"
             exit="exit"
             variants={catalogMenuVariants}
-            className="absolute z-[100] top-10 right-5 md:-right-2 rounded-[12px] bg-white w-[320px] md:w-[384px] h-[304px] md:h-[320px] py-4 md:py-6 px-5 md:px-8"
+            className="absolute z-[100] top-10 right-5 md:-right-2 rounded-[12px] bg-white w-[320px] md:w-[384px] h-[304px] md:h-[320px] py-4 md:py-6 px-5 md:px-8 shadow-sm"
           >
             {/* Хедер */}
             <div className="flex items-center justify-between mb-6">
