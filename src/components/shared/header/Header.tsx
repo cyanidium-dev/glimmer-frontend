@@ -11,7 +11,7 @@ import NavMenu from "./NavMenu";
 import { Category } from "@/types/category";
 import BurgerMenu from "./burgerMenu/BurgerMenu";
 import Cart from "./Cart";
-import { headerVariants } from "@/utils/animationVariants";
+import { headerVariants, fadeInAnimation } from "@/utils/animationVariants";
 
 interface HeaderProps {
   categories: Category[];
@@ -57,9 +57,18 @@ export default function Header({ categories }: HeaderProps) {
       className="fixed z-30 top-0 left-0 w-dvw py-6 bg-black"
     >
       <Container className="flex items-center justify-between">
-        <Link href="/" className="group">
-          <LogoIcon className="text-white xl:group-hover:text-main group-focus-visible:text-main group-active:text-main transition duration-300 ease-in-out" />
-        </Link>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          exit="exit"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={fadeInAnimation({ scale: 0.9, duration: 1 })}
+        >
+          {" "}
+          <Link href="/" className="group">
+            <LogoIcon className="text-white xl:group-hover:text-main group-focus-visible:text-main group-active:text-main transition duration-300 ease-in-out" />
+          </Link>
+        </motion.div>
         <div className="flex items-center gap-[72px]">
           <NavMenu
             categories={categories}

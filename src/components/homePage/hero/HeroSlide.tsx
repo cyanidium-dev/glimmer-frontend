@@ -22,7 +22,7 @@ interface HeroSlideProps {
 export default function HeroSlide({ banner }: HeroSlideProps) {
   const { title, description, image, button } = banner;
   return (
-    <div className="flex relative z-10 w-dvw pt-[150px] lg:pt-[155px] pb-[116px] lg:pb-[103px] overflow-hidden min-h-full">
+    <div className="flex relative z-10 w-dvw pt-[235px] lg:pt-[155px] pb-[116px] lg:pb-[103px] overflow-hidden min-h-full">
       <Image
         src={image}
         alt="hero banner"
@@ -32,7 +32,7 @@ export default function HeroSlide({ banner }: HeroSlideProps) {
         className="-z-10 object-cover"
       />
       <Container
-        className={`flex  min-h-full flex-1 ${button.position === "bottomLeft" ? "flex-col justify-between" : button.position === "bottomRight" ? "flex-col justify-between" : "flex-col-reverse"}`}
+        className={`flex min-h-full flex-1 ${button.position === "bottomLeft" ? "flex-col justify-between" : button.position === "bottomRight" ? "flex-col justify-between" : "flex-col-reverse"}`}
       >
         {title || description ? (
           <div
@@ -44,7 +44,7 @@ export default function HeroSlide({ banner }: HeroSlideProps) {
                 whileInView="visible"
                 exit="exit"
                 viewport={{ once: true, amount: 0.2 }}
-                variants={fadeInAnimation({ x: -30 })}
+                variants={fadeInAnimation({ scale: 0.95 })}
                 className="max-w-[320px] lg:max-w-[380px] text-[24px] lg:text-[40px] font-normal leading-[120%] uppercase"
               >
                 {title}
@@ -56,7 +56,7 @@ export default function HeroSlide({ banner }: HeroSlideProps) {
                 whileInView="visible"
                 exit="exit"
                 viewport={{ once: true, amount: 0.2 }}
-                variants={fadeInAnimation({ x: -30 })}
+                variants={fadeInAnimation({ scale: 0.95 })}
                 className={`${button.position === "bottomLeft" ? "max-w-[150px]" : "max-w-[300px] lg:max-w-[380px]"}`}
               >
                 {description}
@@ -69,9 +69,8 @@ export default function HeroSlide({ banner }: HeroSlideProps) {
           whileInView="visible"
           exit="exit"
           viewport={{ once: true, amount: 0.2 }}
-          variants={fadeInAnimation({ y: 30 })}
+          variants={fadeInAnimation({ scale: 0.95 })}
         >
-          {" "}
           <Link
             href={button?.link}
             className={`w-fit ${button.position === "bottomRight" ? "ml-auto" : button.position === "bottomLeft" ? "mt-auto" : "ml-auto mb-8"} `}
