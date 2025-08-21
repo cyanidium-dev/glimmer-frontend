@@ -11,6 +11,8 @@ import Image from "next/image";
 import { filterProducts } from "@/utils/filterProducts";
 import { sortProducts } from "@/utils/sortProducts";
 import NoItems from "./NoItems";
+import * as motion from "motion/react-client";
+import { fadeInAnimation } from "@/utils/animationVariants";
 
 interface CatalogProps {
   catalogBanner?: { imageCatalog: string; link?: string };
@@ -20,12 +22,14 @@ interface CatalogProps {
     genreTitle: string;
     products: Product[];
   }[];
+  currentCategory: string;
 }
 
 export default function Catalog({
   catalogBanner,
   allProducts,
   subcategories,
+  currentCategory,
 }: CatalogProps) {
   const hasSubcategories = subcategories && subcategories?.length > 0;
 
@@ -78,13 +82,22 @@ export default function Catalog({
     <section className="pb-8 lg:pb-10">
       <Container className="relative">
         {sortedProducts?.length > 8 ? (
-          <Image
-            src="/images/catalogPage/bgImage.svg"
-            alt="background"
-            width="784"
-            height="739"
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            exit="exit"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={fadeInAnimation({ scale: 0.9 })}
             className="hidden xl:block absolute top-[940px] left-[-536px] opacity-10 -z-10"
-          />
+          >
+            <Image
+              src="/images/catalogPage/bgImage.svg"
+              alt="background"
+              width="784"
+              height="739"
+              className="opacity-10"
+            />
+          </motion.div>
         ) : null}
         <div className="xl:pl-[268px] flex flex-col gap-4">
           {subcategories ? (
@@ -101,14 +114,26 @@ export default function Catalog({
             catalogBanner?.link ? (
               <Link href={catalogBanner?.link}></Link>
             ) : (
-              <div className="hidden xl:block shrink-0">
+              <motion.div
+                key={
+                  subcategories
+                    ? `${currentCategory} - ${activeTab}`
+                    : currentCategory
+                }
+                initial="hidden"
+                whileInView="visible"
+                exit="exit"
+                viewport={{ once: true, amount: 0.1 }}
+                variants={fadeInAnimation({ scale: 0.97, x: -10 })}
+                className="hidden xl:block shrink-0"
+              >
                 <Image
                   src={catalogBanner?.imageCatalog}
                   alt="banner"
                   width={240}
                   height={619}
                 />
-              </div>
+              </motion.div>
             )
           ) : null}
           {sortedProducts?.length ? (

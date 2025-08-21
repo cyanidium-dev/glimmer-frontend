@@ -28,7 +28,7 @@ export default async function RootLayout({
       <body
         className={`${montserrat.variable} flex min-h-dvh flex-col antialiased text-[12px] lg:text-[15px] font-light leading-[120%]`}
       >
-        <Header categories={result.categories} products={result.products} />
+        <Header categories={result?.categories} products={result?.products} />
         <main className="flex-1">{children}</main>
         <Footer />
       </body>

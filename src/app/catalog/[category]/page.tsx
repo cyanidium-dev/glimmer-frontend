@@ -36,6 +36,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         catalogBanner={res?.catalogBanner}
         allProducts={res?.allProducts}
         subcategories={res?.genres}
+        currentCategory={category}
       />
       <MarqueeLine />
       <TelegramCTA />
