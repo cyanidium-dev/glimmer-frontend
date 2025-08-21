@@ -107,7 +107,7 @@ export const listVariants = ({
   exit: {
     opacity: 0,
     y: 30,
-    transition: { duration: 1, ease: [0.42, 0, 1, 1] as const },
+    transition: { duration: 0.7, ease: [0.42, 0, 1, 1] as const },
   },
 });
 

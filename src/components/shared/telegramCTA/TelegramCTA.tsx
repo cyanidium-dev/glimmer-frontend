@@ -3,6 +3,8 @@ import TelegramButton from "../buttons/TelegramButton";
 import Container from "../container/Container";
 import SectionTitle from "../titles/SectionTitle";
 import { TELEGRAM_URL } from "@/constants/constants";
+import * as motion from "motion/react-client";
+import { fadeInAnimation } from "@/utils/animationVariants";
 
 export default function TelegramCTA() {
   return (
@@ -11,7 +13,14 @@ export default function TelegramCTA() {
         <SectionTitle className="md:max-w-[327px] lg:max-w-[427px] xl:max-w-[527px]">
           Підпишись на наш телеграм канал, щоб бути в курсі всіх новинок!
         </SectionTitle>
-        <div className="relative ml-auto lg:mb-2">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          exit="exit"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={fadeInAnimation({ x: 30 })}
+          className="relative ml-auto lg:mb-2"
+        >
           <Image
             src="/images/telegramCTA/booksMob.svg"
             alt="books"
@@ -33,7 +42,7 @@ export default function TelegramCTA() {
           >
             <TelegramButton />
           </a>
-        </div>
+        </motion.div>
       </Container>
     </section>
   );
