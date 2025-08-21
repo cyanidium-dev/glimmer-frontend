@@ -10,8 +10,6 @@ import ReadPassage from "./ReadPassage";
 import Features from "./Features";
 import Reviews from "./Reviews";
 import ProductDetails from "./ProductDetails";
-import * as motion from "motion/react-client";
-import { fadeInAnimation } from "@/utils/animationVariants";
 
 interface ProductInfoProps {
   currentProduct: Product;
