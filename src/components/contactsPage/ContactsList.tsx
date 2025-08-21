@@ -9,10 +9,22 @@ import {
   TELEGRAM_URL,
   WORKING_HOURS,
 } from "@/constants/constants";
+import * as motion from "motion/react-client";
+import { listVariants } from "@/utils/animationVariants";
 
 export default function ContactsList() {
   return (
-    <div className="flex flex-col xl:flex-row gap-5 lg:gap-8">
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      exit="exit"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={listVariants({
+        staggerChildren: 0.15,
+        delayChildren: 0.15,
+      })}
+      className="flex flex-col xl:flex-row gap-5 lg:gap-8"
+    >
       <div className="flex flex-col gap-5 xl:w-[calc(50%-16px)]">
         <div className="flex gap-5 lg:gap-8">
           <ContactItem
@@ -114,6 +126,6 @@ export default function ContactsList() {
           }
         />
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -4,6 +4,8 @@ import { useState } from "react";
 import CallBackForm from "../shared/forms/CallBackForm";
 import NotificationPopUp from "../shared/pop-ups/NotitficationPopUp";
 import Backdrop from "../shared/backdrop/Backdrop";
+import * as motion from "motion/react-client";
+import { fadeInAnimation } from "@/utils/animationVariants";
 
 interface CallBackFormWithNotificationsProps {
   className?: string;
@@ -17,13 +19,19 @@ export default function CallBackFormWithNotifications({
 
   return (
     <>
-      <div className="">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        exit="exit"
+        viewport={{ once: true, amount: 0.1 }}
+        variants={fadeInAnimation({ y: 20, delay: 0.4 })}
+      >
         <CallBackForm
           setIsError={setIsError}
           setIsNotificationShown={setIsNotificationShown}
           className={className}
         />
-      </div>
+      </motion.div>
       <NotificationPopUp
         headerTitle={isError ? "Помилка" : "Успіх"}
         title={isError ? "На жаль, щось пішло не так" : "Дякуємо за звернення!"}
