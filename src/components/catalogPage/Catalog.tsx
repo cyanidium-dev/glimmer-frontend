@@ -117,7 +117,7 @@ export default function Catalog({
                 whileInView="visible"
                 exit="exit"
                 viewport={{ once: true, amount: 0.1 }}
-                variants={fadeInAnimation({ scale: 0.9, x: -10, delay: 0.4 })}
+                variants={fadeInAnimation({ scale: 0.97, x: -10 })}
                 className="hidden xl:block shrink-0"
               >
                 <Image

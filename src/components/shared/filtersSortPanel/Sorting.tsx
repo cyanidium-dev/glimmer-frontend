@@ -64,13 +64,13 @@ export default function Sorting() {
       exit="exit"
       viewport={{ once: true, amount: 0.3 }}
       variants={fadeInAnimation({ x: 20, delay: 0.2 })}
-      className="flex justify-between items-center gap-4"
+      className="relative z-20 flex justify-between items-center gap-4"
     >
       <p className="text-[14px] lg:text-[18px] font-light leading-[120%]">
         Сортувати:
       </p>
       <div
-        className="relative w-[210px] lg:w-[230px] shrink-0"
+        className="relative w-[210px] lg:w-[230px] shrink-0 z-20"
         ref={dropdownRef}
       >
         <button
