@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
 import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
+import * as motion from "motion/react-client";
+import { fadeInAnimation } from "@/utils/animationVariants";
 
 interface SectionDescriptionProps {
   children?: ReactNode;
@@ -12,7 +14,12 @@ export default function SectionDescription({
   className,
 }: SectionDescriptionProps) {
   return (
-    <p
+    <motion.p
+      initial="hidden"
+      whileInView="visible"
+      exit="exit"
+      viewport={{ once: true, amount: 0.8 }}
+      variants={fadeInAnimation({ x: 30 })}
       className={twMerge(
         clsx(
           `lg:max-w-[338px] text-[12px] lg:text-[15px] leading-[120%] font-light`
@@ -21,6 +28,6 @@ export default function SectionDescription({
       )}
     >
       {children}
-    </p>
+    </motion.p>
   );
 }

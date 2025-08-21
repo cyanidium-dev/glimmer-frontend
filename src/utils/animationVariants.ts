@@ -3,7 +3,7 @@ export const fadeInAnimation = ({
   y = 0,
   scale = 1,
   delay = 0,
-  duration = 0.5,
+  duration = 0.7,
   opacity = 0,
 }) => ({
   hidden: {
@@ -126,11 +126,11 @@ export const listItemVariants = {
 };
 
 export const headerVariants = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 0, y: -10 },
   visible: {
     opacity: 1,
-
-    transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] as const },
+    y: 0,
+    transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const },
   },
   exit: {
     opacity: 0,
