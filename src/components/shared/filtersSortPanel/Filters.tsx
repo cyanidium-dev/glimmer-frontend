@@ -67,7 +67,7 @@ export default function Filters() {
       exit="exit"
       viewport={{ once: true, amount: 0.3 }}
       variants={fadeInAnimation({ x: -20, delay: 0.2 })}
-      className="relative z-20 flex items-center justify-between gap-4"
+      className="relative z-[25] flex items-center justify-between gap-4"
     >
       <p className="text-[14px] lg:text-[18px] font-light leading-[120%]">
         Фільтр:
