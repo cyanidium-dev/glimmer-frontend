@@ -8,8 +8,9 @@ export const allInstagramPostsQuery = `
   }
 `;
 
-export const allCategoriesQuery = `
-  *[_type == "category"]{
+export const allCategoriesAndProductsQuery = `
+{
+  "categories": *[_type == "category"]{
     "id": _id,
     title,
     "slug": slug.current,
@@ -18,10 +19,8 @@ export const allCategoriesQuery = `
       "title": name,
       "slug": slug.current
     }
-  }
-`;
-
-export const allProductsQuery = `*[_type == "product"]{
+  },
+  "products": *[_type == "product"]{
     "slug": slug.current,
     title,
     author,
@@ -32,11 +31,11 @@ export const allProductsQuery = `*[_type == "product"]{
     isBestseller,
     isNew,
     sku,
-    features[]{
+    features[] {
       "featureName": feature->name,
       value
     },
-    "reviews": reviews[]{
+    "reviews": reviews[] {
       author,
       rating,
       text
@@ -45,7 +44,9 @@ export const allProductsQuery = `*[_type == "product"]{
     "categoryTitle": category->title,
     "genreSlug": genre->slug.current,
     "genreTitle": genre->name
-  }`;
+  }
+}
+`;
 
 export const homepageCombinedQuery = `{
   "heroBanners": *[_type == "heroBanner"] | order(order asc) {

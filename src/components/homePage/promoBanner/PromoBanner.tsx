@@ -18,8 +18,6 @@ export default function PromoBanner({
 }: PromoBanner) {
   const { imageSmall, imageLarge, link } = banner;
 
-  console.log(idx);
-
   const content = (
     <>
       <Image
