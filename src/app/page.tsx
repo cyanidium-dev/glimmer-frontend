@@ -48,7 +48,7 @@ export default async function HomePage() {
   const newProducts = allProducts?.filter((product: Product) => product.isNew);
 
   return (
-    <div className="pt-[85px] lg:pt-0">
+    <>
       <Hero banners={heroBanners} />
       <MarqueeLine />
       <Suspense fallback={<Loader />}>
@@ -61,17 +61,21 @@ export default async function HomePage() {
         <PromotionalProducts promotionalProducts={promotionalProducts} />
       </Suspense>
       <Suspense fallback={<Loader />}>
-        <Container className="md:flex gap-4">
-          <PromoBanner banner={promoBannerFirst} />
-          <PromoBanner banner={promoBannerSecond} className="hidden md:block" />
+        <Container className="md:flex gap-4 py-8 lg:py-10">
+          <PromoBanner banner={promoBannerFirst} idx="first" />
+          <PromoBanner
+            banner={promoBannerSecond}
+            className="hidden md:block"
+            idx="second"
+          />
         </Container>
       </Suspense>
       <Suspense fallback={<Loader />}>
         <NewProducts newProducts={newProducts} />
       </Suspense>
       <Suspense fallback={<Loader />}>
-        <Container>
-          <PromoBanner banner={promoBannerSecond} className="md:hidden" />
+        <Container className="md:hidden py-8">
+          <PromoBanner banner={promoBannerSecond} idx="second" />
         </Container>
       </Suspense>
       <Suspense fallback={<Loader />}>
@@ -79,6 +83,6 @@ export default async function HomePage() {
       </Suspense>
       <MarqueeLine />
       <TelegramCTA />
-    </div>
+    </>
   );
 }

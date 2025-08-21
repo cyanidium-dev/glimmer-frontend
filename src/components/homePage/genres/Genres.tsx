@@ -1,8 +1,10 @@
 "use client";
 import SwiperWrapper from "@/components/shared/swiper/SwiperWrapper";
 import { SwiperSlide } from "swiper/react";
+import * as motion from "motion/react-client";
 import { Genre } from "@/types/genre";
 import GenreCard from "./GenreCard";
+import { fadeInAnimation } from "@/utils/animationVariants";
 
 interface GenresProps {
   genres: Genre[];
@@ -10,7 +12,14 @@ interface GenresProps {
 
 export default function Genres({ genres }: GenresProps) {
   return (
-    <section className="py-8 lg:py-10">
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      exit="exit"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={fadeInAnimation({ y: 30 })}
+      className="py-8 lg:py-10"
+    >
       <SwiperWrapper
         swiperClassName="genres"
         loop
@@ -31,6 +40,6 @@ export default function Genres({ genres }: GenresProps) {
           </SwiperSlide>
         ))}
       </SwiperWrapper>
-    </section>
+    </motion.section>
   );
 }
