@@ -40,9 +40,14 @@ export default function ProductInfo({ currentProduct }: ProductInfoProps) {
           <ProductDetails currentProduct={currentProduct} />
           <OrderProduct currentProduct={currentProduct} />
           {description || bookScreens ? (
-            <div className="flex flex-col gap-4 lg:gap-6 py-4 lg:py-6 border-t border-black/60">
+            <div className="flex flex-col gap-4 lg:gap-6 py-4 lg:py-6">
               {description ? <Description description={description} /> : null}
-              {bookScreens ? <ReadPassage bookScreens={bookScreens} currentProduct={currentProduct} /> : null}
+              {bookScreens ? (
+                <ReadPassage
+                  bookScreens={bookScreens}
+                  currentProduct={currentProduct}
+                />
+              ) : null}
             </div>
           ) : null}
           {features ? <Features features={features} /> : null}
