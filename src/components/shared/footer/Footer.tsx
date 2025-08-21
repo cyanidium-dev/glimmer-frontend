@@ -11,7 +11,7 @@ export default function Footer() {
       initial="hidden"
       whileInView="visible"
       exit="exit"
-      viewport={{ once: true, amount: 0.4 }}
+      viewport={{ once: true, amount: 0.2 }}
       variants={fadeInAnimation({})}
       className="relative w-dvw bg-black py-8 lg:pt-[72px] lg:pb-[67px] overflow-hidden"
     >
