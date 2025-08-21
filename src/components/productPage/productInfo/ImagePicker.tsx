@@ -4,6 +4,8 @@ import ImageGallery from "react-image-gallery";
 import { useRef, useState } from "react";
 import { useScreenWidth } from "@/hooks/useScreenWidth";
 import ArrowIcon from "@/components/shared/icons/ArrowIcon";
+import * as motion from "motion/react-client";
+import { fadeInAnimation } from "@/utils/animationVariants";
 
 interface ImagePickerProps {
   photos: string[];
@@ -33,7 +35,14 @@ export default function ImagePicker({ photos }: ImagePickerProps) {
   };
 
   return (
-    <div className="gallery-container w-full max-w-[320px] md:max-w-[460px] lg:max-w-[617px] xl:max-w-[580px] mx-auto md:mx-0 mb-4">
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      exit="exit"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={fadeInAnimation({ scale: 0.95 })}
+      className="gallery-container w-full max-w-[320px] md:max-w-[460px] lg:max-w-[617px] xl:max-w-[580px] mx-auto md:mx-0 mb-4"
+    >
       <ImageGallery
         ref={(ref) => {
           galleryRef.current = ref;
@@ -72,6 +81,6 @@ export default function ImagePicker({ photos }: ImagePickerProps) {
           </button>
         )}
       />
-    </div>
+    </motion.div>
   );
 }

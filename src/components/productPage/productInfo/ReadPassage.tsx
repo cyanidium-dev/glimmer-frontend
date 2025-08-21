@@ -11,6 +11,8 @@ import MarqueeLine from "@/components/shared/marquee/MarqueeLine";
 import FavoriteButton from "./FavoriteButton";
 import { Product } from "@/types/product";
 import { useCartStore } from "@/store/cartStore";
+import * as motion from "motion/react-client";
+import { fadeInAnimation } from "@/utils/animationVariants";
 
 interface ReadPassageProps {
   bookScreens: string[];
@@ -49,13 +51,21 @@ export default function ReadPassage({
 
   return (
     <div>
-      <MainButton
-        onClick={() => setIsReadPassageModalShown(true)}
-        variant="bordered"
-        className="h-[45px]"
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        exit="exit"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={fadeInAnimation({ scale: 0.95, delay: 0.4 })}
       >
-        Читати уривок
-      </MainButton>
+        <MainButton
+          onClick={() => setIsReadPassageModalShown(true)}
+          variant="bordered"
+          className="h-[45px]"
+        >
+          Читати уривок
+        </MainButton>
+      </motion.div>
       <Modal
         headerTitle="Читати уривок"
         isPopUpShown={isReadPassageModalShown}

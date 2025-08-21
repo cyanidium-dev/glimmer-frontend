@@ -5,6 +5,8 @@ import Counter from "./Counter";
 import FavoriteButton from "./FavoriteButton";
 import { Product } from "@/types/product";
 import { useCartStore } from "@/store/cartStore";
+import * as motion from "motion/react-client";
+import { fadeInAnimation } from "@/utils/animationVariants";
 
 interface OrderProductProps {
   currentProduct: Product;
@@ -17,7 +19,14 @@ export default function OrderProduct({ currentProduct }: OrderProductProps) {
   const { price, discountPrice } = currentProduct;
 
   return (
-    <div className="py-4 lg:py-6 border-t border-black/60">
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      exit="exit"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={fadeInAnimation({ y: 20 })}
+      className="py-4 lg:py-6 border-t border-b border-black/60"
+    >
       <div className="flex justify-between mb-4 lg:mb-[18px]">
         {discountPrice && discountPrice < price ? (
           <div className="flex flex-col lg:gap-2 shrink-0">
@@ -47,6 +56,6 @@ export default function OrderProduct({ currentProduct }: OrderProductProps) {
           Купити
         </MainButton>
       </div>
-    </div>
+    </motion.div>
   );
 }
