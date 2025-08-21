@@ -56,7 +56,7 @@ export default function FavoritesList() {
                     exit="exit"
                     viewport={{ once: true, amount: 0.1 }}
                     variants={fadeInAnimation({ y: 20 })}
-                    key={product?.id}
+                    key={`${product?.id} - ${sortParam} - ${filterParam}`}
                     className="h-full w-[calc(50%-8px)] sm:w-[calc(33.33%-10.67px)] md:w-[calc(25%-12px)] xl:w-[calc(20%-12.8px)]"
                   >
                     <ProductCard product={product} />
