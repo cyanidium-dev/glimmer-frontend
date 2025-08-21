@@ -22,12 +22,14 @@ interface CatalogProps {
     genreTitle: string;
     products: Product[];
   }[];
+  currentCategory: string;
 }
 
 export default function Catalog({
   catalogBanner,
   allProducts,
   subcategories,
+  currentCategory,
 }: CatalogProps) {
   const hasSubcategories = subcategories && subcategories?.length > 0;
 
@@ -113,6 +115,11 @@ export default function Catalog({
               <Link href={catalogBanner?.link}></Link>
             ) : (
               <motion.div
+                key={
+                  subcategories
+                    ? `${currentCategory} - ${activeTab}`
+                    : currentCategory
+                }
                 initial="hidden"
                 whileInView="visible"
                 exit="exit"

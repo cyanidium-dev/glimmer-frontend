@@ -64,6 +64,7 @@ export default function Pagination<T>({
 
     window.scrollTo({
       top: 0,
+      behavior: "instant",
     });
   };
 

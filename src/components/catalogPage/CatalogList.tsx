@@ -1,4 +1,5 @@
 "use client";
+import { useSearchParams } from "next/navigation";
 import { Product } from "@/types/product";
 import ProductCard from "../shared/productCard/ProductCard";
 import Pagination from "../shared/pagination/Pagination";
@@ -13,6 +14,11 @@ interface CatalogListProps {
 export default function CatalogList({ currentProducts }: CatalogListProps) {
   const itemsPerPage = useCatalogItemsPerPage();
 
+  const searchParams = useSearchParams();
+
+  const sort = searchParams.get("sort") || "rating";
+  const filter = searchParams.get("filter") || "all";
+
   return (
     <div className="w-full">
       <Pagination
@@ -26,8 +32,8 @@ export default function CatalogList({ currentProducts }: CatalogListProps) {
                 whileInView="visible"
                 exit="exit"
                 viewport={{ once: true, amount: 0.1 }}
-                variants={fadeInAnimation({ y: 30 })}
-                key={product?.id}
+                variants={fadeInAnimation({ y: 20 })}
+                key={`${product?.id} - ${sort} - ${filter}`}
                 className="h-full w-[calc(50%-8px)] sm:w-[calc(33.33%-10.67px)] md:w-[calc(25%-12px)]"
               >
                 <ProductCard product={product} />

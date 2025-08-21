@@ -11,6 +11,8 @@ import ProductCard from "../shared/productCard/ProductCard";
 import FiltersSortPanel from "../shared/filtersSortPanel/FiltersSortPanel";
 import { filterProducts } from "@/utils/filterProducts";
 import { sortProducts } from "@/utils/sortProducts";
+import * as motion from "motion/react-client";
+import { fadeInAnimation } from "@/utils/animationVariants";
 
 export default function FavoritesList() {
   const { favorites } = useFavoritesStore();
@@ -48,12 +50,17 @@ export default function FavoritesList() {
             renderItems={(currentItems) => (
               <ul className="flex flex-row flex-wrap gap-x-4 gap-y-8 lg:gap-y-10">
                 {currentItems.map((product) => (
-                  <li
+                  <motion.li
+                    initial="hidden"
+                    whileInView="visible"
+                    exit="exit"
+                    viewport={{ once: true, amount: 0.1 }}
+                    variants={fadeInAnimation({ y: 20 })}
                     key={product?.id}
                     className="h-full w-[calc(50%-8px)] sm:w-[calc(33.33%-10.67px)] md:w-[calc(25%-12px)] xl:w-[calc(20%-12.8px)]"
                   >
                     <ProductCard product={product} />
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
             )}

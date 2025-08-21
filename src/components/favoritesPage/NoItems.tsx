@@ -1,9 +1,18 @@
 import Link from "next/link";
 import MainButton from "../shared/buttons/MainButton";
+import * as motion from "motion/react-client";
+import { fadeInAnimation } from "@/utils/animationVariants";
 
 export default function NoItems() {
   return (
-    <div className="flex flex-col items-center gap-[30px] py-20 lg:py-30">
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      exit="exit"
+      viewport={{ once: true, amount: 0.1 }}
+      variants={fadeInAnimation({ y: 20, delay: 0.2 })}
+      className="flex flex-col items-center gap-[30px] py-20 lg:py-30"
+    >
       <h2 className="text-[18px] lg:text-[24px] font-medium leading-[120%] text-center">
         Список обраного порожній
       </h2>
@@ -16,6 +25,6 @@ export default function NoItems() {
           Повернутись на головну
         </MainButton>
       </Link>
-    </div>
+    </motion.div>
   );
 }
