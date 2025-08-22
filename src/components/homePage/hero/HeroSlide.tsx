@@ -22,7 +22,7 @@ interface HeroSlideProps {
 export default function HeroSlide({ banner }: HeroSlideProps) {
   const { title, description, image, button } = banner;
   return (
-    <div className="flex relative z-10 w-dvw pt-[235px] lg:pt-[155px] pb-[116px] lg:pb-[103px] overflow-hidden min-h-full">
+    <div className="relative flex z-10 w-dvw pt-[235px] lg:pt-[155px] pb-[116px] lg:pb-[103px] overflow-hidden min-h-full">
       <Image
         src={image}
         alt="hero banner"
