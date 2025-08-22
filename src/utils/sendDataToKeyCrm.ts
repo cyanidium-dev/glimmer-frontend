@@ -55,7 +55,7 @@ export async function sendDataToKeyCrm(data: OrderData) {
   try {
     const response = await axios({
       method: "post",
-      url: `${baseUrl}//api/keycrm`,
+      url: `${baseUrl}/api/keycrm`,
       data: crmOrderData,
       headers: {
         "Content-Type": "application/json",
