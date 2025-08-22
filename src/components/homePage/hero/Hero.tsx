@@ -2,6 +2,7 @@
 import SwiperWrapper from "@/components/shared/swiper/SwiperWrapper";
 import { SwiperSlide } from "swiper/react";
 import HeroSlide from "./HeroSlide";
+import Flowers from "./Flowers";
 
 interface HeroProps {
   banners: {
@@ -19,7 +20,8 @@ interface HeroProps {
 
 export default function Hero({ banners }: HeroProps) {
   return (
-    <section>
+    <section className="relative overflow-hidden">
+      <Flowers />
       <SwiperWrapper
         swiperClassName="heroProducts"
         loop
