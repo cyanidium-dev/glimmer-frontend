@@ -20,3 +20,5 @@ export const EMAIL_AUTHORS = "rights@glimmer.com.ua";
 export const EMAIL_COOPERATION = "publishing@glimmer.com.ua";
 
 export const CRM_API_URL = "https://openapi.keycrm.app/v1";
+
+export const NOVA_POSHTA_API_URL = "https://api.novaposhta.ua/v2.0/json/";

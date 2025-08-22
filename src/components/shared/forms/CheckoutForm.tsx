@@ -18,6 +18,7 @@ import DeliveryBlock from "./DeliveryBlock";
 import PaymentBlock from "./PaymentBlock";
 import ContactsBlock from "./ContactsBlock";
 import { fetchSanityDataClient } from "@/utils/fetchSanityDataClient";
+import { City } from "@/types/city";
 
 export interface ValuesCheckoutFormType {
   name: string;
@@ -35,9 +36,11 @@ export interface ValuesCheckoutFormType {
 }
 
 interface CheckoutFormProps {
+  citiesNovaPost: City[];
   setIsError: Dispatch<SetStateAction<boolean>>;
   setIsUnavailable: Dispatch<SetStateAction<boolean>>;
   setIsNotificationShown: Dispatch<SetStateAction<boolean>>;
+
   className?: string;
 }
 
@@ -45,6 +48,7 @@ export default function CheckoutForm({
   setIsError,
   setIsUnavailable,
   setIsNotificationShown,
+  citiesNovaPost,
   className = "",
 }: CheckoutFormProps) {
   const {
@@ -190,7 +194,7 @@ export default function CheckoutForm({
               className="py-9 md:p-8 md:rounded-[12px] border-t md:border-none border-black/10 md:shadow-sm"
             >
               <CheckoutSubTitle>Доставка</CheckoutSubTitle>
-              <DeliveryBlock />
+              <DeliveryBlock citiesNovaPost={citiesNovaPost} />
             </motion.div>
 
             <motion.div
