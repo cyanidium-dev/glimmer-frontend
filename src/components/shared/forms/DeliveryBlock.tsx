@@ -1,9 +1,10 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useFormikContext, ErrorMessage } from "formik";
 import CustomizedInput from "../formComponents/CustomizedInput";
 import RadioButtonInput from "../formComponents/RadioButtonInput";
+import LocationInput from "../formComponents/LocationInput";
 
 interface Values {
   [fieldName: string]: string;
@@ -21,17 +22,29 @@ const deliveryServices = [
 ];
 
 export default function DeliveryBlock() {
+  const [isLoadingCities, setIsLoadingCities] = useState(false);
+  const [isCitiesDropDownOpen, setIsCitiesDropDownOpen] = useState(false);
+  const [cityRef, setCityRef] = useState<string | null>(null);
+
   const deliveryTypes = [
     { label: "Відділення", value: "Відділення" },
     { label: "Доставка кур’єром", value: "Доставка кур’єром" },
     { label: "Поштомат", value: "Поштомат" },
   ];
 
-  const { values, setFieldValue, errors, touched } = useFormikContext<Values>();
+  const { values, setFieldValue, errors, touched, handleChange } =
+    useFormikContext<Values>();
 
   useEffect(() => {
     setFieldValue("deliveryType", "Відділення");
   }, [setFieldValue]);
+
+  const onCitiesLocationInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    handleChange(e);
+    setIsCitiesDropDownOpen(true);
+  };
 
   const isDeliveryChecked = !!values.deliveryService;
 
@@ -100,12 +113,30 @@ export default function DeliveryBlock() {
 
         {/* Інпути */}
         <div className="flex flex-col gap-4">
-          <CustomizedInput
+          {/* <CustomizedInput
             fieldName="city"
             placeholder={"Назва населеного пункту"}
             isRequired
             errors={errors}
             touched={touched}
+          /> */}
+          <LocationInput
+            fieldName="city"
+            placeholder={"Назва населеного пункту"}
+            errors={errors}
+            touched={touched}
+            options={cities.map((city) => ({
+              key: city.Ref,
+              description: city.Description,
+            }))}
+            isLoading={isLoadingCities}
+            isDropDownOpen={isCitiesDropDownOpen}
+            setIsDropDownOpen={setIsCitiesDropDownOpen}
+            onChange={onCitiesLocationInputChange}
+            onSelect={(city) => {
+              setFieldValue("city", city.description);
+              setCityRef(city.key);
+            }}
           />
           {values.deliveryType !== "Доставка кур’єром" ? (
             <CustomizedInput
