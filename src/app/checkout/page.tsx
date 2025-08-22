@@ -15,6 +15,8 @@ const crumbs = [
 export default async function CheckoutPage() {
   const citiesNovaPost = await getNPCities();
 
+  console.log(citiesNovaPost);
+
   return (
     <div className="pt-[85px]">
       <Breadcrumbs crumbs={crumbs} />
