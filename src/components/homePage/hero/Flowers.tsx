@@ -11,7 +11,7 @@ export default function Flowers() {
       viewBox="0 0 171 159"
       fill="none"
       className="absolute bottom-[227px] right-5 sm:right-15 md:right-25 lg:right-[123px] z-10 w-[101px] lg:w-[171px] h-auto"
-      initial={{ y: 332, opacity: 0 }}
+      initial={{ y: 402, opacity: 0 }}
       animate={{ y: 232, opacity: 1 }}
       transition={{
         duration: 1,
