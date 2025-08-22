@@ -9,6 +9,8 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { EMAIL_CLIENTS, PHONE } from "@/constants/constants";
 import { contactsPhoneRegex } from "@/regex/regex";
+import * as motion from "motion/react-client";
+import { fadeInAnimation } from "@/utils/animationVariants";
 
 pdfMake.vfs = pdfFonts.vfs;
 
@@ -194,60 +196,100 @@ export default function Confirmation() {
   return (
     <section className="relative py-[116px] lg:py-50">
       {/* Твої бекграундні картинки */}
-      <Image
-        src="/images/confirmationPage/bgTopMob.svg"
-        alt="background"
-        width="105"
-        height="62"
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        exit="exit"
+        viewport={{ once: true, amount: 0.1 }}
+        variants={fadeInAnimation({ scale: 0.9 })}
         className="lg:hidden absolute top-0 left-0"
-      />
-      <Image
-        src="/images/confirmationPage/bgBottomMob.svg"
-        alt="background"
-        width="91"
-        height="96"
+      >
+        <Image
+          src="/images/confirmationPage/bgTopMob.svg"
+          alt="background"
+          width="105"
+          height="62"
+        />
+      </motion.div>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        exit="exit"
+        viewport={{ once: true, amount: 0.1 }}
+        variants={fadeInAnimation({ scale: 0.9 })}
         className="lg:hidden absolute bottom-0 right-0"
-      />
-      <Image
-        src="/images/confirmationPage/bgTopDesk.svg"
-        alt="background"
-        width="250"
-        height="247"
+      >
+        <Image
+          src="/images/confirmationPage/bgBottomMob.svg"
+          alt="background"
+          width="91"
+          height="96"
+        />
+      </motion.div>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        exit="exit"
+        viewport={{ once: true, amount: 0.1 }}
+        variants={fadeInAnimation({ scale: 0.9 })}
         className="hidden lg:block absolute top-[-70px] left-0"
-      />
-      <Image
-        src="/images/confirmationPage/bgBottomDesk.svg"
-        alt="background"
-        width="320"
-        height="344"
+      >
+        <Image
+          src="/images/confirmationPage/bgTopDesk.svg"
+          alt="background"
+          width="250"
+          height="247"
+        />
+      </motion.div>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        exit="exit"
+        viewport={{ once: true, amount: 0.1 }}
+        variants={fadeInAnimation({ scale: 0.9 })}
         className="hidden lg:block absolute bottom-[-104px] right-0"
-      />
+      >
+        <Image
+          src="/images/confirmationPage/bgBottomDesk.svg"
+          alt="background"
+          width="320"
+          height="344"
+        />
+      </motion.div>
 
       <Container>
-        <h1 className="mb-4 text-[24px] lg:text-[32px] leading-[120%] font-semibold uppercase text-main text-center">
-          Дякуємо за замовлення!
-        </h1>
-        <p className="mb-8 text-[12px] lg:text-[15px] font-medium leading-[120%] text-center">
-          {`Ваше замовлення №${orderNumber} прийнято в обробку.`}
-        </p>
-        <p className="max-w-[497px] mb-10 mx-auto text-center">
-          Ми вже надіслали квитанцію на вашу електронну пошту. Якщо бажаєте, ви
-          можете також завантажити її зараз.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-3 w-[199px] sm:w-[540px] mx-auto">
-          <MainButton
-            onClick={handleDownloadPDF}
-            variant="bordered"
-            className="sm:w-[calc(50%-6px)] h-[45px] text-[12px] lg:text-[14px] font-normal"
-          >
-            Завантажити квитанцію
-          </MainButton>
-          <Link href="/" className="sm:w-[calc(50%-6px)]">
-            <MainButton className="h-[45px] text-[12px] lg:text-[14px] font-normal">
-              На головну
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          exit="exit"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={fadeInAnimation({ y: 20 })}
+        >
+          <h1 className="mb-4 text-[24px] lg:text-[32px] leading-[120%] font-semibold uppercase text-main text-center">
+            Дякуємо за замовлення!
+          </h1>
+          <p className="mb-8 text-[12px] lg:text-[15px] font-medium leading-[120%] text-center">
+            {`Ваше замовлення №${orderNumber} прийнято в обробку.`}
+          </p>
+          <p className="max-w-[497px] mb-10 mx-auto text-center">
+            Ми вже надіслали квитанцію на вашу електронну пошту. Якщо бажаєте,
+            ви можете також завантажити її зараз.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 w-[199px] sm:w-[540px] mx-auto">
+            <MainButton
+              onClick={handleDownloadPDF}
+              variant="bordered"
+              className="sm:w-[calc(50%-6px)] h-[45px] text-[12px] lg:text-[14px] font-normal"
+            >
+              Завантажити квитанцію
             </MainButton>
-          </Link>
-        </div>
+            <Link href="/" className="sm:w-[calc(50%-6px)]">
+              <MainButton className="h-[45px] text-[12px] lg:text-[14px] font-normal">
+                На головну
+              </MainButton>
+            </Link>
+          </div>
+        </motion.div>
       </Container>
     </section>
   );
