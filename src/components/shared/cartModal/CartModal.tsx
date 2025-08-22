@@ -34,7 +34,7 @@ export default function CartModal({
                 whileInView="visible"
                 exit="exit"
                 viewport={{ once: true, amount: 0.5 }}
-                variants={fadeInAnimation({ y: 30, delay: 0.6 })}
+                variants={fadeInAnimation({ y: 20, delay: 0.4 })}
                 className="flex items-center justify-between mb-4"
               >
                 <div className="flex items-center gap-2">
@@ -62,7 +62,7 @@ export default function CartModal({
             whileInView="visible"
             exit="exit"
             viewport={{ once: true, amount: 0.2 }}
-            variants={fadeInAnimation({ y: 30, delay: 1.1 })}
+            variants={fadeInAnimation({ y: 20, delay: 0.8 })}
             className="absolute bottom-0 right-0 w-full max-w-[400px] bg-white"
           >
             <CartTotal

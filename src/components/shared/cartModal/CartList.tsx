@@ -31,7 +31,14 @@ export default function CartList({
   return (
     <AnimatePresence mode="wait">
       {cart?.length ? (
-        <div className="flex items-center justify-between  mb-4">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeInAnimation({ y: 20, delay: 0.6 })}
+          className="flex items-center justify-between  mb-4"
+        >
           <p className="text-[12px] font-light leading-[120%] text-black/60">
             {cart?.length} {getProductWord(cart?.length)}
           </p>
@@ -43,7 +50,7 @@ export default function CartList({
           >
             Видалити все
           </button>
-        </div>
+        </motion.div>
       ) : null}
       {cart.length > 0 ? (
         <motion.ul
@@ -53,7 +60,7 @@ export default function CartList({
           animate="visible"
           exit="exit"
           viewport={{ once: true, amount: 0.2 }}
-          variants={fadeInAnimation({ y: 30, delay: 0.9, duration: 1 })}
+          variants={fadeInAnimation({ y: 20, delay: 0.8 })}
           className={`flex flex-col gap-y-4 py-0.5 pr-1.5 overflow-x-hidden overflow-y-auto
            scrollbar scrollbar-w-[3px] scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-main/50 
            scrollbar-track-transparent ${className}`}
@@ -79,14 +86,18 @@ export default function CartList({
         </motion.ul>
       ) : (
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{
             opacity: 1,
             y: 0,
-            transition: { duration: 1, delay: 0.4 },
+            transition: { duration: 0.7, delay: 0.4 },
           }}
-          exit={{ opacity: 0, y: 30, transition: { duration: 0.3 } }}
-          className={`flex justify-center items-center text-[14px] lg:text-[18px] font-normal leading-[120%] text-center text-black/50 py-6`}
+          exit={{
+            opacity: 0,
+            y: 20,
+            transition: { duration: 0.3 },
+          }}
+          className={`flex justify-center items-center text-[14px] lg:text-[18px] font-normal leading-[120%] text-center text-black/50  ${variant === "cart" ? "py-25" : "py-6"}`}
         >
           Ваш кошик порожній
         </motion.div>
