@@ -5,6 +5,18 @@ import { useFormikContext, ErrorMessage } from "formik";
 import CustomizedInput from "../formComponents/CustomizedInput";
 import RadioButtonInput from "../formComponents/RadioButtonInput";
 import LocationInput from "../formComponents/LocationInput";
+import { City } from "@/types/city";
+import { getNPBranches } from "@/utils/getNpBranches";
+
+interface DeliveryBlockProps {
+  citiesNovaPost: City[];
+}
+
+interface Warehouse {
+  Description: string;
+  Ref: string;
+  CategoryOfWarehouse: string;
+}
 
 interface Values {
   [fieldName: string]: string;
@@ -21,10 +33,19 @@ const deliveryServices = [
   },
 ];
 
-export default function DeliveryBlock() {
-  const [isLoadingCities, setIsLoadingCities] = useState(false);
+export default function DeliveryBlock({ citiesNovaPost }: DeliveryBlockProps) {
   const [isCitiesDropDownOpen, setIsCitiesDropDownOpen] = useState(false);
   const [cityRef, setCityRef] = useState<string | null>(null);
+  const [filteredCities, setFilteredCities] = useState<
+    { key: string; description: string }[]
+  >([]);
+  const [warehouses, setWarehouses] = useState<Warehouse[]>([]);
+  const [isLoadingWarehouses, setIsLoadingWarehouses] = useState(false);
+  const [filteredWarehouses, setFilteredWarehouses] = useState<
+    { key: string; description: string }[]
+  >([]);
+  const [isWarehousesDropDownOpen, setIsWarehousesDropDownOpen] =
+    useState(false);
 
   const deliveryTypes = [
     { label: "Відділення", value: "Відділення" },
@@ -39,11 +60,59 @@ export default function DeliveryBlock() {
     setFieldValue("deliveryType", "Відділення");
   }, [setFieldValue]);
 
+  useEffect(() => {
+    if (!cityRef) return;
+    setIsLoadingWarehouses(true);
+
+    getNPBranches(cityRef)
+      .then((data) => setWarehouses(data))
+      .catch(() => setWarehouses([]))
+      .finally(() => setIsLoadingWarehouses(false));
+  }, [cityRef]);
+
   const onCitiesLocationInputChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     handleChange(e);
-    setIsCitiesDropDownOpen(true);
+    const inputValue = e.target.value.trim().toLowerCase();
+
+    if (inputValue.length > 0) {
+      const filtered = citiesNovaPost
+        .filter((city) => {
+          const cityName = city.Description.split("(")[0].trim().toLowerCase();
+          return cityName.startsWith(inputValue);
+        })
+        .map((city) => ({
+          key: city.Ref,
+          description: city.Description,
+        }));
+
+      setFilteredCities(filtered);
+      setIsCitiesDropDownOpen(true);
+    } else {
+      setFilteredCities([]);
+      setIsCitiesDropDownOpen(false);
+    }
+  };
+
+  const onWarehousesInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleChange(e);
+    const inputValue = e.target.value.trim().toLowerCase();
+
+    if (inputValue.length > 0) {
+      const filtered = warehouses
+        .filter((w) => w.Description.toLowerCase().includes(inputValue))
+        .map((w) => ({
+          key: w.Ref,
+          description: w.Description,
+        }));
+
+      setFilteredWarehouses(filtered);
+      setIsWarehousesDropDownOpen(true);
+    } else {
+      setFilteredWarehouses([]);
+      setIsWarehousesDropDownOpen(false);
+    }
   };
 
   const isDeliveryChecked = !!values.deliveryService;
@@ -85,7 +154,7 @@ export default function DeliveryBlock() {
       </div>
 
       <div
-        className={`pb-3 overflow-hidden transition-[max-height] duration-500 ${
+        className={`pb-3 transition-[max-height] duration-500 ${
           isDeliveryChecked ? "max-h-[500px] ease-in" : "max-h-0 ease-out"
         }`}
       >
@@ -113,42 +182,42 @@ export default function DeliveryBlock() {
 
         {/* Інпути */}
         <div className="flex flex-col gap-4">
-          {/* <CustomizedInput
-            fieldName="city"
-            placeholder={"Назва населеного пункту"}
-            isRequired
-            errors={errors}
-            touched={touched}
-          /> */}
           <LocationInput
             fieldName="city"
             placeholder={"Назва населеного пункту"}
             errors={errors}
             touched={touched}
-            options={cities.map((city) => ({
-              key: city.Ref,
-              description: city.Description,
-            }))}
-            isLoading={isLoadingCities}
+            options={filteredCities}
             isDropDownOpen={isCitiesDropDownOpen}
             setIsDropDownOpen={setIsCitiesDropDownOpen}
             onChange={onCitiesLocationInputChange}
             onSelect={(city) => {
               setFieldValue("city", city.description);
               setCityRef(city.key);
+              setIsCitiesDropDownOpen(false);
             }}
           />
+
+          {/* Відділення */}
           {values.deliveryType !== "Доставка кур’єром" ? (
-            <CustomizedInput
+            <LocationInput
               fieldName="branchNumber"
               placeholder={
                 values.deliveryType === "Відділення"
                   ? "Номер відділення"
                   : "Номер поштомату"
               }
-              isRequired
               errors={errors}
               touched={touched}
+              options={filteredWarehouses}
+              isLoading={isLoadingWarehouses}
+              isDropDownOpen={isWarehousesDropDownOpen}
+              setIsDropDownOpen={setIsWarehousesDropDownOpen}
+              onChange={onWarehousesInputChange}
+              onSelect={(branch) => {
+                setFieldValue("branchNumber", branch.description);
+                setIsWarehousesDropDownOpen(false);
+              }}
             />
           ) : (
             <CustomizedInput

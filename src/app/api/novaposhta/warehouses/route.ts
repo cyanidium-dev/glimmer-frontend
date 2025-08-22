@@ -6,7 +6,7 @@ const API_KEY = process.env.NOVA_POSHTA_API_KEY || "";
 
 export async function POST(req: Request) {
   try {
-    const { cityRef, query } = await req.json();
+    const { cityRef } = await req.json();
 
     if (!cityRef) {
       return NextResponse.json(
@@ -15,11 +15,7 @@ export async function POST(req: Request) {
       );
     }
 
-    if (!query || query.trim().length < 1) {
-      return NextResponse.json([]);
-    }
-
-    const methodProperties = { CityRef: cityRef, FindByString: query };
+    const methodProperties = { CityRef: cityRef };
 
     const response = await axios.post(NOVA_POSHTA_API_URL, {
       apiKey: API_KEY,

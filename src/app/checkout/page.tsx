@@ -13,12 +13,12 @@ const crumbs = [
 ];
 
 export default async function CheckoutPage() {
-  const NPCities = await getNPCities();
-  console.log(NPCities?.length);
+  const citiesNovaPost = await getNPCities();
+
   return (
     <div className="pt-[85px]">
       <Breadcrumbs crumbs={crumbs} />
-      <Checkout />
+      <Checkout citiesNovaPost={citiesNovaPost} />
       <MarqueeLine />
       <TelegramCTA />
     </div>

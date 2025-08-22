@@ -16,7 +16,7 @@ interface LocationInputProps {
   errors: FormikErrors<ValuesCheckoutFormType>;
   touched: FormikTouched<ValuesCheckoutFormType>;
   options: Option[];
-  isLoading: boolean;
+  isLoading?: boolean;
   isDropDownOpen: boolean;
   setIsDropDownOpen: Dispatch<SetStateAction<boolean>>;
   onSelect: (option: Option) => void;
@@ -29,7 +29,7 @@ export default function LocationInput({
   errors,
   touched,
   options,
-  isLoading,
+  isLoading = false,
   setIsDropDownOpen,
   isDropDownOpen,
   onSelect,
@@ -64,6 +64,7 @@ export default function LocationInput({
       className="relative w-full laptop:w-[49%] deskxl:w-[31.5%] h-fit"
     >
       <CustomizedInput
+        onFocus={() => setIsDropDownOpen(true)}
         fieldName={fieldName}
         isRequired
         isLoading={isLoading}
@@ -75,14 +76,14 @@ export default function LocationInput({
       <ul
         className={`${
           isDropDownOpen ? "block" : "hidden"
-        } absolute top-[calc(100%+4px)] left-0 w-full bg-white border border-grey rounded-[16px] h-[180px] overflow-x-hidden overflow-y-auto z-50 
-        text-12med laptop:text-14med deskxl:text-18med scrollbar scrollbar-w-[2px] scrollbar-h-[2px] scrollbar-thumb-rounded-full scrollbar-track-rounded-full 
-        scrollbar-thumb-yellow popup-scroll`}
+        } absolute top-[calc(100%+4px)] left-0 w-full bg-white shadow-sm rounded-[12px] h-[120px] lg:h-[140px] overflow-x-hidden overflow-y-auto z-20 
+        scrollbar scrollbar-w-[2px] scrollbar-h-[2px] scrollbar-thumb-rounded-full scrollbar-track-rounded-full 
+        scrollbar-thumb-main popup-scroll`}
       >
         {options.map((item: Option) => (
           <li
             key={item.key}
-            className="p-2 cursor-pointer hover:bg-lightGrey"
+            className="p-2 cursor-pointer xl:hover:bg-main/10 xl:hover:text-main transition duration-300 ease-in-out"
             onClick={() => {
               onSelect(item);
               setIsDropDownOpen(false);
