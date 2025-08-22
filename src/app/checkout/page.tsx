@@ -21,8 +21,6 @@ export default async function CheckoutPage() {
     <div className="pt-[85px]">
       <Breadcrumbs crumbs={crumbs} />
       <Checkout citiesNovaPost={citiesNovaPost} />
-      <pre>{JSON.stringify(citiesNovaPost.slice(0, 5), null, 2)}</pre>{" "}
-      {/* <-- для перевірки */}
       <MarqueeLine />
       <TelegramCTA />
     </div>
