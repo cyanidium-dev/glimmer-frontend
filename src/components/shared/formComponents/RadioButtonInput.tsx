@@ -9,7 +9,8 @@ interface CustomizedInputProps {
   onClick?: () => void;
 }
 
-const labelStyles = "relative cursor-pointer flex items-center gap-x-2 pl-0.5";
+const labelStyles =
+  "relative cursor-pointer flex items-center gap-x-2 pl-0.5 w-fit";
 const fieldStyles =
   "relative cursor-pointer appearance-none size-[19px] rounded-full outline-none transition duration-300 ease-out";
 
