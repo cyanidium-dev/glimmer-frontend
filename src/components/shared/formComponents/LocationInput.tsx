@@ -1,8 +1,14 @@
 "use client";
 
-import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import CustomizedInput from "./CustomizedInput";
-import { FormikTouched, FormikErrors } from "formik";
+import { useFormikContext } from "formik";
 import { ValuesCheckoutFormType } from "../forms/checkoutForm/CheckoutForm";
 
 interface Option {
@@ -11,10 +17,8 @@ interface Option {
 }
 
 interface LocationInputProps {
-  fieldName: string;
+  fieldName: keyof ValuesCheckoutFormType;
   placeholder: string;
-  errors: FormikErrors<ValuesCheckoutFormType>;
-  touched: FormikTouched<ValuesCheckoutFormType>;
   options: Option[];
   isLoading?: boolean;
   isDropDownOpen: boolean;
@@ -26,8 +30,6 @@ interface LocationInputProps {
 export default function LocationInput({
   fieldName,
   placeholder,
-  errors,
-  touched,
   options,
   isLoading = false,
   setIsDropDownOpen,
@@ -36,6 +38,16 @@ export default function LocationInput({
   onChange,
 }: LocationInputProps) {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const [selectedOption, setSelectedOption] = useState<Option | null>(null);
+
+  const {
+    setFieldError,
+    setFieldTouched,
+    setFieldValue,
+    errors,
+    touched,
+    values,
+  } = useFormikContext<ValuesCheckoutFormType>();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -65,14 +77,25 @@ export default function LocationInput({
     >
       <CustomizedInput
         onFocus={() => setIsDropDownOpen(true)}
+        onBlur={() => {
+          setFieldTouched(fieldName, true);
+          if (!selectedOption) {
+            setFieldValue(fieldName, "");
+          }
+        }}
+        onChange={(e) => {
+          setSelectedOption(null);
+          setFieldValue(fieldName, e.target.value);
+          onChange?.(e);
+        }}
         fieldName={fieldName}
         isRequired
         isLoading={isLoading}
         placeholder={placeholder}
         errors={errors}
         touched={touched}
-        onChange={onChange}
       />
+
       <ul
         className={`${
           isDropDownOpen ? "block" : "hidden"
@@ -85,6 +108,9 @@ export default function LocationInput({
             key={item.key}
             className="p-2 cursor-pointer xl:hover:bg-main/10 xl:hover:text-main transition duration-300 ease-in-out"
             onClick={() => {
+              setSelectedOption(item);
+              setFieldValue(fieldName, item.description); // зберігаємо значення у Formik
+              setFieldError(fieldName, undefined); // прибираємо помилку
               onSelect(item);
               setIsDropDownOpen(false);
             }}
