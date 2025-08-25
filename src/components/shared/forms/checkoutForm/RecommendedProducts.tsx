@@ -7,9 +7,9 @@ import CheckoutSubTitle from "./CheckoutSubtitle";
 import { fetchSanityDataClient } from "@/utils/fetchSanityDataClient";
 import { Product } from "@/types/product";
 import Image from "next/image";
-import MainButton from "../buttons/MainButton";
+import MainButton from "../../buttons/MainButton";
 import Link from "next/link";
-import CartIcon from "../icons/CartIcon";
+import CartIcon from "../../icons/CartIcon";
 
 export default function RecommendedProducts() {
   const [recommendedProducts, setRecommendedProducts] = useState<Product[]>([]);

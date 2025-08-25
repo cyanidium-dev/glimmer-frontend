@@ -2,9 +2,9 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useFormikContext, ErrorMessage } from "formik";
-import CustomizedInput from "../formComponents/CustomizedInput";
-import RadioButtonInput from "../formComponents/RadioButtonInput";
-import LocationInput from "../formComponents/LocationInput";
+import CustomizedInput from "../../formComponents/CustomizedInput";
+import RadioButtonInput from "../../formComponents/RadioButtonInput";
+import LocationInput from "../../formComponents/LocationInput";
 import { City } from "@/types/city";
 import { getNPBranches } from "@/utils/getNpBranches";
 
@@ -69,6 +69,23 @@ export default function DeliveryBlock({ citiesNovaPost }: DeliveryBlockProps) {
       .catch(() => setWarehouses([]))
       .finally(() => setIsLoadingWarehouses(false));
   }, [cityRef]);
+
+  useEffect(() => {
+    if (!values.deliveryService) return;
+
+    // Скидаємо значення інпутів у Formik
+    setFieldValue("city", "");
+    setFieldValue("branchNumber", "");
+    setFieldValue("address", "");
+
+    // Скидаємо локальні стейти
+    setCityRef(null);
+    setWarehouses([]);
+    setFilteredCities([]);
+    setFilteredWarehouses([]);
+    setIsCitiesDropDownOpen(false);
+    setIsWarehousesDropDownOpen(false);
+  }, [values.deliveryService, setFieldValue]);
 
   const onCitiesLocationInputChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -182,51 +199,75 @@ export default function DeliveryBlock({ citiesNovaPost }: DeliveryBlockProps) {
 
         {/* Інпути */}
         <div className="flex flex-col gap-4">
-          <LocationInput
-            fieldName="city"
-            placeholder={"Назва населеного пункту"}
-            errors={errors}
-            touched={touched}
-            options={filteredCities}
-            isDropDownOpen={isCitiesDropDownOpen}
-            setIsDropDownOpen={setIsCitiesDropDownOpen}
-            onChange={onCitiesLocationInputChange}
-            onSelect={(city) => {
-              setFieldValue("city", city.description);
-              setCityRef(city.key);
-              setIsCitiesDropDownOpen(false);
-            }}
-          />
+          {/* Якщо Нова пошта → працюємо з LocationInput */}
+          {values.deliveryService === "Нова пошта" ? (
+            <>
+              <LocationInput
+                fieldName="city"
+                placeholder={"Назва населеного пункту"}
+                errors={errors}
+                touched={touched}
+                options={filteredCities}
+                isDropDownOpen={isCitiesDropDownOpen}
+                setIsDropDownOpen={setIsCitiesDropDownOpen}
+                onChange={onCitiesLocationInputChange}
+                onSelect={(city) => {
+                  setFieldValue("city", city.description);
+                  setCityRef(city.key);
+                  setIsCitiesDropDownOpen(false);
+                }}
+              />
 
-          {/* Відділення */}
-          {values.deliveryType !== "Доставка кур’єром" ? (
-            <LocationInput
-              fieldName="branchNumber"
-              placeholder={
-                values.deliveryType === "Відділення"
-                  ? "Номер відділення"
-                  : "Номер поштомату"
-              }
-              errors={errors}
-              touched={touched}
-              options={filteredWarehouses}
-              isLoading={isLoadingWarehouses}
-              isDropDownOpen={isWarehousesDropDownOpen}
-              setIsDropDownOpen={setIsWarehousesDropDownOpen}
-              onChange={onWarehousesInputChange}
-              onSelect={(branch) => {
-                setFieldValue("branchNumber", branch.description);
-                setIsWarehousesDropDownOpen(false);
-              }}
-            />
-          ) : (
-            <CustomizedInput
-              fieldName="address"
-              placeholder={"Адреса"}
-              isRequired
-              errors={errors}
-              touched={touched}
-            />
+              {values.deliveryType !== "Доставка кур’єром" ? (
+                <LocationInput
+                  fieldName="branchNumber"
+                  placeholder={
+                    values.deliveryType === "Відділення"
+                      ? "Номер відділення"
+                      : "Номер поштомату"
+                  }
+                  errors={errors}
+                  touched={touched}
+                  options={filteredWarehouses}
+                  isLoading={isLoadingWarehouses}
+                  isDropDownOpen={isWarehousesDropDownOpen}
+                  setIsDropDownOpen={setIsWarehousesDropDownOpen}
+                  onChange={onWarehousesInputChange}
+                  onSelect={(branch) => {
+                    setFieldValue("branchNumber", branch.description);
+                    setIsWarehousesDropDownOpen(false);
+                  }}
+                />
+              ) : (
+                <CustomizedInput
+                  fieldName="address"
+                  placeholder={"Адреса"}
+                  isRequired
+                  errors={errors}
+                  touched={touched}
+                />
+              )}
+            </>
+          ) : null}
+
+          {/* Якщо Укрпошта → просто інпути */}
+          {values.deliveryService === "Укрпошта" && (
+            <>
+              <CustomizedInput
+                fieldName="city"
+                placeholder="Місто"
+                isRequired
+                errors={errors}
+                touched={touched}
+              />
+              <CustomizedInput
+                fieldName="branchNumber"
+                placeholder="Відділення"
+                isRequired
+                errors={errors}
+                touched={touched}
+              />
+            </>
           )}
         </div>
       </div>

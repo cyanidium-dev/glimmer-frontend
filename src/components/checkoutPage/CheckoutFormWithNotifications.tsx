@@ -3,7 +3,7 @@
 import { useState } from "react";
 import NotificationPopUp from "../shared/pop-ups/NotitficationPopUp";
 import Backdrop from "../shared/backdrop/Backdrop";
-import CheckoutForm from "../shared/forms/CheckoutForm";
+import CheckoutForm from "../shared/forms/checkoutForm/CheckoutForm";
 import { City } from "@/types/city";
 
 interface CheckoutFormWithNotificationsProps {

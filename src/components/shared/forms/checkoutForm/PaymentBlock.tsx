@@ -1,6 +1,6 @@
 import { useFormikContext } from "formik";
 import { useEffect } from "react";
-import RadioButtonInput from "../formComponents/RadioButtonInput";
+import RadioButtonInput from "../../formComponents/RadioButtonInput";
 
 export default function PaymentBlock() {
   const { values, setFieldValue } = useFormikContext<{
