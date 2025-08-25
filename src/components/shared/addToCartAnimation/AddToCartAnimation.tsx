@@ -1,63 +1,57 @@
-import { useCartStore } from "@/store/cartStore";
-import Image from "next/image";
+"use client";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import { createPortal } from "react-dom";
 
-export default function AddToCartAnimation() {
-  const { isCartAnimating, cartAnimationKey, animatingImage } = useCartStore();
+interface AddToCartAnimationProps {
+  startPos: { top: number; left: number };
+  animationKey: number;
+  image: string;
+}
 
+export default function AddToCartAnimation({
+  startPos,
+  animationKey,
+  image,
+}: AddToCartAnimationProps) {
   const cartButton = document.getElementById("cart-button");
+  const cartRect = cartButton?.getBoundingClientRect();
 
-  const cartButtonTop = cartButton?.getBoundingClientRect()?.top;
-  const cartButtonLeft = cartButton?.getBoundingClientRect()?.left;
+  if (!cartRect) return null;
 
-  const addToCartButton = document.getElementById("add-to-cart-button");
+  const OFFSET_X = -10;
+  const OFFSET_Y = -15;
 
-  const addToCartButtonTop = addToCartButton?.getBoundingClientRect()?.top;
-  const addToCartButtonLeft = addToCartButton?.getBoundingClientRect()?.left;
+  const endTop = cartRect.top + OFFSET_Y;
+  const endLeft = cartRect.left + OFFSET_X;
 
-  return (
-    <>
-      {isCartAnimating && (
-        <motion.div
-          key={cartAnimationKey} // змінюємо ключ, щоб перезапустити анімацію
-          className="fixed z-[100]"
-          style={{
-            top: addToCartButtonTop,
-            left: addToCartButtonLeft,
-          }}
-          initial={{ scale: 1 }}
-          animate={{
-            scale: 0.3,
-            y:
-              cartButtonTop !== undefined && addToCartButtonTop !== undefined
-                ? cartButtonTop - addToCartButtonTop
-                : 0,
-            x: [
-              0,
-              -54,
-              cartButtonLeft !== undefined && addToCartButtonLeft !== undefined
-                ? cartButtonLeft - addToCartButtonLeft
-                : 0,
-            ],
-            opacity: 0,
-            transition: {
-              duration: 1.5,
-              ease: "easeInOut",
-              times: [0, 0.4, 1],
-            },
-          }}
-        >
-          <div className="relative w-[50px] lg:w-[70px] h-[50px] lg:h-[70px] overflow-hidden rounded-[12px]">
-            {" "}
-            <Image
-              src={animatingImage?.url || ""}
-              alt={animatingImage?.alt || ""}
-              fill
-              className="w-full h-hull object-cover"
-            />
-          </div>
-        </motion.div>
-      )}
-    </>
+  const animation = (
+    <motion.div
+      key={animationKey}
+      className="fixed z-[100] pointer-events-none"
+      style={{
+        top: startPos.top + window.scrollY,
+        left: startPos.left + window.scrollX,
+      }}
+      initial={{ scale: 1, opacity: 1 }}
+      animate={{
+        scale: 0.2,
+        y: endTop - (startPos.top + window.scrollY),
+        x: endLeft - (startPos.left + window.scrollX),
+        opacity: 0.2,
+        transition: { duration: 0.8, ease: "easeInOut", times: [0, 0.4, 1] },
+      }}
+    >
+      <div className="relative w-[50px] lg:w-[70px] h-[50px] lg:h-[70px] overflow-hidden rounded-[12px]">
+        <Image
+          src={image}
+          alt="product image"
+          fill
+          className="w-full h-full object-cover"
+        />
+      </div>
+    </motion.div>
   );
+
+  return createPortal(animation, document.body);
 }

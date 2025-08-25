@@ -1,3 +1,4 @@
+"use client";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Product } from "@/types/product";
@@ -14,7 +15,7 @@ interface CartStore {
   promoDiscountPercent: number;
   promoPublishers: { id: string; name: string }[];
 
-  hydrated: boolean; // флаг, що показує, чи підвантажився persisted state
+  hydrated: boolean;
 
   addToCart: (product: Product, quantity?: number) => void;
   removeFromCart: (productId: string) => void;
@@ -33,29 +34,16 @@ interface CartStore {
   getCartTotal: () => number;
   getPromoDiscountTotal: () => number;
   getItemFinalPrice: (productId: string) => number;
-
-  isCartAnimating: boolean;
-  cartAnimationKey: number;
-  animatingImage: { url: string; alt: string } | null;
-  setCartAnimation: (isAnimating: boolean) => void;
-  setCartAnimationKey: () => void;
-  setAnimatingImage: (image: { url: string; alt: string } | null) => void;
 }
 
 export const useCartStore = create<CartStore>()(
   persist(
     (set, get) => ({
       cart: [],
-
       promoCode: null,
       promoDiscountPercent: 0,
       promoPublishers: [],
-
-      hydrated: false, // спочатку false
-
-      isCartAnimating: false,
-      cartAnimationKey: Date.now(),
-      animatingImage: null,
+      hydrated: false,
 
       addToCart: (product, quantity = 1) => {
         const cart = get().cart.slice();
@@ -70,11 +58,8 @@ export const useCartStore = create<CartStore>()(
         set({ cart });
       },
 
-      removeFromCart: (productId) => {
-        set({
-          cart: get().cart.filter((item) => item.product.id !== productId),
-        });
-      },
+      removeFromCart: (productId) =>
+        set({ cart: get().cart.filter((i) => i.product.id !== productId) }),
 
       updateQuantity: (productId, quantity) => {
         const cart = get().cart.slice();
@@ -111,43 +96,34 @@ export const useCartStore = create<CartStore>()(
           promoPublishers: [],
         }),
 
-      applyPromoCode: (code, discountPercent, publishers) => {
+      applyPromoCode: (code, discountPercent, publishers) =>
         set({
           promoCode: code,
           promoDiscountPercent: discountPercent,
           promoPublishers: publishers,
-        });
-      },
+        }),
 
       removePromoCode: () =>
-        set({
-          promoCode: null,
-          promoDiscountPercent: 0,
-          promoPublishers: [],
-        }),
+        set({ promoCode: null, promoDiscountPercent: 0, promoPublishers: [] }),
 
       getCartTotal: () => {
         const { cart, promoCode, promoDiscountPercent, promoPublishers } =
           get();
         return cart.reduce((sum, item) => {
           const basePrice = item.product.discountPrice ?? item.product.price;
-
           const publisherFeature = item.product.features?.find(
             (f) => f.featureName.toLowerCase() === "видавництво"
           );
           const publisherValue = publisherFeature?.value;
-
           const isEligible =
             promoCode &&
             publisherValue &&
             promoPublishers.some(
               (pub) => pub.name.toLowerCase() === publisherValue.toLowerCase()
             );
-
           const finalPrice = isEligible
             ? basePrice * (1 - promoDiscountPercent / 100)
             : basePrice;
-
           return sum + finalPrice * item.quantity;
         }, 0);
       },
@@ -155,25 +131,19 @@ export const useCartStore = create<CartStore>()(
       getPromoDiscountTotal: () => {
         const { cart, promoDiscountPercent, promoPublishers } = get();
         if (!promoDiscountPercent) return 0;
-
         return cart.reduce((sum, item) => {
           const basePrice = item.product.discountPrice ?? item.product.price;
-
           const publisherFeature = item.product.features?.find(
             (f) => f.featureName.toLowerCase() === "видавництво"
           );
           const publisherValue = publisherFeature?.value;
-
           const isEligible =
             publisherValue &&
             promoPublishers.some(
               (pub) => pub.name.toLowerCase() === publisherValue.toLowerCase()
             );
-
           if (!isEligible) return sum;
-
-          const discount = basePrice * (promoDiscountPercent / 100);
-          return sum + discount * item.quantity;
+          return sum + basePrice * (promoDiscountPercent / 100) * item.quantity;
         }, 0);
       },
 
@@ -181,42 +151,25 @@ export const useCartStore = create<CartStore>()(
         const { cart, promoDiscountPercent, promoPublishers } = get();
         const item = cart.find((i) => i.product.id === productId);
         if (!item) return 0;
-
         const basePrice = item.product.discountPrice ?? item.product.price;
-
         const publisherFeature = item.product.features?.find(
           (f) => f.featureName.toLowerCase() === "видавництво"
         );
-
         const publisherValue = publisherFeature?.value;
-
         const isEligible =
           publisherValue &&
           promoPublishers.some(
             (pub) => pub.name.toLowerCase() === publisherValue.toLowerCase()
           );
-
         return isEligible
           ? basePrice * (1 - promoDiscountPercent / 100)
           : basePrice;
-      },
-
-      setCartAnimation: (isAnimating) => {
-        set({ isCartAnimating: isAnimating });
-      },
-
-      setCartAnimationKey: () => {
-        set({ cartAnimationKey: Date.now() });
-      },
-
-      setAnimatingImage: (image) => {
-        set({ animatingImage: image });
       },
     }),
     {
       name: "glimmer-cart-storage",
       onRehydrateStorage: () => (state) => {
-        if (state) state.hydrated = true; // після завантаження persisted state
+        if (state) state.hydrated = true;
       },
     }
   )
