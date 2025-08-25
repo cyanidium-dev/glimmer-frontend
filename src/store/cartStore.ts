@@ -33,6 +33,13 @@ interface CartStore {
   getCartTotal: () => number;
   getPromoDiscountTotal: () => number;
   getItemFinalPrice: (productId: string) => number;
+
+  isCartAnimating: boolean;
+  cartAnimationKey: number;
+  animatingImage: { url: string; alt: string } | null;
+  setCartAnimation: (isAnimating: boolean) => void;
+  setCartAnimationKey: () => void;
+  setAnimatingImage: (image: { url: string; alt: string } | null) => void;
 }
 
 export const useCartStore = create<CartStore>()(
@@ -45,6 +52,10 @@ export const useCartStore = create<CartStore>()(
       promoPublishers: [],
 
       hydrated: false, // спочатку false
+
+      isCartAnimating: false,
+      cartAnimationKey: Date.now(),
+      animatingImage: null,
 
       addToCart: (product, quantity = 1) => {
         const cart = get().cart.slice();
@@ -188,6 +199,18 @@ export const useCartStore = create<CartStore>()(
         return isEligible
           ? basePrice * (1 - promoDiscountPercent / 100)
           : basePrice;
+      },
+
+      setCartAnimation: (isAnimating) => {
+        set({ isCartAnimating: isAnimating });
+      },
+
+      setCartAnimationKey: () => {
+        set({ cartAnimationKey: Date.now() });
+      },
+
+      setAnimatingImage: (image) => {
+        set({ animatingImage: image });
       },
     }),
     {
