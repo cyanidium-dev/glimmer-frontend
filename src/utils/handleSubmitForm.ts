@@ -1,7 +1,7 @@
 import { FormikHelpers } from "formik";
 import axios from "axios";
 import { Dispatch, SetStateAction } from "react";
-import { ValuesCheckoutFormType } from "@/components/shared/forms/CheckoutForm";
+import { ValuesCheckoutFormType } from "@/components/shared/forms/checkoutForm/CheckoutForm";
 import { generateOrderNumber } from "./generateOrderNumber";
 import { fetchSanityDataClient } from "./fetchSanityDataClient";
 import { productsByIds, promocodeByCodeQuery } from "../lib/queries";
@@ -181,7 +181,7 @@ export const handleSubmitForm = async <T>(
     `<b>Оплата:</b> ${values.payment.trim()}\n` +
     `<b>Повідомлення:</b> ${values.message?.trim()}\n` +
     `<b>Промокод:</b> ${promoCode || ""}\n` +
-    `<b>Розмір знижки за промокодом:</b> ${`${promoDiscountPercent}%` || ""}\n` +
+    `<b>Розмір знижки за промокодом:</b> ${promoDiscountPercent ? `${promoDiscountPercent}%` : ""}\n` +
     `<b>Список товарів в замовленні:</b>\n${orderedListProducts}\n` +
     `<b>Сума замовлення:</b> ${totalOrderSum} грн\n`;
 

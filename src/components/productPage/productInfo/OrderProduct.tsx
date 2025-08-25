@@ -1,12 +1,11 @@
 "use client";
 import { useState } from "react";
-import MainButton from "@/components/shared/buttons/MainButton";
 import Counter from "./Counter";
 import FavoriteButton from "./FavoriteButton";
 import { Product } from "@/types/product";
-import { useCartStore } from "@/store/cartStore";
 import * as motion from "motion/react-client";
 import { fadeInAnimation } from "@/utils/animationVariants";
+import AddToCartButton from "./AddToCartButton";
 
 interface OrderProductProps {
   currentProduct: Product;
@@ -14,7 +13,6 @@ interface OrderProductProps {
 
 export default function OrderProduct({ currentProduct }: OrderProductProps) {
   const [count, setCount] = useState(1);
-  const { addToCart } = useCartStore();
 
   const { price, discountPrice } = currentProduct;
 
@@ -49,12 +47,10 @@ export default function OrderProduct({ currentProduct }: OrderProductProps) {
       </div>
       <div className="flex justify-between gap-4">
         <FavoriteButton currentProduct={currentProduct} />
-        <MainButton
-          onClick={() => addToCart(currentProduct, count)}
+        <AddToCartButton
+          product={currentProduct}
           className="h-[45px] lg:max-w-[170px]"
-        >
-          Купити
-        </MainButton>
+        />
       </div>
     </motion.div>
   );

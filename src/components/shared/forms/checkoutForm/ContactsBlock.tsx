@@ -1,4 +1,4 @@
-import CustomizedInput from "../formComponents/CustomizedInput";
+import CustomizedInput from "../../formComponents/CustomizedInput";
 import { useFormikContext } from "formik";
 import MaskedInput from "react-text-mask";
 import { phoneMask } from "@/regex/regex";

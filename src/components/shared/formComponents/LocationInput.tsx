@@ -3,7 +3,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import CustomizedInput from "./CustomizedInput";
 import { FormikTouched, FormikErrors } from "formik";
-import { ValuesCheckoutFormType } from "../forms/CheckoutForm";
+import { ValuesCheckoutFormType } from "../forms/checkoutForm/CheckoutForm";
 
 interface Option {
   key: string;
