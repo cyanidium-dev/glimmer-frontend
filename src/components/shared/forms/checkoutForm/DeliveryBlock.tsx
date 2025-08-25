@@ -35,7 +35,6 @@ const deliveryServices = [
 
 export default function DeliveryBlock({ citiesNovaPost }: DeliveryBlockProps) {
   const [isCitiesDropDownOpen, setIsCitiesDropDownOpen] = useState(false);
-  const [cityRef, setCityRef] = useState<string | null>(null);
   const [filteredCities, setFilteredCities] = useState<
     { key: string; description: string }[]
   >([]);
@@ -61,14 +60,32 @@ export default function DeliveryBlock({ citiesNovaPost }: DeliveryBlockProps) {
   }, [setFieldValue]);
 
   useEffect(() => {
-    if (!cityRef) return;
+    if (!values.city) {
+      setFilteredWarehouses([]);
+      setIsWarehousesDropDownOpen(false);
+      setFieldValue("branchNumber", "");
+      setWarehouses([]);
+
+      return;
+    }
+
+    // Знаходимо Ref для нового міста
+    const selectedCity = citiesNovaPost.find(
+      (c) => c.Description === values.city
+    );
+    if (!selectedCity) return;
+
     setIsLoadingWarehouses(true);
 
-    getNPBranches(cityRef)
+    getNPBranches(selectedCity.Ref)
       .then((data) => setWarehouses(data))
-      .catch(() => setWarehouses([]))
       .finally(() => setIsLoadingWarehouses(false));
-  }, [cityRef]);
+
+    // очищаємо старе відділення
+    setFieldValue("branchNumber", "");
+    setFilteredWarehouses([]);
+    setIsWarehousesDropDownOpen(false);
+  }, [values.city, citiesNovaPost, setFieldValue]);
 
   useEffect(() => {
     if (!values.deliveryService) return;
@@ -79,7 +96,7 @@ export default function DeliveryBlock({ citiesNovaPost }: DeliveryBlockProps) {
     setFieldValue("address", "");
 
     // Скидаємо локальні стейти
-    setCityRef(null);
+
     setWarehouses([]);
     setFilteredCities([]);
     setFilteredWarehouses([]);
@@ -205,15 +222,12 @@ export default function DeliveryBlock({ citiesNovaPost }: DeliveryBlockProps) {
               <LocationInput
                 fieldName="city"
                 placeholder={"Назва населеного пункту"}
-                errors={errors}
-                touched={touched}
                 options={filteredCities}
                 isDropDownOpen={isCitiesDropDownOpen}
                 setIsDropDownOpen={setIsCitiesDropDownOpen}
                 onChange={onCitiesLocationInputChange}
                 onSelect={(city) => {
                   setFieldValue("city", city.description);
-                  setCityRef(city.key);
                   setIsCitiesDropDownOpen(false);
                 }}
               />
@@ -226,8 +240,6 @@ export default function DeliveryBlock({ citiesNovaPost }: DeliveryBlockProps) {
                       ? "Номер відділення"
                       : "Номер поштомату"
                   }
-                  errors={errors}
-                  touched={touched}
                   options={filteredWarehouses}
                   isLoading={isLoadingWarehouses}
                   isDropDownOpen={isWarehousesDropDownOpen}

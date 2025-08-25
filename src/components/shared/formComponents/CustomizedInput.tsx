@@ -54,6 +54,7 @@ export default function CustomizedInput({
   mask = "",
   onChange,
   onFocus,
+  onBlur,
   inputType = "text",
   isLoading = false,
 }: CustomizedInputProps) {
@@ -76,6 +77,7 @@ export default function CustomizedInput({
           autoComplete="on"
           onChange={onChange || handleChange}
           onFocus={onFocus}
+          onBlur={onBlur}
           className={twMerge(
             clsx(
               `${fieldStyles}  ${
