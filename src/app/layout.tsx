@@ -1,3 +1,5 @@
+export const revalidate = 60;
+
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import "react-image-gallery/styles/css/image-gallery.css";
