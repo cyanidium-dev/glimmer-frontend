@@ -173,11 +173,15 @@ export function OrderConfirmationEmail({
               <br />
               Адреса:{" "}
               <b>
-                {deliveryType === "Відділення" && branchNumber
-                  ? `Відділення №${branchNumber}, `
-                  : deliveryType === "Поштомат" && branchNumber
-                    ? `Поштомат №${branchNumber}, `
-                    : ""}
+                {branchNumber
+                  ? deliveryService === "Нова пошта"
+                    ? `${branchNumber}, `
+                    : deliveryType === "Відділення"
+                      ? `Відділення №${branchNumber}, `
+                      : deliveryType === "Поштомат"
+                        ? `Поштомат №${branchNumber}, `
+                        : `${branchNumber}, `
+                  : ""}
               </b>
               <b>
                 {deliveryType === "Доставка кур’єром"

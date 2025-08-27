@@ -30,6 +30,7 @@ export default function Confirmation() {
     address,
     cart,
     totalOrderSum,
+    deliveryService,
   } = order;
 
   const handleDownloadPDF = () => {
@@ -118,7 +119,13 @@ export default function Confirmation() {
               width: "*",
               text: [
                 {
-                  text: `${city}, ${branchNumber ? "відділення №" + branchNumber : address}\n`,
+                  text: `${city}, ${
+                    branchNumber
+                      ? deliveryService === "Нова пошта"
+                        ? branchNumber
+                        : "відділення №" + branchNumber
+                      : address
+                  }\n`,
                   bold: true,
                 },
               ],
@@ -195,7 +202,6 @@ export default function Confirmation() {
 
   return (
     <section className="relative py-[116px] lg:py-50">
-      {/* Твої бекграундні картинки */}
       <motion.div
         initial="hidden"
         whileInView="visible"
