@@ -1,5 +1,5 @@
 export const socials = {
-  instagram: "https://www.instagram.com",
+  instagram: "https://www.instagram.com/glimmer.publishing/",
   youtube: "https://www.youtube.com",
   tiktok: "https://www.tiktok.com",
   facebook: "https://www.facebook.com",

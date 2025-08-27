@@ -1,16 +1,16 @@
 import InstagramIcon from "../icons/InstagramIcon";
-import YoutubeIcon from "../icons/YoutubeIcon";
-import FacebookIcon from "../icons/FacebookIcon";
-import TiktokIcon from "../icons/TiktokIcon";
+// import YoutubeIcon from "../icons/YoutubeIcon";
+// import FacebookIcon from "../icons/FacebookIcon";
+// import TiktokIcon from "../icons/TiktokIcon";
 import MonopayIcon from "../icons/MonoPayIcon";
 import { socials } from "@/constants/constants";
 
 export default function Socials() {
-  const { facebook, tiktok, youtube, instagram } = socials;
+  const { instagram } = socials;
 
   return (
     <ul className="flex gap-5 items-center md:max-w-[176px] lg:max-w-full flex-wrap">
-      <li>
+      {/* <li>
         <a
           href={facebook}
           target="_blank"
@@ -39,7 +39,7 @@ export default function Socials() {
         >
           <YoutubeIcon className="size-8" />
         </a>
-      </li>
+      </li> */}
       <li>
         <a
           href={instagram}

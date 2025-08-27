@@ -32,7 +32,7 @@ export default function HeroSlide({ banner }: HeroSlideProps) {
         className="-z-10 object-cover"
       />
       <Container
-        className={`flex min-h-full flex-1 ${button.position === "bottomLeft" ? "flex-col justify-between" : button.position === "bottomRight" ? "flex-col justify-between" : "flex-col-reverse"}`}
+        className={`flex min-h-full flex-1 ${button.position === "bottomLeft" ? "flex-col justify-between" : button.position === "bottomRight" ? "flex-col justify-between" : "flex-col-reverse justify-between"}`}
       >
         {title || description ? (
           <div
@@ -70,11 +70,9 @@ export default function HeroSlide({ banner }: HeroSlideProps) {
           exit="exit"
           viewport={{ once: true, amount: 0.2 }}
           variants={fadeInAnimation({ scale: 0.95 })}
+          className={`${button.position === "bottomRight" ? "ml-auto lg:mb-16" : button.position === "bottomLeft" ? "mt-auto" : "ml-auto mb-8"}`}
         >
-          <Link
-            href={button?.link}
-            className={`w-fit ${button.position === "bottomRight" ? "ml-auto" : button.position === "bottomLeft" ? "mt-auto" : "ml-auto mb-8"} `}
-          >
+          <Link href={button?.link} className={`w-fit  `}>
             <MainButton variant="secondary" className="w-[230px] h-[53px]">
               {button?.label}
             </MainButton>
