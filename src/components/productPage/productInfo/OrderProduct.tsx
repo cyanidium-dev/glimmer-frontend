@@ -49,6 +49,7 @@ export default function OrderProduct({ currentProduct }: OrderProductProps) {
         <FavoriteButton currentProduct={currentProduct} />
         <AddToCartButton
           product={currentProduct}
+          count={count}
           className="h-[45px] lg:max-w-[170px]"
         />
       </div>
