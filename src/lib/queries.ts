@@ -15,9 +15,10 @@ export const allCategoriesAndProductsQuery = `
     title,
     "slug": slug.current,
     order,
-    genres[]->{
+    genres[]-> | order(order asc){
       "title": name,
-      "slug": slug.current
+      "slug": slug.current,
+      order
     }
   },
   "products": *[_type == "product"]{
