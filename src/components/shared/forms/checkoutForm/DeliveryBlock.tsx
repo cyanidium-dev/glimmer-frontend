@@ -199,7 +199,7 @@ export default function DeliveryBlock({ citiesNovaPost }: DeliveryBlockProps) {
               key={idx}
               fieldName="deliveryType"
               value={type.value}
-              onClick={() => setFieldValue("deliveryType", type)}
+              onClick={() => setFieldValue("deliveryType", type.value)}
               label={type.label}
             />
           ))}
@@ -272,9 +272,20 @@ export default function DeliveryBlock({ citiesNovaPost }: DeliveryBlockProps) {
                 errors={errors}
                 touched={touched}
               />
+
               <CustomizedInput
-                fieldName="branchNumber"
-                placeholder="Відділення"
+                fieldName={
+                  values.deliveryType === "Доставка кур’єром"
+                    ? "address"
+                    : "branchNumber"
+                }
+                placeholder={
+                  values.deliveryType === "Доставка кур’єром"
+                    ? "Адреса"
+                    : values.deliveryType === "Відділення"
+                      ? "Номер відділення"
+                      : "Номер поштомату"
+                }
                 isRequired
                 errors={errors}
                 touched={touched}

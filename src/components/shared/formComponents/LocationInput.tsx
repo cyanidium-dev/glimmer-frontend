@@ -40,14 +40,8 @@ export default function LocationInput({
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
 
-  const {
-    setFieldError,
-    setFieldTouched,
-    setFieldValue,
-    errors,
-    touched,
-    values,
-  } = useFormikContext<ValuesCheckoutFormType>();
+  const { setFieldError, setFieldTouched, setFieldValue, errors, touched } =
+    useFormikContext<ValuesCheckoutFormType>();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
