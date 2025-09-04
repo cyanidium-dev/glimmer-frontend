@@ -32,6 +32,7 @@ export const allCategoriesAndProductsQuery = `
     isBestseller,
     isNew,
     sku,
+     preOrderShippingDate,
     features[] {
       "featureName": feature->name,
       value
@@ -81,6 +82,7 @@ export const homepageCombinedQuery = `{
     isBestseller,
     isNew,
     sku,
+    preOrderShippingDate,
     features[]{
       "featureName": feature->name,
       value
@@ -124,6 +126,7 @@ export const allDiscountedProductsQuery = `
     isBestseller,
     isNew,
     sku,
+    preOrderShippingDate,
     features[]{
       "featureName": feature->name,
       value
@@ -169,6 +172,7 @@ export const allProductsByCategoryQuery = `
       isBestseller,
       isNew,
       sku,
+      preOrderShippingDate,
       features[]{
       "featureName": feature->name,
       value
@@ -203,6 +207,7 @@ export const allProductsByCategoryQuery = `
     isBestseller,
     isNew,
     sku,
+    preOrderShippingDate,
     features[]{
       "featureName": feature->name,
       value
@@ -234,8 +239,7 @@ export const productBySlugQuery = `
     "bookScreens": bookScreens[].asset->url,
     sku,
     preOrderShippingDate,
-    sku,
-    features[]{
+      features[]{
       "featureName": feature->name,
       value
     },
