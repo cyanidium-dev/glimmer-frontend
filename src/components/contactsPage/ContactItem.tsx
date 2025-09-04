@@ -30,7 +30,7 @@ export default function ContactItem({
           className="shrink-0"
         />
       </div>
-      <div className="text-[14px] lg:text-[18px] font-medium leading-[120%]">
+      <div className="text-[12px] xs:text-[14px] lg:text-[18px] font-medium leading-[120%]">
         {description}
       </div>
     </motion.div>
