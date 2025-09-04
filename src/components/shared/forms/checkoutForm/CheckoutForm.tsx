@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { checkoutValidation } from "@/schemas/checkoutValidation";
 import { handleSubmitForm } from "@/utils/handleSubmitForm";
 import { useCartStore } from "@/store/cartStore";
-// import { useMonopayBasketOrder } from "@/shared/hooks/useMonopayBasketOrder";
+import { useMonopayBasketOrder } from "@/hooks/useMonopayBasletOrder";
 import CustomizedInput from "../../formComponents/CustomizedInput";
 import CheckoutSubTitle from "./CheckoutSubtitle";
 import { promocodeByCodeQuery } from "@/lib/queries";
@@ -64,6 +64,8 @@ export default function CheckoutForm({
 
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingPromocode, setIsLoadingPromocode] = useState(false);
+
+  const basketOrder = useMonopayBasketOrder();
 
   if (!hydrated) return null;
 
@@ -132,8 +134,6 @@ export default function CheckoutForm({
     setFieldValue("promocode", "");
   };
 
-  //   const basketOrder = useMonopayBasketOrder();
-
   const submitForm = async (
     values: ValuesCheckoutFormType,
     formikHelpers: FormikHelpers<ValuesCheckoutFormType>
@@ -145,8 +145,8 @@ export default function CheckoutForm({
       setIsUnavailable,
       setIsNotificationShown,
       values,
-      router
-      //   basketOrder
+      router,
+      basketOrder
     );
   };
 

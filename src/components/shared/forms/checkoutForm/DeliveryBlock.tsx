@@ -217,10 +217,8 @@ export default function DeliveryBlock({ citiesNovaPost }: DeliveryBlockProps) {
           )
         ) : values.deliveryType !== "Доставка кур’єром" ? (
           <p className="mb-6 text-[14px] lg:text-[15px] font-medium leading-[120%]">
-            <p className="mb-6 text-[14px] lg:text-[15px] font-medium leading-[120%]">
-              Оберіть <span className="lowercase">{values.deliveryType}</span>{" "}
-              Нової пошти
-            </p>
+            Оберіть <span className="lowercase">{values.deliveryType}</span>{" "}
+            Нової пошти
           </p>
         ) : (
           <p className="mb-6 text-[14px] lg:text-[15px] font-medium leading-[120%]">
