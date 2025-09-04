@@ -6,6 +6,7 @@ import { Product } from "@/types/product";
 import * as motion from "motion/react-client";
 import { fadeInAnimation } from "@/utils/animationVariants";
 import AddToCartButton from "./AddToCartButton";
+import { formatDate } from "@/utils/formatDate";
 
 interface OrderProductProps {
   currentProduct: Product;
@@ -14,7 +15,11 @@ interface OrderProductProps {
 export default function OrderProduct({ currentProduct }: OrderProductProps) {
   const [count, setCount] = useState(1);
 
-  const { price, discountPrice } = currentProduct;
+  const { price, discountPrice, preOrderShippingDate, status } = currentProduct;
+
+  const formattedPreOrderShippingDate = preOrderShippingDate
+    ? formatDate(preOrderShippingDate)
+    : null;
 
   return (
     <motion.div
@@ -47,12 +52,18 @@ export default function OrderProduct({ currentProduct }: OrderProductProps) {
       </div>
       <div className="flex justify-between gap-4">
         <FavoriteButton currentProduct={currentProduct} />
+
         <AddToCartButton
           product={currentProduct}
           count={count}
-          className="h-[45px] lg:max-w-[170px]"
+          className="h-[45px] lg:max-w-[180px]"
         />
       </div>
+      {status === "preOrder" && formattedPreOrderShippingDate ? (
+        <p className="mt-1 mr-2 text-[10px] font-normal leading-[120%] text-accent text-right">
+          Відправка з {formattedPreOrderShippingDate}
+        </p>
+      ) : null}
     </motion.div>
   );
 }

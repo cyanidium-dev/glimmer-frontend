@@ -258,7 +258,7 @@ export const handleSubmitForm = async <T>(
       },
     });
 
-    // await sendDataToKeyCrm(collectedOrderData);
+    await sendDataToKeyCrm(collectedOrderData);
 
     //Очищаємо форму
     resetForm();

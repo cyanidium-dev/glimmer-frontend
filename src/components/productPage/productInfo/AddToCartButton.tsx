@@ -26,6 +26,8 @@ export default function AddToCartButton({
   } | null>(null);
   const [animatingImage, setAnimatingImage] = useState<string | null>(null);
 
+  const { status } = product;
+
   const handleAddToCart = () => {
     const button = buttonRef.current;
     if (!button) return;
@@ -51,9 +53,9 @@ export default function AddToCartButton({
       <MainButton
         ref={buttonRef}
         onClick={handleAddToCart}
-        className={`h-[45px] lg:max-w-[170px] ${className || ""}`}
+        className={`h-[45px] lg:max-w-[180px] ${className || ""}`}
       >
-        Купити
+        {status === "inStock" ? "Купити" : "Передзамовлення"}
       </MainButton>
 
       {animationKey && startPos && animatingImage && (

@@ -118,7 +118,7 @@ export default function ReadPassage({
               <FavoriteButton currentProduct={currentProduct} />
               <MainButton
                 onClick={() => addToCart(currentProduct, 1)}
-                className="h-[45px] lg:max-w-[170px]"
+                className="h-[45px] lg:max-w-[180px]"
               >
                 Купити
               </MainButton>

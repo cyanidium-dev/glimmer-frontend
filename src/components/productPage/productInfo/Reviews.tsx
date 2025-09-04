@@ -7,6 +7,7 @@ import StarFilledIcon from "@/components/shared/icons/StarFilledIcon";
 import WriteReview from "./WriteReview";
 import { Product } from "@/types/product";
 import * as motion from "motion/react-client";
+import { formatDate } from "@/utils/formatDate";
 import {
   fadeInAnimation,
   listVariants,
@@ -22,11 +23,6 @@ export default function Reviews({ reviews, currentProduct }: ReviewsProps) {
   const [showAll, setShowAll] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const [maxHeight, setMaxHeight] = useState("0px");
-
-  const formatDate = (isoDate: string) => {
-    const [year, month, day] = isoDate.split("-");
-    return `${day.padStart(2, "0")}.${month.padStart(2, "0")}.${year}`;
-  };
 
   useEffect(() => {
     if (!containerRef.current) return;
