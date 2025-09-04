@@ -12,7 +12,7 @@ import { Product } from "@/types/product";
 import { useRouter } from "next/navigation";
 import { sendDataToKeyCrm } from "./sendDataToKeyCrm";
 import { OrderConfirmationEmail } from "@/components/checkoutPage/OrderConfirmationEmail";
-// import { BasketOrder } from "../hooks/useMonopayBasketOrder";
+import { BasketOrder } from "@/hooks/useMonopayBasletOrder";
 import { render, pretty } from "@react-email/render";
 
 export const handleSubmitForm = async <T>(
@@ -22,8 +22,8 @@ export const handleSubmitForm = async <T>(
   setIsUnavailable: Dispatch<SetStateAction<boolean>>,
   setIsNotificationShown: Dispatch<SetStateAction<boolean>>,
   values: ValuesCheckoutFormType,
-  router: ReturnType<typeof useRouter>
-  //   basketOrder: BasketOrder
+  router: ReturnType<typeof useRouter>,
+  basketOrder: BasketOrder
 ) => {
   const {
     clearCart,
@@ -185,36 +185,36 @@ export const handleSubmitForm = async <T>(
     `<b>Список товарів в замовленні:</b>\n${orderedListProducts}\n` +
     `<b>Сума замовлення:</b> ${totalOrderSum} грн\n`;
 
-  //   if (collectedOrderData.payment === "Картою на сайті") {
-  //     try {
-  //       const res = await axios.post("/api/monopay/invoice", {
-  //         amount: totalOrderSum * 100, // сума в копійках
-  //         orderNumber,
-  //         basketOrder,
-  //       });
+  if (collectedOrderData.payment === "Оплата картою онлайн Visa, Mastercard") {
+    try {
+      const res = await axios.post("/api/monopay/invoice", {
+        amount: totalOrderSum * 100, // сума в копійках
+        orderNumber,
+        basketOrder,
+      });
 
-  //       const { pageUrl } = res.data;
+      const { pageUrl } = res.data;
 
-  //       //Очищаємо форму
-  //       resetForm();
-  //       //Очищаємо кошик
-  //       clearCart();
-  //       //Видаляємо промокод
-  //       removePromoCode();
+      //Очищаємо форму
+      resetForm();
+      //Очищаємо кошик
+      clearCart();
+      //Видаляємо промокод
+      removePromoCode();
 
-  //       if (pageUrl) {
-  //         window.location.href = pageUrl; // переадресація на оплату
-  //       } else {
-  //         console.error("Payment error: немає pageUrl", res.data);
-  //       }
-  //     } catch (error) {
-  //       setIsError(true);
-  //       setIsNotificationShown(true);
-  //       setIsLoading(false);
-  //       console.error(error);
-  //       return error;
-  //     }
-  //   }
+      if (pageUrl) {
+        window.location.href = pageUrl; // переадресація на оплату
+      } else {
+        console.error("Payment error: немає pageUrl", res.data);
+      }
+    } catch (error) {
+      setIsError(true);
+      setIsNotificationShown(true);
+      setIsLoading(false);
+      console.error(error);
+      return error;
+    }
+  }
 
   try {
     await axios({
