@@ -11,6 +11,7 @@ import { EMAIL_CLIENTS, PHONE } from "@/constants/constants";
 import { contactsPhoneRegex } from "@/regex/regex";
 import * as motion from "motion/react-client";
 import { fadeInAnimation } from "@/utils/animationVariants";
+import { formatDate } from "@/utils/formatDate";
 
 pdfMake.vfs = pdfFonts.vfs;
 
@@ -172,9 +173,13 @@ export default function Confirmation() {
               ],
               ...cart.map((item, index) => {
                 const price = item.product.discountPrice ?? item.product.price;
+                const formattedPreOrderShippingDate = item.product
+                  ?.preOrderShippingDate
+                  ? formatDate(item.product?.preOrderShippingDate)
+                  : null;
                 return [
                   index + 1,
-                  `"${item.product.title}" — ${item.product.author}`,
+                  `"${item.product.title}" — ${item.product.author}${formattedPreOrderShippingDate ? `, відправка з ${formattedPreOrderShippingDate}` : ""}`,
                   `${item.quantity} шт.`,
                   `${price} грн`,
                   `${price * item.quantity} грн`,

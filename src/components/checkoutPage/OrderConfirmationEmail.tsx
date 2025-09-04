@@ -21,6 +21,7 @@ type CartItem = {
     price: number;
     discountPrice?: number;
     mainImage?: string;
+    preOrderShippingDate?: string;
   };
   quantity: number;
 };
@@ -84,8 +85,14 @@ export function OrderConfirmationEmail({
 
           {/* Товари */}
           {cart.map((item, index) => {
-            const { title, author, price, discountPrice, mainImage } =
-              item.product;
+            const {
+              title,
+              author,
+              price,
+              discountPrice,
+              mainImage,
+              preOrderShippingDate,
+            } = item.product;
 
             // мінімальна логіка знижки без oldPrice:
             const hasDiscount =
@@ -113,6 +120,9 @@ export function OrderConfirmationEmail({
                     <Text style={productTitle}>
                       {title}
                       {author ? ` — ${author}` : ""}
+                      {preOrderShippingDate
+                        ? `, віправка з ${preOrderShippingDate}`
+                        : ""}
                     </Text>
 
                     {/* ЦІНА / ЗНИЖКА */}
