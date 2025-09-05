@@ -91,6 +91,11 @@ export default function CheckoutForm({
     setFieldError: (
       field: keyof ValuesCheckoutFormType,
       message: string
+    ) => void,
+    setFieldTouched: (
+      field: keyof ValuesCheckoutFormType,
+      isTouched?: boolean,
+      shouldValidate?: boolean
     ) => void
   ) => {
     try {
@@ -106,7 +111,9 @@ export default function CheckoutForm({
           : null;
 
         if (expirationDate && expirationDate < now) {
+          removePromoCode();
           setFieldError("promocode", "Термін дії промокоду вичерпано");
+          setFieldTouched("promocode", true, false);
           return;
         }
         const discount = promocode.discountPercent;
@@ -164,6 +171,7 @@ export default function CheckoutForm({
         values,
         setFieldError,
         setFieldValue,
+        setFieldTouched,
       }) => (
         <Form
           className={`relative flex flex-col md:flex-row md:gap-8 w-full ${className}`}
@@ -264,7 +272,9 @@ export default function CheckoutForm({
                   e.preventDefault();
                   if (promoCode) {
                     removePromo(setFieldValue);
-                  } else verifyPromo(values, setFieldError);
+                  } else {
+                    verifyPromo(values, setFieldError, setFieldTouched);
+                  }
                 }}
                 type="button"
                 disabled={!values.promocode}
