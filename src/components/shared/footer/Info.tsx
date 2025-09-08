@@ -1,12 +1,12 @@
 import Socials from "./Socials";
-import { WORKING_HOURS } from "@/constants/constants";
+import { PHONE, WORKING_HOURS } from "@/constants/constants";
 
 export default function Info() {
   return (
     <div className="min-h-full lg:flex flex-col justify-between">
       <div className="mb-8">
         <a
-          href="tel:0778378453"
+          href={`tel:${PHONE}`}
           target="_blank"
           rel="noopener noreferrer nofollow"
           className="block text-main text-[16px] lg:text-[18px] font-semibold mb-2 active:brightness-125 xl:hover:brightness-125 focus-visible:brightness-125 transition duration-300 ease-in-out"
