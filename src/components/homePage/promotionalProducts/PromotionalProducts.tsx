@@ -12,6 +12,8 @@ interface PromotionalProductsProps {
 export default function PromotionalProducts({
   promotionalProducts,
 }: PromotionalProductsProps) {
+  if (!promotionalProducts || !promotionalProducts?.length) return null;
+
   return (
     <Section>
       <Container>
