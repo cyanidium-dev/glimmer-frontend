@@ -10,6 +10,8 @@ interface NewProductsProps {
 }
 
 export default function NewProducts({ newProducts }: NewProductsProps) {
+  if (!newProducts || !newProducts?.length) return null;
+
   return (
     <Section>
       <Container>
