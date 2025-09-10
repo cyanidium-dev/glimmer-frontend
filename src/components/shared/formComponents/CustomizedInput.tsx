@@ -65,8 +65,6 @@ export default function CustomizedInput({
   const showPlaceholder = !fieldValue;
   const inputId = useId();
 
-  console.log(isError);
-
   return (
     <label htmlFor={inputId} className={`${labelStyles} ${labelClassName}`}>
       <div className="relative w-full">

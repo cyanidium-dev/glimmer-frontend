@@ -21,8 +21,6 @@ export default function CartListItem({
 
   const { preOrderShippingDate, status } = cartItem?.product;
 
-  console.log(preOrderShippingDate);
-
   const formattedPreOrderShippingDate = preOrderShippingDate
     ? formatDate(preOrderShippingDate)
     : null;
