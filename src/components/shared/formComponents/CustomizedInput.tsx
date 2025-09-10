@@ -58,12 +58,14 @@ export default function CustomizedInput({
   inputType = "text",
   isLoading = false,
 }: CustomizedInputProps) {
-  const { handleChange, values } = useFormikContext<Values>();
+  const { handleChange, handleBlur, values } = useFormikContext<Values>();
   const isError = (errors as Record<string, unknown>)[fieldName];
   const isTouched = (touched as Record<string, unknown>)[fieldName];
   const fieldValue = values[fieldName];
   const showPlaceholder = !fieldValue;
   const inputId = useId();
+
+  console.log(isError);
 
   return (
     <label htmlFor={inputId} className={`${labelStyles} ${labelClassName}`}>
@@ -77,7 +79,7 @@ export default function CustomizedInput({
           autoComplete="on"
           onChange={onChange || handleChange}
           onFocus={onFocus}
-          onBlur={onBlur}
+          onBlur={onBlur || handleBlur}
           className={twMerge(
             clsx(
               `${fieldStyles}  ${
