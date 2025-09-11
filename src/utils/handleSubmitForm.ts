@@ -183,39 +183,6 @@ export const handleSubmitForm = async <T>(
     `<b>Список товарів в замовленні:</b>\n${orderedListProducts}\n` +
     `<b>Сума замовлення:</b> ${totalOrderSum} грн\n`;
 
-  if (collectedOrderData.payment === "Оплата картою онлайн Visa, Mastercard") {
-    try {
-      // замість axios.post просто робимо редірект на route
-      const form = document.createElement("form");
-      form.method = "POST";
-      form.action = "/api/monopay/invoice";
-
-      const fields = {
-        amount: totalOrderSum * 100,
-        orderNumber,
-        basketOrder: JSON.stringify(basketOrder),
-      };
-
-      Object.entries(fields).forEach(([key, value]) => {
-        const input = document.createElement("input");
-        input.type = "hidden";
-        input.name = key;
-        input.value = value as string;
-        form.appendChild(input);
-      });
-
-      document.body.appendChild(form);
-      form.submit();
-      return;
-    } catch (error) {
-      setIsError(true);
-      setIsNotificationShown(true);
-      setIsLoading(false);
-      console.error(error);
-      return error;
-    }
-  }
-
   try {
     await axios({
       method: "post",
@@ -253,6 +220,31 @@ export const handleSubmitForm = async <T>(
     });
 
     await sendDataToKeyCrm(collectedOrderData);
+
+    if (
+      collectedOrderData.payment === "Оплата картою онлайн Visa, Mastercard"
+    ) {
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = "/api/monopay/invoice";
+
+      const fields = {
+        amount: totalOrderSum * 100,
+        orderNumber,
+        basketOrder: JSON.stringify(basketOrder),
+      };
+
+      Object.entries(fields).forEach(([key, value]) => {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = value as string;
+        form.appendChild(input);
+      });
+
+      document.body.appendChild(form);
+      form.submit(); // браузер зробить редірект на Monobank
+    }
 
     //Очищаємо форму
     resetForm();

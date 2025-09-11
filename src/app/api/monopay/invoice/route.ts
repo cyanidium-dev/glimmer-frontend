@@ -10,14 +10,18 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const body = await req.json();
+    const body = await req.formData();
+
+    const amount = Number(body.get("amount"));
+    const orderNumber = body.get("orderNumber") as string;
+    const basketOrder = JSON.parse(body.get("basketOrder") as string);
 
     const invoicePayload = {
-      amount: body.amount, // у копійках
+      amount, // у копійках
       ccy: 980, // UAH
       merchantPaymInfo: {
-        reference: body.orderNumber,
-        basketOrder: body.basketOrder,
+        reference: orderNumber,
+        basketOrder, // обов’язково масив
         destination: "Покупка товару",
         comment: "Покупка товару",
       },
@@ -42,12 +46,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: data }, { status: response.status });
     }
 
-    // Повертаємо HTML з формою для POST на Monobank
+    // Генеруємо HTML з формою для автосабміту на Monobank
     const html = `
       <html>
         <body>
-          <form id="monopayForm" action="${data.pageUrl}" method="POST"></form>
-          <script>document.getElementById('monopayForm').submit();</script>
+          <form id="monopayForm" action="${data.pageUrl}" method="GET"></form>
+          <script>
+            document.getElementById('monopayForm').submit();
+          </script>
         </body>
       </html>
     `;
