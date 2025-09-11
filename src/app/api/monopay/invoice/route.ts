@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
       },
       redirectUrl: `${SITE_URL}/confirmation`,
       webHookUrl: `${SITE_URL}/api/monopay/webhook`,
-      validity: 3600, // 1 година
+      validity: 3600,
       paymentType: "debit",
     };
 
@@ -42,8 +42,20 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: data }, { status: response.status });
     }
 
-    // Серверний редірект прямо на сторінку оплати Monobank
-    return NextResponse.redirect(data.pageUrl, 302);
+    // Повертаємо HTML з формою для POST на Monobank
+    const html = `
+      <html>
+        <body>
+          <form id="monopayForm" action="${data.pageUrl}" method="POST"></form>
+          <script>document.getElementById('monopayForm').submit();</script>
+        </body>
+      </html>
+    `;
+
+    return new NextResponse(html, {
+      status: 200,
+      headers: { "Content-Type": "text/html" },
+    });
   } catch (error) {
     console.error("Monopay error:", error);
     return NextResponse.json(

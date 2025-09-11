@@ -185,18 +185,28 @@ export const handleSubmitForm = async <T>(
 
   if (collectedOrderData.payment === "Оплата картою онлайн Visa, Mastercard") {
     try {
-      await axios.post("/api/monopay/invoice", {
-        amount: totalOrderSum * 100, // сума в копійках
+      // замість axios.post просто робимо редірект на route
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = "/api/monopay/invoice";
+
+      const fields = {
+        amount: totalOrderSum * 100,
         orderNumber,
-        basketOrder,
+        basketOrder: JSON.stringify(basketOrder),
+      };
+
+      Object.entries(fields).forEach(([key, value]) => {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = value as string;
+        form.appendChild(input);
       });
 
-      //Очищаємо форму
-      resetForm();
-      //Очищаємо кошик
-      clearCart();
-      //Видаляємо промокод
-      removePromoCode();
+      document.body.appendChild(form);
+      form.submit();
+      return;
     } catch (error) {
       setIsError(true);
       setIsNotificationShown(true);
