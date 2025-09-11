@@ -2,7 +2,7 @@ import Image from "next/image";
 import TelegramButton from "../buttons/TelegramButton";
 import Container from "../container/Container";
 import SectionTitle from "../titles/SectionTitle";
-import { TELEGRAM_URL } from "@/constants/constants";
+import { TELEGRAM_URL_CHANNEL } from "@/constants/constants";
 import * as motion from "motion/react-client";
 import { fadeInAnimation } from "@/utils/animationVariants";
 
@@ -36,7 +36,7 @@ export default function TelegramCTA() {
             className="hidden lg:block absolute top-[-32px] left-[-258px]"
           />
           <a
-            href={TELEGRAM_URL}
+            href={TELEGRAM_URL_CHANNEL}
             target="_blank"
             rel="noopener noreferrer nofollow"
           >

@@ -10,9 +10,9 @@ export default function ContactsInfo() {
         <div className="flex flex-col gap-3 lg:flex-row lg:gap-0 lg:justify-between lg:items-center mb-8 lg:mb-12">
           <PageTitle>Контакти</PageTitle>
           <SectionDescription className="lg:max-w-[440px]">
-            Зв’язатися з нами легко — ми завжди раді допомогти! Якщо у вас
-            виникли питання щодо замовлення, доставки чи асортименту — пишіть,
-            дзвоніть або приходьте особисто. Ми поруч!
+            З нами легко звʼязатися! Якщо у тебе виникли питання щодо
+            замовлення, доставки чи асортименту — дзвони або пиши у зручному для
+            тебе форматі. Ми поруч!
           </SectionDescription>
         </div>
         <ContactsList />
