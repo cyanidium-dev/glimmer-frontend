@@ -183,36 +183,36 @@ export const handleSubmitForm = async <T>(
     `<b>Список товарів в замовленні:</b>\n${orderedListProducts}\n` +
     `<b>Сума замовлення:</b> ${totalOrderSum} грн\n`;
 
-  // if (collectedOrderData.payment === "Оплата картою онлайн Visa, Mastercard") {
-  //   try {
-  //     const res = await axios.post("/api/monopay/invoice", {
-  //       amount: totalOrderSum * 100, // сума в копійках
-  //       orderNumber,
-  //       basketOrder,
-  //     });
+  if (collectedOrderData.payment === "Оплата картою онлайн Visa, Mastercard") {
+    try {
+      const res = await axios.post("/api/monopay/invoice", {
+        amount: totalOrderSum * 100, // сума в копійках
+        orderNumber,
+        basketOrder,
+      });
 
-  //     const { pageUrl } = res.data;
+      // const { pageUrl } = res.data;
 
-  //     //Очищаємо форму
-  //     resetForm();
-  //     //Очищаємо кошик
-  //     clearCart();
-  //     //Видаляємо промокод
-  //     removePromoCode();
+      // //Очищаємо форму
+      // resetForm();
+      // //Очищаємо кошик
+      // clearCart();
+      // //Видаляємо промокод
+      // removePromoCode();
 
-  //     if (pageUrl) {
-  //       window.location.href = pageUrl; // переадресація на оплату
-  //     } else {
-  //       console.error("Payment error: немає pageUrl", res.data);
-  //     }
-  //   } catch (error) {
-  //     setIsError(true);
-  //     setIsNotificationShown(true);
-  //     setIsLoading(false);
-  //     console.error(error);
-  //     return error;
-  //   }
-  // }
+      // if (pageUrl) {
+      //   window.location.href = pageUrl; // переадресація на оплату
+      // } else {
+      //   console.error("Payment error: немає pageUrl", res.data);
+      // }
+    } catch (error) {
+      setIsError(true);
+      setIsNotificationShown(true);
+      setIsLoading(false);
+      console.error(error);
+      return error;
+    }
+  }
 
   try {
     await axios({
