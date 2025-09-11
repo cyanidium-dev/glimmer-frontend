@@ -13,8 +13,8 @@ export default function DeliveryInfo() {
           <div className="flex flex-col gap-3 lg:flex-row lg:gap-0 lg:justify-between lg:items-center mb-8 lg:mb-12">
             <PageTitle>Доставка та оплата</PageTitle>
             <SectionDescription className="lg:max-w-[363px]">
-              Замовили — отримайте швидко та зручно! <br /> Ми подбали про те,
-              щоб ваша улюблена книга потрапила до вас якнайшвидше.
+              Отримай замовлення швидко та зручно! Ми подбали про те, щоб твоя
+              улюблена книга потрапила до тебе якнайшвидше.
             </SectionDescription>
           </div>
           <motion.h2

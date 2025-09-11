@@ -262,7 +262,7 @@ export default function CheckoutForm({
               <CheckoutSubTitle>Промокод</CheckoutSubTitle>
               <CustomizedInput
                 fieldName="promocode"
-                placeholder={"Введіть свій промокод"}
+                placeholder={"Введи свій промокод"}
                 isLoading={isLoadingPromocode}
                 errors={errors}
                 touched={touched}

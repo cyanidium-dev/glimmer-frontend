@@ -26,7 +26,7 @@ export default function CallBack() {
             viewport={{ once: true, amount: 0.1 }}
             variants={fadeInAnimation({ y: 20, delay: 0.2 })}
           >
-            Заповніть форму — ми відповімо якнайшвидше:
+            Заповни форму — ми відповімо якнайшвидше:
           </motion.p>
           <CallBackFormWithNotifications />
         </div>

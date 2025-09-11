@@ -91,7 +91,7 @@ export default function WriteReviewForm({
         <Form className={`${className}`}>
           <div className="flex flex-col w-full gap-y-5 mb-5">
             <p>
-              Нам важлива ваша думка! Поділіться враженнями про покупку — це
+              Нам важлива твоя думка! Поділись враженням про покупку — це
               допоможе іншим читачам зробити вибір.
             </p>
             <div className="flex flex-col sm:flex-row gap-5">
@@ -116,7 +116,7 @@ export default function WriteReviewForm({
               fieldName="message"
               as="textarea"
               placeholder={
-                "Напишіть, що вам сподобалося або не сподобалося. Будемо вдячні за щирий відгук!"
+                "Напиши, що тобі сподобалося або не сподобалося. Будемо вдячні за щирий відгук!"
               }
               isRequired
               errors={errors}

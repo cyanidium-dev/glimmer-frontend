@@ -37,7 +37,7 @@ export default function CallBackFormWithNotifications({
         title={isError ? "На жаль, щось пішло не так" : "Дякуємо за звернення!"}
         description={
           isError
-            ? "Спробуйте відправити форму ще раз"
+            ? "Спробуй відправити форму ще раз"
             : "Наш менеджер скоро зв'яжеться з вами"
         }
         isPopUpShown={isNotificationShown}

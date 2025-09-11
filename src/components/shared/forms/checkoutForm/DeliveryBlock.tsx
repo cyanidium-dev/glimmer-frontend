@@ -207,22 +207,22 @@ export default function DeliveryBlock({ citiesNovaPost }: DeliveryBlockProps) {
         {values.deliveryService === "Укрпошта" ? (
           values.deliveryType !== "Доставка кур’єром" ? (
             <p className="mb-6 text-[14px] lg:text-[15px] font-medium leading-[120%]">
-              Оберіть <span className="lowercase">{values.deliveryType}</span>{" "}
+              Обери <span className="lowercase">{values.deliveryType}</span>{" "}
               Укрпошти
             </p>
           ) : (
             <p className="mb-6 text-[14px] lg:text-[15px] font-medium leading-[120%]">
-              Введіть адресу доставки
+              Введи адресу доставки
             </p>
           )
         ) : values.deliveryType !== "Доставка кур’єром" ? (
           <p className="mb-6 text-[14px] lg:text-[15px] font-medium leading-[120%]">
-            Оберіть <span className="lowercase">{values.deliveryType}</span>{" "}
-            Нової пошти
+            Обери <span className="lowercase">{values.deliveryType}</span> Нової
+            пошти
           </p>
         ) : (
           <p className="mb-6 text-[14px] lg:text-[15px] font-medium leading-[120%]">
-            Введіть адресу доставки
+            Введи адресу доставки
           </p>
         )}
 

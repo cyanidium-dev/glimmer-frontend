@@ -32,12 +32,12 @@ export default function CheckoutFormWithNotifications({
       <NotificationPopUp
         headerTitle="Помилка"
         title={
-          isUnavailable ? "Перегляньте ваш кошик" : "На жаль, щось пішло не так"
+          isUnavailable ? "Переглянь твій кошик" : "На жаль, щось пішло не так"
         }
         description={
           isUnavailable
             ? "На жаль, деякі обрані вами позиції недоступні"
-            : "Спробуйте відправити форму ще раз або зателефонуйте нам."
+            : "Спробуй відправити форму ще раз або зателефонуй нам."
         }
         isPopUpShown={isNotificationShown}
         setIsPopUpShown={setIsNotificationShown}

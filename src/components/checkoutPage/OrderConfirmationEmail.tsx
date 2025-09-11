@@ -56,7 +56,7 @@ export function OrderConfirmationEmail({
   deliveryType,
 }: OrderEmailProps) {
   const deliveryCost =
-    totalOrderSum >= 999 ? "Безкоштовно" : "За тарифами перевізника";
+    totalOrderSum >= 1500 ? "Безкоштовно" : "За тарифами перевізника";
 
   return (
     <Html>
