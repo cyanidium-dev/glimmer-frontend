@@ -18,8 +18,7 @@ export default function NewProducts({ newProducts }: NewProductsProps) {
         <div className="flex flex-col gap-3 lg:flex-row lg:gap-0 lg:justify-between lg:items-center mb-6 lg:mb-12">
           <SectionTitle>Наші новинки</SectionTitle>
           <SectionDescription>
-            У цьому розділі зібрані наші новинки, які ви можете замовити на
-            нашому сайті!
+            Найсвіжіші новинки, які точно тобі потрібні!
           </SectionDescription>
         </div>
         <NewProductsSlider newProducts={newProducts} />

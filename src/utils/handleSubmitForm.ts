@@ -11,9 +11,7 @@ import { CartItem } from "@/types/cartItem";
 import { Product } from "@/types/product";
 import { useRouter } from "next/navigation";
 import { sendDataToKeyCrm } from "./sendDataToKeyCrm";
-import { OrderConfirmationEmail } from "@/components/checkoutPage/OrderConfirmationEmail";
 import { BasketOrder } from "@/hooks/useMonopayBasletOrder";
-import { render, pretty } from "@react-email/render";
 
 export const handleSubmitForm = async <T>(
   { resetForm, setFieldError }: FormikHelpers<T>,

@@ -33,15 +33,14 @@ export default function AboutInfo() {
             <h3 className="mb-4 text-[14px] lg:text-[24px] font-medium leading-[120%]">
               Ми — Glimmer
             </h3>
-            <p className="mb-3 text-[10px] lg:text-[12px] font-light leading-[120%]">
-              Glimmer — це місце, де книги оживають і стають частиною вашої
-              історії. Ми створюємо простір для тих, хто шукає в літературі не
-              просто сюжет, а глибокі емоції, нові ідеї та натхнення.
+            <p className="mb-3 text-[12px] lg:text-[14px] font-light leading-[120%]">
+              Glimmer — це позитивні сигнали, які створюють відчуття безпеки.
+              Маленькі радості, як рипіння снігу чи запах мокрого асфальту.
             </p>
-            <p className="text-[10px] lg:text-[12px] font-light leading-[120%]">
-              Ми віримо, що книга здатна змінювати світогляд і надихати на
-              найсміливіші мрії. Саме тому ми дбаємо про кожну деталь — від
-              вибору асортименту до зручності вашого замовлення.
+            <p className="text-[12px] lg:text-[14px] font-light leading-[120%]">
+              Книги — це наші маленькі радості. Саме для цього ми створили
+              видавництво Glimmer — щоб дарувати тобі особливу атмосферу
+              читання, насолоду від кожної сторінки та магію в книгах.
             </p>
           </motion.div>
           <div className="flex gap-6 md:w-[calc(50%-12px)] xl:w-[calc(50%-16px)]">
@@ -56,14 +55,15 @@ export default function AboutInfo() {
               <h3 className="mb-4 text-[14px] lg:text-[24px] font-medium leading-[120%]">
                 Як усе почалося
               </h3>
-              <p className="pr-5 mb-3 text-[10px] lg:text-[12px] font-light leading-[110%]">
-                Ми прагнемо зробити читання доступним, зручним і захопливим для
-                кожного. Для нас важливо не просто продавати книги, а допомагати
-                знаходити ті історії, що залишають слід у серці.
+              <p className="pr-5 mb-3 text-[12px] lg:text-[14px] font-light leading-[110%]">
+                Усе почалося з любові до книг. З обміну улюбленими історіями між
+                друзями, ночами без сну, бо потрібно дочитати ще одну сторінку і
+                прагненням мати більше україномовних книжок.
               </p>
-              <p className="pr-5 text-[10px] lg:text-[12px] font-light leading-[110%]">
-                Ми підтримуємо культуру читання й мріємо, щоб кожна книга
-                ставала особливим супутником на вашому життєвому шляху.
+              <p className="pr-5 text-[12px] lg:text-[14px] font-light leading-[110%]">
+                Саме так наша команда розпочала роботу над створенням
+                видавництва у 2024 році. І ось ми тут. Готові дарувати тобі
+                історії, які залишаться у серці.
               </p>
             </motion.div>
             <div className="md:hidden flex flex-col gap-4 w-[calc(50%-12px)]">
@@ -73,7 +73,7 @@ export default function AboutInfo() {
                 exit="exit"
                 viewport={{ once: true, amount: 0.1 }}
                 variants={fadeInAnimation({ scale: 0.95, delay: 0.3 })}
-                className="relative w-full h-[140px] rounded-[12px] overflow-hidden"
+                className="relative w-full h-[calc(50%-8px)] rounded-[12px] overflow-hidden"
               >
                 <Image
                   src="/images/aboutPage/aboutInfo/imageTwo.webp"
@@ -88,7 +88,7 @@ export default function AboutInfo() {
                 exit="exit"
                 viewport={{ once: true, amount: 0.1 }}
                 variants={fadeInAnimation({ scale: 0.95, delay: 0.3 })}
-                className="relative w-full h-[140px] rounded-[12px] overflow-hidden"
+                className="relative w-full h-[calc(50%-8px)] rounded-[12px] overflow-hidden"
               >
                 <Image
                   src="/images/aboutPage/aboutInfo/imageThree.webp"
@@ -115,7 +115,7 @@ export default function AboutInfo() {
               src="/images/aboutPage/aboutInfo/imageFour.webp"
               alt="background"
               fill
-              className="object-cover object-top"
+              className="object-cover"
             />
           </motion.div>
           <div className="hidden xl:flex flex-col gap-4 xl:w-[calc(25%-8px)]">
@@ -163,14 +163,10 @@ export default function AboutInfo() {
             <h3 className="mb-4 text-[14px] lg:text-[24px] font-medium leading-[120%]">
               Наша місія
             </h3>
-            <p className="mb-3 text-[10px] lg:text-[12px] font-light leading-[120%]">
-              Ми прагнемо зробити читання доступним, зручним і захопливим для
-              кожного. Для нас важливо не просто продавати книги, а допомагати
-              знаходити ті історії, що залишають слід у серці.
-            </p>
-            <p className="text-[10px] lg:text-[12px] font-light leading-[120%]">
-              Ми підтримуємо культуру читання й мріємо, щоб кожна книга ставала
-              особливим супутником на вашому життєвому шляху.
+            <p className="mb-3 text-[12px] lg:text-[14px] font-light leading-[120%]">
+              Сколихнути видавничий ринок і надати нове дихання читанню. Ми
+              віримо, що книги — це про відпочинок, насолоду та емоції. І
+              прагнемо саме це подарувати нашим читачам.
             </p>
           </motion.div>
           <motion.div
@@ -185,7 +181,7 @@ export default function AboutInfo() {
               src="/images/aboutPage/aboutInfo/imageFour.webp"
               alt="background"
               fill
-              className="object-cover object-top"
+              className="object-cover"
             />
           </motion.div>
           <motion.div
@@ -199,15 +195,14 @@ export default function AboutInfo() {
             <h3 className="mb-4 text-[14px] lg:text-[24px] font-medium leading-[120%]">
               Чому обирають нас
             </h3>
-            <p className="mb-3 text-[10px] lg:text-[12px] font-light leading-[120%]">
-              Ми не просто магазин — ми спільнота однодумців, де кожен читач
-              важливий. Для нас важливо створювати сервіс, до якого хочеться
-              повертатися знову.
+            <p className="mb-3 text-[12px] lg:text-[14px] font-light leading-[120%]">
+              Glimmer створює естетичні книги, які справді читають. Наші історії
+              захоплюють і змушують забути про час проведений за книжкою.
             </p>
-            <p className="text-[10px] lg:text-[12px] font-light leading-[120%]">
-              Ми обираємо лише якісні книги, дбаємо про швидку доставку й завжди
-              відкриті до ваших відгуків і побажань. Glimmer — це місце, де
-              книги знаходять своїх читачів.
+            <p className="text-[12px] lg:text-[14px] font-light leading-[120%]">
+              Ми обираємо лише найкращі книги, дбаємо про якість і завжди
+              відкриті до твоїх відгуків і побажань. Доєднуйся до глімерівської
+              естетики читання!
             </p>
           </motion.div>
         </div>

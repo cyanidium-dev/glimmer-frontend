@@ -58,7 +58,7 @@ export default function CartTotal({
           </p>
         </div>
         <p className="text-[10px] lg:text-[12px] font-normal leading-[120%] text-black/60">
-          Безкоштовна доставка від 999 грн
+          Безкоштовна доставка від 1500 грн
         </p>
         {variant === "cart" ? (
           <Link

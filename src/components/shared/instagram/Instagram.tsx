@@ -17,7 +17,7 @@ export default function Instagram({ instagramPosts }: InstagramProps) {
         <SectionTitle>Наш Instagram</SectionTitle>
         <SectionDescription>
           Залишайся ближче до натхнення.
-          <br /> Ми поруч — у Instagram.
+          <br /> Ми поруч — в Instagram.
         </SectionDescription>
       </Container>
       <div className="xs:max-w-full sm:max-w-[640px] md:max-w-[768px] lg:max-w-[1024px] xl:max-w-[1280px] sm:px-5 lg:px-[50px] mx-auto">

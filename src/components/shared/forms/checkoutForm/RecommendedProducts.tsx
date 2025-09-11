@@ -37,14 +37,20 @@ export default function RecommendedProducts() {
             currentSlug: slug,
           }
         );
-        setRecommendedProducts(products);
+        // Фільтруємо товари, які вже є в кошику
+        const filteredProducts = products.filter(
+          (product: Product) =>
+            !cart.some((cartItem) => cartItem.product.id === product.id)
+        );
+
+        setRecommendedProducts(filteredProducts);
       } catch (error) {
         console.error("Sanity fetch failed:", error);
       }
     };
 
     loadData();
-  }, [genreSlug, slug]);
+  }, [genreSlug, slug, cart]);
 
   if (!recommendedProducts?.length) return null;
 

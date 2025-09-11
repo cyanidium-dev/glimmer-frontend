@@ -12,7 +12,7 @@ export default function RatingField() {
 
   return (
     <div>
-      <p className="mb-3">Оцінка товару (виберіть кількість зірок)</p>
+      <p className="mb-3">Вибери кількість зірок</p>
       <Rating
         initialValue={values.rating}
         onClick={(rate) => setFieldValue("rating", rate)}

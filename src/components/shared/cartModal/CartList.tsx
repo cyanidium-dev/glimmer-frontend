@@ -99,7 +99,7 @@ export default function CartList({
           }}
           className={`flex justify-center items-center text-[14px] lg:text-[18px] font-normal leading-[120%] text-center text-black/50  ${variant === "cart" ? "py-25" : "py-6"}`}
         >
-          Ваш кошик порожній
+          Твій кошик порожній
         </motion.div>
       )}
     </AnimatePresence>

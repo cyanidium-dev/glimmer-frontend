@@ -102,7 +102,7 @@ export default function Search({ isOpen, setIsOpen, products }: SearchProps) {
                 <Form className="flex flex-col gap-6">
                   <CustomizedInput
                     fieldName="query"
-                    placeholder="Введіть назву або автора"
+                    placeholder="Введи назву або автора"
                     errors={{}}
                     touched={{}}
                     fieldClassName="h-9"

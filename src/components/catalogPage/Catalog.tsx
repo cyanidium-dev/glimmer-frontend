@@ -112,7 +112,29 @@ export default function Catalog({
         <div className="flex xl:gap-7 pt-8 lg:pt-10">
           {catalogBanner ? (
             catalogBanner?.link ? (
-              <Link href={catalogBanner?.link}></Link>
+              <Link href={catalogBanner?.link}>
+                {" "}
+                <motion.div
+                  key={
+                    subcategories
+                      ? `${currentCategory} - ${activeTab}`
+                      : currentCategory
+                  }
+                  initial="hidden"
+                  whileInView="visible"
+                  exit="exit"
+                  viewport={{ once: true, amount: 0.1 }}
+                  variants={fadeInAnimation({ scale: 0.97, x: -10 })}
+                  className="hidden xl:block shrink-0"
+                >
+                  <Image
+                    src={catalogBanner?.imageCatalog}
+                    alt="banner"
+                    width={240}
+                    height={619}
+                  />
+                </motion.div>
+              </Link>
             ) : (
               <motion.div
                 key={

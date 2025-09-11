@@ -18,7 +18,7 @@ export default function Bestsellers({ bestsellers }: BestsellersProps) {
         <div className="flex flex-col gap-3 lg:flex-row lg:gap-0 lg:justify-between lg:items-center mb-6 lg:mb-12">
           <SectionTitle>Топ продажів</SectionTitle>
           <SectionDescription>
-            Наші улюбленці — і ваші теж. Ці товари обирають найчастіше, бо вони
+            Наші улюбленці — і твої теж. Ці товари обирають найчастіше, бо вони
             справді особливі.
           </SectionDescription>
         </div>

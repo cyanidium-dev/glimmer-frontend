@@ -54,7 +54,7 @@ export default function WriteReviewFormWithNotifications({
         }
         description={
           isError
-            ? "Спробуйте відправити форму ще раз"
+            ? "Спробуй відправити форму ще раз"
             : "Після модерації він з’явиться на сторінці товару."
         }
         isPopUpShown={isNotificationShown}
