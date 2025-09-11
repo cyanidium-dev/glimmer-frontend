@@ -226,37 +226,37 @@ export const handleSubmitForm = async <T>(
       },
     });
 
-    const html = await pretty(
-      await render(
-        OrderConfirmationEmail({
-          orderNumber,
-          orderDate,
-          name: values.name.trim(),
-          phone: values.phone.trim(),
-          city: values.city.trim(),
-          deliveryService: values.deliveryService.trim(),
-          deliveryType: values.deliveryType.trim(),
-          branchNumber: values.branchNumber.trim(),
-          address: values.address.trim(),
-          paymentMethod: values.payment.trim(),
-          cart,
-          totalOrderSum,
-        })
-      )
-    );
+    // const html = await pretty(
+    //   await render(
+    //     OrderConfirmationEmail({
+    //       orderNumber,
+    //       orderDate,
+    //       name: values.name.trim(),
+    //       phone: values.phone.trim(),
+    //       city: values.city.trim(),
+    //       deliveryService: values.deliveryService.trim(),
+    //       deliveryType: values.deliveryType.trim(),
+    //       branchNumber: values.branchNumber.trim(),
+    //       address: values.address.trim(),
+    //       paymentMethod: values.payment.trim(),
+    //       cart,
+    //       totalOrderSum,
+    //     })
+    //   )
+    // );
 
-    await axios({
-      method: "post",
-      url: "/api/send-email",
-      data: JSON.stringify({
-        email: collectedOrderData.email,
-        subject: `Glimmer: Підтвердження замовлення №${collectedOrderData.orderNumber}`,
-        message: html,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    // await axios({
+    //   method: "post",
+    //   url: "/api/send-email",
+    //   data: JSON.stringify({
+    //     email: collectedOrderData.email,
+    //     subject: `Glimmer: Підтвердження замовлення №${collectedOrderData.orderNumber}`,
+    //     message: html,
+    //   }),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // });
 
     await sendDataToKeyCrm(collectedOrderData);
 
