@@ -115,7 +115,7 @@ export default function AboutInfo() {
               src="/images/aboutPage/aboutInfo/imageFour.webp"
               alt="background"
               fill
-              className="object-cover object-top"
+              className="object-cover"
             />
           </motion.div>
           <div className="hidden xl:flex flex-col gap-4 xl:w-[calc(25%-8px)]">
@@ -185,7 +185,7 @@ export default function AboutInfo() {
               src="/images/aboutPage/aboutInfo/imageFour.webp"
               alt="background"
               fill
-              className="object-cover object-top"
+              className="object-cover"
             />
           </motion.div>
           <motion.div
