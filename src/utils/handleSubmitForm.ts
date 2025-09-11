@@ -205,7 +205,7 @@ export const handleSubmitForm = async <T>(
       });
       const data = await res.json();
 
-      const { pageUrl } = data?.data;
+      // const { pageUrl } = data?.data;
 
       //Очищаємо форму
       resetForm();
