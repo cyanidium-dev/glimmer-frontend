@@ -200,8 +200,14 @@ export const handleSubmitForm = async <T>(
       //Видаляємо промокод
       removePromoCode();
 
+      // if (pageUrl) {
+      //   window.location.href = pageUrl; // переадресація на оплату
+      // } else {
+      //   console.error("Payment error: немає pageUrl", res.data);
+      // }
+
       if (pageUrl) {
-        window.location.href = pageUrl; // переадресація на оплату
+        window.location.assign(pageUrl);
       } else {
         console.error("Payment error: немає pageUrl", res.data);
       }
