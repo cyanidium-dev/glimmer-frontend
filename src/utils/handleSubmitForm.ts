@@ -61,71 +61,71 @@ export const handleSubmitForm = async <T>(
 
   //Запитуємо з cms актуальні ціни на товари в кошику
   const productsIds = cart.map((cartItem: CartItem) => cartItem.product.id);
-  const resProducts = await fetchSanityDataClient(productsByIds, {
-    ids: productsIds,
-  });
+  // const resProducts = await fetchSanityDataClient(productsByIds, {
+  //   ids: productsIds,
+  // });
 
   //Запитуємо з cms актуальний промокод
-  const resPromo = promoCode
-    ? await fetchSanityDataClient(promocodeByCodeQuery, {
-        promocode: promoCode,
-      })
-    : null;
+  // const resPromo = promoCode
+  //   ? await fetchSanityDataClient(promocodeByCodeQuery, {
+  //       promocode: promoCode,
+  //     })
+  //   : null;
 
-  const updatedDiscount = resPromo ? resPromo.discountPercent : 0;
-  const updatedPromocode = resPromo ? resPromo.code : null;
-  const updatedExpirationDate = resPromo
-    ? new Date(resPromo.expirationDate)
-    : null;
-  const updatedPublishers = resPromo ? resPromo.publishers : null;
+  // const updatedDiscount = resPromo ? resPromo.discountPercent : 0;
+  // const updatedPromocode = resPromo ? resPromo.code : null;
+  // const updatedExpirationDate = resPromo
+  //   ? new Date(resPromo.expirationDate)
+  //   : null;
+  // const updatedPublishers = resPromo ? resPromo.publishers : null;
 
-  if (updatedExpirationDate && updatedExpirationDate < now) {
-    setFieldError("promocode", "Термін дії промокоду вичерпано");
-    return;
-  }
+  // if (updatedExpirationDate && updatedExpirationDate < now) {
+  //   setFieldError("promocode", "Термін дії промокоду вичерпано");
+  //   return;
+  // }
 
   //Оновлюємо в cartStore промокод та знижку на актуальні
-  if (updatedPromocode) {
-    applyPromoCode(updatedPromocode, updatedDiscount, updatedPublishers);
-  } else {
-    removePromoCode();
-  }
+  // if (updatedPromocode) {
+  //   applyPromoCode(updatedPromocode, updatedDiscount, updatedPublishers);
+  // } else {
+  //   removePromoCode();
+  // }
 
   // Оновлюємо cartItems і перевіряємо наявність товарів
-  const updatedCartItems: CartItem[] = [];
-  const unavailableProducts: string[] = [];
+  // const updatedCartItems: CartItem[] = [];
+  // const unavailableProducts: string[] = [];
 
-  cart.forEach((cartItem) => {
-    const productFromCms = resProducts.find(
-      (product: Product) => product.id === cartItem.product.id
-    );
+  // cart.forEach((cartItem) => {
+  //   const productFromCms = resProducts.find(
+  //     (product: Product) => product.id === cartItem.product.id
+  //   );
 
-    if (!productFromCms) {
-      unavailableProducts.push(cartItem.product.title);
-      return;
-    }
+  //   if (!productFromCms) {
+  //     unavailableProducts.push(cartItem.product.title);
+  //     return;
+  //   }
 
-    updatedCartItems.push({
-      ...cartItem,
-      product: {
-        ...cartItem.product,
-        price: productFromCms.price,
-        discountPrice: productFromCms.discountPrice,
-      },
-    });
-  });
+  //   updatedCartItems.push({
+  //     ...cartItem,
+  //     product: {
+  //       ...cartItem.product,
+  //       price: productFromCms.price,
+  //       discountPrice: productFromCms.discountPrice,
+  //     },
+  //   });
+  // });
 
-  useCartStore.setState({ cart: updatedCartItems });
+  useCartStore.setState({ cart });
 
   // Якщо знайдено недоступні товари — показати помилку і припинити процес замовлення
-  if (unavailableProducts.length > 0) {
-    setIsLoading(false);
-    setIsError(true);
-    setIsUnavailable(true);
-    alert(unavailableProducts);
-    // setIsNotificationShown(true);
-    return;
-  }
+  // if (unavailableProducts.length > 0) {
+  //   setIsLoading(false);
+  //   setIsError(true);
+  //   setIsUnavailable(true);
+  //   alert(unavailableProducts);
+  //   // setIsNotificationShown(true);
+  //   return;
+  // }
 
   const totalOrderSum = getCartTotal();
 
