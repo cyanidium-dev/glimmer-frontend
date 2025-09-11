@@ -183,36 +183,36 @@ export const handleSubmitForm = async <T>(
     `<b>Список товарів в замовленні:</b>\n${orderedListProducts}\n` +
     `<b>Сума замовлення:</b> ${totalOrderSum} грн\n`;
 
-  if (collectedOrderData.payment === "Оплата картою онлайн Visa, Mastercard") {
-    try {
-      const res = await axios.post("/api/monopay/invoice", {
-        amount: totalOrderSum * 100, // сума в копійках
-        orderNumber,
-        basketOrder,
-      });
+  // if (collectedOrderData.payment === "Оплата картою онлайн Visa, Mastercard") {
+  //   try {
+  //     const res = await axios.post("/api/monopay/invoice", {
+  //       amount: totalOrderSum * 100, // сума в копійках
+  //       orderNumber,
+  //       basketOrder,
+  //     });
 
-      const { pageUrl } = res.data;
+  //     const { pageUrl } = res.data;
 
-      //Очищаємо форму
-      resetForm();
-      //Очищаємо кошик
-      clearCart();
-      //Видаляємо промокод
-      removePromoCode();
+  //     //Очищаємо форму
+  //     resetForm();
+  //     //Очищаємо кошик
+  //     clearCart();
+  //     //Видаляємо промокод
+  //     removePromoCode();
 
-      if (pageUrl) {
-        window.location.href = pageUrl; // переадресація на оплату
-      } else {
-        console.error("Payment error: немає pageUrl", res.data);
-      }
-    } catch (error) {
-      setIsError(true);
-      setIsNotificationShown(true);
-      setIsLoading(false);
-      console.error(error);
-      return error;
-    }
-  }
+  //     if (pageUrl) {
+  //       window.location.href = pageUrl; // переадресація на оплату
+  //     } else {
+  //       console.error("Payment error: немає pageUrl", res.data);
+  //     }
+  //   } catch (error) {
+  //     setIsError(true);
+  //     setIsNotificationShown(true);
+  //     setIsLoading(false);
+  //     console.error(error);
+  //     return error;
+  //   }
+  // }
 
   try {
     await axios({
@@ -224,31 +224,31 @@ export const handleSubmitForm = async <T>(
       },
     });
 
-    // await axios({
-    //   method: "post",
-    //   url: "/api/send-email",
-    //   data: {
-    //     email: collectedOrderData.email,
-    //     subject: `Glimmer: Підтвердження замовлення №${collectedOrderData.orderNumber}`,
-    //     orderData: {
-    //       orderNumber: collectedOrderData.orderNumber,
-    //       orderDate: collectedOrderData.orderDate,
-    //       name: collectedOrderData.name.trim(),
-    //       phone: collectedOrderData.phone.trim(),
-    //       city: collectedOrderData.city.trim(),
-    //       deliveryService: collectedOrderData.deliveryService.trim(),
-    //       deliveryType: collectedOrderData.deliveryType.trim(),
-    //       branchNumber: collectedOrderData.branchNumber.trim(),
-    //       address: collectedOrderData.address.trim(),
-    //       paymentMethod: collectedOrderData.payment.trim(),
-    //       cart: collectedOrderData.cart,
-    //       totalOrderSum: collectedOrderData.totalOrderSum,
-    //     },
-    //   },
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
+    await axios({
+      method: "post",
+      url: "/api/send-email",
+      data: {
+        email: collectedOrderData.email,
+        subject: `Glimmer: Підтвердження замовлення №${collectedOrderData.orderNumber}`,
+        orderData: {
+          orderNumber: collectedOrderData.orderNumber,
+          orderDate: collectedOrderData.orderDate,
+          name: collectedOrderData.name.trim(),
+          phone: collectedOrderData.phone.trim(),
+          city: collectedOrderData.city.trim(),
+          deliveryService: collectedOrderData.deliveryService.trim(),
+          deliveryType: collectedOrderData.deliveryType.trim(),
+          branchNumber: collectedOrderData.branchNumber.trim(),
+          address: collectedOrderData.address.trim(),
+          paymentMethod: collectedOrderData.payment.trim(),
+          cart: collectedOrderData.cart,
+          totalOrderSum: collectedOrderData.totalOrderSum,
+        },
+      },
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     await sendDataToKeyCrm(collectedOrderData);
 
