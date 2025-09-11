@@ -216,7 +216,7 @@ export const handleSubmitForm = async <T>(
       setIsNotificationShown(true);
       setIsLoading(false);
       console.error(error);
-      return error;
+      // return error;
     }
   }
 
