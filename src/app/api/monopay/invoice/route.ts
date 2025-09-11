@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
 
     const invoicePayload = {
-      amount: body.amount, // у копійках: 10000 = 100 грн
+      amount: body.amount, // у копійках
       ccy: 980, // UAH
       merchantPaymInfo: {
         reference: body.orderNumber,
@@ -38,11 +38,12 @@ export async function POST(req: NextRequest) {
 
     const data = await response.json();
 
-    if (!response.ok) {
+    if (!response.ok || !data.pageUrl) {
       return NextResponse.json({ error: data }, { status: response.status });
     }
 
-    return NextResponse.json({ pageUrl: data.pageUrl }); // URL куди переадресовувати
+    // Серверний редірект прямо на сторінку оплати Monobank
+    return NextResponse.redirect(data.pageUrl, 302);
   } catch (error) {
     console.error("Monopay error:", error);
     return NextResponse.json(

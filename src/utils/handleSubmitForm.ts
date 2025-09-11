@@ -185,13 +185,11 @@ export const handleSubmitForm = async <T>(
 
   if (collectedOrderData.payment === "Оплата картою онлайн Visa, Mastercard") {
     try {
-      const res = await axios.post("/api/monopay/invoice", {
+      await axios.post("/api/monopay/invoice", {
         amount: totalOrderSum * 100, // сума в копійках
         orderNumber,
         basketOrder,
       });
-
-      const { pageUrl } = res.data;
 
       //Очищаємо форму
       resetForm();
@@ -199,24 +197,12 @@ export const handleSubmitForm = async <T>(
       clearCart();
       //Видаляємо промокод
       removePromoCode();
-
-      // if (pageUrl) {
-      //   window.location.href = pageUrl; // переадресація на оплату
-      // } else {
-      //   console.error("Payment error: немає pageUrl", res.data);
-      // }
-
-      if (pageUrl) {
-        window.location.assign(pageUrl);
-      } else {
-        console.error("Payment error: немає pageUrl", res.data);
-      }
     } catch (error) {
       setIsError(true);
       setIsNotificationShown(true);
       setIsLoading(false);
       console.error(error);
-      // return error;
+      return error;
     }
   }
 
