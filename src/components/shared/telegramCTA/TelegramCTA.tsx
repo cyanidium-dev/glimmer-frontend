@@ -10,7 +10,7 @@ export default function TelegramCTA() {
   return (
     <section className="pt-[30px] lg:pt-[62px] pb-[117px] lg:pb-[132px]">
       <Container className="flex flex-col md:flex-row md:justify-between md:items-end gap-y-[22px]">
-        <SectionTitle className="md:max-w-[327px] lg:max-w-[427px] xl:max-w-[527px]">
+        <SectionTitle className="max-w-[332px] md:max-w-[327px] lg:max-w-[427px] xl:max-w-[527px]">
           Підпишись на наш телеграм канал, щоб бути в курсі всіх новинок!
         </SectionTitle>
         <motion.div
