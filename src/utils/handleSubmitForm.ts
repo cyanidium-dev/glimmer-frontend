@@ -230,14 +230,14 @@ export const handleSubmitForm = async <T>(
   }
 
   try {
-    await axios({
-      method: "post",
-      url: "/api/telegram",
-      data: dataTelegram,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    // await axios({
+    //   method: "post",
+    //   url: "/api/telegram",
+    //   data: dataTelegram,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // });
 
     const html = await pretty(
       await render(
@@ -258,18 +258,18 @@ export const handleSubmitForm = async <T>(
       )
     );
 
-    await axios({
-      method: "post",
-      url: "/api/send-email",
-      data: JSON.stringify({
-        email: collectedOrderData.email,
-        subject: `Glimmer: Підтвердження замовлення №${collectedOrderData.orderNumber}`,
-        message: html,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    // await axios({
+    //   method: "post",
+    //   url: "/api/send-email",
+    //   data: JSON.stringify({
+    //     email: collectedOrderData.email,
+    //     subject: `Glimmer: Підтвердження замовлення №${collectedOrderData.orderNumber}`,
+    //     message: html,
+    //   }),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // });
 
     await sendDataToKeyCrm(collectedOrderData);
 
