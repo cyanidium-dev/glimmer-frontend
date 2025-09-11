@@ -191,14 +191,14 @@ export const handleSubmitForm = async <T>(
         basketOrder,
       });
 
-      // const { pageUrl } = res.data;
+      const { pageUrl } = res.data;
 
-      // //Очищаємо форму
-      // resetForm();
-      // //Очищаємо кошик
-      // clearCart();
-      // //Видаляємо промокод
-      // removePromoCode();
+      //Очищаємо форму
+      resetForm();
+      //Очищаємо кошик
+      clearCart();
+      //Видаляємо промокод
+      removePromoCode();
 
       // if (pageUrl) {
       //   window.location.href = pageUrl; // переадресація на оплату
