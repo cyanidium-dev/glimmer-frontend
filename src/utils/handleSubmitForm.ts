@@ -224,31 +224,31 @@ export const handleSubmitForm = async <T>(
       },
     });
 
-    await axios({
-      method: "post",
-      url: "/api/send-email",
-      data: {
-        email: collectedOrderData.email,
-        subject: `Glimmer: Підтвердження замовлення №${collectedOrderData.orderNumber}`,
-        orderData: {
-          orderNumber: collectedOrderData.orderNumber,
-          orderDate: collectedOrderData.orderDate,
-          name: collectedOrderData.name.trim(),
-          phone: collectedOrderData.phone.trim(),
-          city: collectedOrderData.city.trim(),
-          deliveryService: collectedOrderData.deliveryService.trim(),
-          deliveryType: collectedOrderData.deliveryType.trim(),
-          branchNumber: collectedOrderData.branchNumber.trim(),
-          address: collectedOrderData.address.trim(),
-          paymentMethod: collectedOrderData.payment.trim(),
-          cart: collectedOrderData.cart,
-          totalOrderSum: collectedOrderData.totalOrderSum,
-        },
-      },
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    // await axios({
+    //   method: "post",
+    //   url: "/api/send-email",
+    //   data: {
+    //     email: collectedOrderData.email,
+    //     subject: `Glimmer: Підтвердження замовлення №${collectedOrderData.orderNumber}`,
+    //     orderData: {
+    //       orderNumber: collectedOrderData.orderNumber,
+    //       orderDate: collectedOrderData.orderDate,
+    //       name: collectedOrderData.name.trim(),
+    //       phone: collectedOrderData.phone.trim(),
+    //       city: collectedOrderData.city.trim(),
+    //       deliveryService: collectedOrderData.deliveryService.trim(),
+    //       deliveryType: collectedOrderData.deliveryType.trim(),
+    //       branchNumber: collectedOrderData.branchNumber.trim(),
+    //       address: collectedOrderData.address.trim(),
+    //       paymentMethod: collectedOrderData.payment.trim(),
+    //       cart: collectedOrderData.cart,
+    //       totalOrderSum: collectedOrderData.totalOrderSum,
+    //     },
+    //   },
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // });
 
     await sendDataToKeyCrm(collectedOrderData);
 
