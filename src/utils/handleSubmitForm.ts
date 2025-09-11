@@ -122,7 +122,8 @@ export const handleSubmitForm = async <T>(
     setIsLoading(false);
     setIsError(true);
     setIsUnavailable(true);
-    setIsNotificationShown(true);
+    alert(unavailableProducts);
+    // setIsNotificationShown(true);
     return;
   }
 
@@ -193,7 +194,7 @@ export const handleSubmitForm = async <T>(
         basketOrder,
       });
 
-      const { pageUrl } = res.data;
+      const { pageUrl } = res?.data;
 
       //Очищаємо форму
       resetForm();
@@ -205,14 +206,15 @@ export const handleSubmitForm = async <T>(
       if (pageUrl) {
         window.location.href = pageUrl; // переадресація на оплату
       } else {
-        console.error("Payment error: немає pageUrl", res.data);
+        console.error("Payment error: немає pageUrl", res?.data);
       }
     } catch (error) {
-      setIsError(true);
-      setIsNotificationShown(true);
-      setIsLoading(false);
+      // setIsError(true);
+      // setIsNotificationShown(true);
+      // setIsLoading(false);
+      alert(error);
       console.error(error);
-      return error;
+      // return error;
     }
   }
 
@@ -269,8 +271,9 @@ export const handleSubmitForm = async <T>(
     //Редірект на сторінку підтвердження замовлення
     router.push("/confirmation");
   } catch (error) {
-    setIsError(true);
-    setIsNotificationShown(true);
+    // setIsError(true);
+    // setIsNotificationShown(true);
+    alert(error);
     console.error(error);
   } finally {
     setIsLoading(false);
