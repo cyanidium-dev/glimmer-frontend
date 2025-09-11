@@ -9,7 +9,7 @@ export default function Info() {
           href={`tel:${PHONE}`}
           target="_blank"
           rel="noopener noreferrer nofollow"
-          className="block text-main text-[16px] lg:text-[18px] font-semibold mb-2 active:brightness-125 xl:hover:brightness-125 focus-visible:brightness-125 transition duration-300 ease-in-out"
+          className="block mb-10 text-main text-[16px] lg:text-[18px] font-semibold active:brightness-125 xl:hover:brightness-125 focus-visible:brightness-125 transition duration-300 ease-in-out"
         >
           0 77 837 84 53
         </a>
