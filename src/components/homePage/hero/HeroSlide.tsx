@@ -28,6 +28,7 @@ export default function HeroSlide({ banner }: HeroSlideProps) {
         alt="hero banner"
         fill
         sizes="100vw"
+        unoptimized
         priority
         className="-z-10 object-cover"
       />
@@ -72,7 +73,7 @@ export default function HeroSlide({ banner }: HeroSlideProps) {
           variants={fadeInAnimation({ scale: 0.95 })}
           className={`${button.position === "bottomRight" ? "ml-auto lg:mb-16" : button.position === "bottomLeft" ? "mt-auto" : "ml-auto mb-8"}`}
         >
-          <Link href={button?.link} className={`w-fit  `}>
+          <Link href={button?.link} className={`w-fit`}>
             <MainButton variant="secondary" className="w-[230px] h-[53px]">
               {button?.label}
             </MainButton>
