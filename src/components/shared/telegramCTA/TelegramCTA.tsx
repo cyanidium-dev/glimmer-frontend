@@ -2,7 +2,7 @@ import Image from "next/image";
 import TelegramButton from "../buttons/TelegramButton";
 import Container from "../container/Container";
 import SectionTitle from "../titles/SectionTitle";
-import { TELEGRAM_URL } from "@/constants/constants";
+import { TELEGRAM_URL_CHANNEL } from "@/constants/constants";
 import * as motion from "motion/react-client";
 import { fadeInAnimation } from "@/utils/animationVariants";
 
@@ -10,7 +10,7 @@ export default function TelegramCTA() {
   return (
     <section className="pt-[30px] lg:pt-[62px] pb-[117px] lg:pb-[132px]">
       <Container className="flex flex-col md:flex-row md:justify-between md:items-end gap-y-[22px]">
-        <SectionTitle className="md:max-w-[327px] lg:max-w-[427px] xl:max-w-[527px]">
+        <SectionTitle className="max-w-[332px] md:max-w-[327px] lg:max-w-[427px] xl:max-w-[527px]">
           Підпишись на наш телеграм канал, щоб бути в курсі всіх новинок!
         </SectionTitle>
         <motion.div
@@ -36,7 +36,7 @@ export default function TelegramCTA() {
             className="hidden lg:block absolute top-[-32px] left-[-258px]"
           />
           <a
-            href={TELEGRAM_URL}
+            href={TELEGRAM_URL_CHANNEL}
             target="_blank"
             rel="noopener noreferrer nofollow"
           >
