@@ -1,4 +1,3 @@
-import axios from "axios";
 import { OrderData } from "@/types/orderData";
 import { useCartStore } from "@/store/cartStore";
 
@@ -53,25 +52,25 @@ export async function sendDataToKeyCrm(data: OrderData) {
   };
 
   try {
-    const response = await axios({
-      method: "post",
-      url: `${baseUrl}/api/keycrm`,
-      data: crmOrderData,
+    const response = await fetch(`${baseUrl}/api/keycrm`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(crmOrderData),
     });
-    return response.data;
-  } catch (error: unknown) {
-    if (axios.isAxiosError(error)) {
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
       console.error(
         "Помилка при відправці замовлення:",
-        error.response?.data || error.message
+        errorData || response.statusText
       );
-      throw new Error(
-        error.response?.data?.error || "Не вдалося створити замовлення"
-      );
+      throw new Error(errorData?.error || "Не вдалося створити замовлення");
     }
+
+    return await response.json();
+  } catch (error: unknown) {
     console.error("Невідома помилка:", error);
     throw new Error("Сталася невідома помилка");
   }
