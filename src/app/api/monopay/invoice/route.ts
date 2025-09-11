@@ -10,20 +10,24 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const body = await req.json();
+    const body = await req.formData();
+
+    const amount = Number(body.get("amount"));
+    const orderNumber = body.get("orderNumber") as string;
+    const basketOrder = JSON.parse(body.get("basketOrder") as string);
 
     const invoicePayload = {
-      amount: body.amount, // у копійках: 10000 = 100 грн
+      amount, // у копійках
       ccy: 980, // UAH
       merchantPaymInfo: {
-        reference: body.orderNumber,
-        basketOrder: body.basketOrder,
+        reference: orderNumber,
+        basketOrder, // обов’язково масив
         destination: "Покупка товару",
         comment: "Покупка товару",
       },
       redirectUrl: `${SITE_URL}/confirmation`,
       webHookUrl: `${SITE_URL}/api/monopay/webhook`,
-      validity: 3600, // 1 година
+      validity: 3600,
       paymentType: "debit",
     };
 
@@ -38,11 +42,26 @@ export async function POST(req: NextRequest) {
 
     const data = await response.json();
 
-    if (!response.ok) {
+    if (!response.ok || !data.pageUrl) {
       return NextResponse.json({ error: data }, { status: response.status });
     }
 
-    return NextResponse.json({ pageUrl: data.pageUrl }); // URL куди переадресовувати
+    // Генеруємо HTML з формою для автосабміту на Monobank
+    const html = `
+      <html>
+        <body>
+          <form id="monopayForm" action="${data.pageUrl}" method="GET"></form>
+          <script>
+            document.getElementById('monopayForm').submit();
+          </script>
+        </body>
+      </html>
+    `;
+
+    return new NextResponse(html, {
+      status: 200,
+      headers: { "Content-Type": "text/html" },
+    });
   } catch (error) {
     console.error("Monopay error:", error);
     return NextResponse.json(
