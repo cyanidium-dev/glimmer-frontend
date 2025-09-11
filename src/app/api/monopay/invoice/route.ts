@@ -36,7 +36,20 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify(invoicePayload),
     });
 
-    const data = await response.json();
+    // const data = await response.json();
+
+    const raw = await response.text();
+    let data;
+    try {
+      data = JSON.parse(raw);
+    } catch (err) {
+      alert(err);
+      console.error("Invalid JSON from Monobank:", raw);
+      return NextResponse.json(
+        { error: "Invalid response from Monobank" },
+        { status: 500 }
+      );
+    }
 
     if (!response.ok) {
       return NextResponse.json({ error: data }, { status: response.status });
