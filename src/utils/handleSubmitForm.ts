@@ -188,13 +188,24 @@ export const handleSubmitForm = async <T>(
 
   if (collectedOrderData.payment === "Оплата картою онлайн Visa, Mastercard") {
     try {
-      const res = await axios.post("/api/monopay/invoice", {
-        amount: totalOrderSum * 100, // сума в копійках
-        orderNumber,
-        basketOrder,
-      });
+      // const res = await axios.post("/api/monopay/invoice", {
+      //   amount: totalOrderSum * 100, // сума в копійках
+      //   orderNumber,
+      //   basketOrder,
+      // });
 
-      const { pageUrl } = res?.data;
+      const res = await fetch("/api/monopay/invoice", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: Math.round(totalOrderSum * 100),
+          orderNumber,
+          basketOrder,
+        }),
+      });
+      const data = await res.json();
+
+      const { pageUrl } = data?.data;
 
       //Очищаємо форму
       resetForm();
