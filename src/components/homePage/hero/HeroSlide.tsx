@@ -58,7 +58,7 @@ export default function HeroSlide({ banner }: HeroSlideProps) {
                 exit="exit"
                 viewport={{ once: true, amount: 0.2 }}
                 variants={fadeInAnimation({ scale: 0.95 })}
-                className={`text-[14px] lg:text-[18px] font-light leading-[120%] ${button.position === "bottomLeft" ? "max-w-[150px]" : "max-w-[300px] lg:max-w-[380px]"}`}
+                className={`text-[14px] lg:text-[18px] font-light leading-[120%] ${button.position === "bottomLeft" ? "max-w-[250px] lg:max-w-[290px]" : "max-w-[300px] lg:max-w-[380px]"}`}
               >
                 {description}
               </motion.p>
