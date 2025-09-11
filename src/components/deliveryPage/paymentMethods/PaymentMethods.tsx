@@ -14,11 +14,11 @@ export default function PaymentMethods() {
       description: "Оплата Visa або MasterCard безпосередньо на сайті.",
       icon: "/images/deliveryPage/paymentMethods/card.svg",
     },
-    {
-      title: "Оплата частинами",
-      description: "Розстрочка без переплат через monobank — швидко та зручно.",
-      icon: "/images/deliveryPage/paymentMethods/bill.svg",
-    },
+    // {
+    //   title: "Оплата частинами",
+    //   description: "Розстрочка без переплат через monobank — швидко та зручно.",
+    //   icon: "/images/deliveryPage/paymentMethods/bill.svg",
+    // },
     {
       title: "Післяоплата під час отримання",
       description: "Розрахунок готівкою або карткою при отриманні замовлення.",
@@ -55,7 +55,7 @@ export default function PaymentMethods() {
               viewport={{ once: true, amount: 0.2 }}
               variants={listItemVariants}
               key={idx}
-              className="md:w-[calc(33.33%-16px)] lg:w-[calc(33.33%-21.33px)] p-2 lg:p-3 shadow-[0_1px_3px_0_rgba(0,0,0,0.10),0_1px_2px_-1px_rgba(0,0,0,0.10)] rounded-[12px]"
+              className="md:w-[calc(50%-12px)] lg:w-[calc(50%-16px)] p-2 lg:p-3 shadow-[0_1px_3px_0_rgba(0,0,0,0.10),0_1px_2px_-1px_rgba(0,0,0,0.10)] rounded-[12px]"
             >
               <div className="flex justify-between gap-3 mb-6">
                 <h3>{title}</h3>
