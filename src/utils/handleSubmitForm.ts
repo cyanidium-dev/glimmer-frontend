@@ -243,7 +243,7 @@ export const handleSubmitForm = async <T>(
             form.method = "POST";
             form.action = data.pageUrl;
             form.style.display = "none";
-            form.target = "_self"; // редірект у тій же вкладці
+            form.target = "_blank"; // редірект у тій же вкладці
             document.body.appendChild(form);
             form.submit();
             document.body.removeChild(form);
