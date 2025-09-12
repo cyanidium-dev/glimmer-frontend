@@ -231,7 +231,7 @@ export const handleSubmitForm = async <T>(
           body: JSON.stringify({
             amount: totalOrderSum * 100,
             orderNumber,
-            basketOrder, // масив
+            basketOrder,
           }),
         });
 
@@ -243,7 +243,7 @@ export const handleSubmitForm = async <T>(
             form.method = "POST";
             form.action = data.pageUrl;
             form.style.display = "none";
-            form.target = "_blank";
+            form.target = "_self";
             document.body.appendChild(form);
             form.submit();
             document.body.removeChild(form);
