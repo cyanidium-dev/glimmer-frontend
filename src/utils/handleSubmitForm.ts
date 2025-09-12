@@ -264,12 +264,8 @@ export const handleSubmitForm = async <T>(
     clearCart();
     //Видаляємо промокод
     removePromoCode();
-    if (
-      collectedOrderData.payment !== "Оплата картою онлайн Visa, Mastercard"
-    ) {
-      //Редірект на сторінку підтвердження замовлення
-      router.push("/confirmation");
-    }
+    //Редірект на сторінку підтвердження замовлення
+    router.push("/confirmation");
   } catch (error) {
     setIsError(true);
     setIsNotificationShown(true);
