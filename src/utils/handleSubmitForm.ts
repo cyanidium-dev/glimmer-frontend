@@ -219,7 +219,10 @@ export const handleSubmitForm = async <T>(
       },
     });
 
-    await sendDataToKeyCrm(collectedOrderData);
+    const crmResponse = await sendDataToKeyCrm(collectedOrderData);
+
+    // crmOrderId — id замовлення у KeyCRM (порядковий номер)
+    const crmOrderId = crmResponse.id;
 
     if (
       collectedOrderData.payment === "Оплата картою онлайн Visa, Mastercard"
@@ -230,7 +233,7 @@ export const handleSubmitForm = async <T>(
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             amount: totalOrderSum * 100,
-            orderNumber,
+            orderNumber: crmOrderId, // додаємо айді замовлення KeyCRM
             basketOrder,
           }),
         });

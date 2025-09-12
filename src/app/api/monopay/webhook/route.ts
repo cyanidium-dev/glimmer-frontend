@@ -34,7 +34,6 @@ export async function POST(req: NextRequest) {
 
     if (data.status === "success") {
       const orderId = data.reference;
-      const paymentId = data.paymentId;
       const finalAmount = data.finalAmount;
 
       const message = `✅ Оплата через MonoPay успішна!\nСума: ${finalAmount / 100} грн\nЗамовлення: #${orderId}`;
@@ -49,11 +48,15 @@ export async function POST(req: NextRequest) {
       });
 
       // Оновлюємо статус оплати у Key CRM
-      await axios.put(
-        `${CRM_API_URL}/order/${orderId}/payment/${paymentId}`,
+      await axios.post(
+        `${CRM_API_URL}/order/${orderId}/payment`,
         {
+          payment_method_id: 6, // відповідний метод у CRM
+          payment_method: "MonoPay",
+          amount: data.finalAmount / 100,
           status: "paid",
           description: "Оплата через MonoPay",
+          payment_date: new Date().toISOString().slice(0, 19).replace("T", " "),
         },
         {
           headers: {

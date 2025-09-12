@@ -19,6 +19,5 @@ export interface OrderData {
   promoCode: string | null;
   promoDiscountPercent: number;
   promoPublishers: { id: string; name: string }[];
-
   totalOrderSum: number;
 }
