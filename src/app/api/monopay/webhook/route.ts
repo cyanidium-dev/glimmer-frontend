@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
       });
 
       // Оновлюємо статус оплати у Key CRM
-      await axios.post(
+      const crmResponse = await axios.post(
         `${CRM_API_URL}/order/${orderId}/payment`,
         {
           payment_method_id: 6, // відповідний метод у CRM
@@ -65,6 +65,9 @@ export async function POST(req: NextRequest) {
           },
         }
       );
+
+      // Логуємо відповідь від CRM
+      console.log("CRM response:", crmResponse.data);
     }
 
     return NextResponse.json({ ok: true, status: data.status });
