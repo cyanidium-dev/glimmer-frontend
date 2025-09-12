@@ -243,7 +243,7 @@ export const handleSubmitForm = async <T>(
             form.method = "POST";
             form.action = data.pageUrl;
             form.style.display = "none";
-            form.target = "_blank"; // редірект у тій же вкладці
+            form.target = "_blank";
             document.body.appendChild(form);
             form.submit();
             document.body.removeChild(form);
@@ -265,7 +265,12 @@ export const handleSubmitForm = async <T>(
     //Видаляємо промокод
     removePromoCode();
     //Редірект на сторінку підтвердження замовлення
-    router.push("/confirmation");
+    {
+      if (
+        collectedOrderData.payment !== "Оплата картою онлайн Visa, Mastercard"
+      )
+        router.push("/confirmation");
+    }
   } catch (error) {
     setIsError(true);
     setIsNotificationShown(true);
