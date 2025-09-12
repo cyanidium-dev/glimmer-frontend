@@ -238,16 +238,18 @@ export const handleSubmitForm = async <T>(
         const data = await response.json();
 
         if (response.ok && data.pageUrl) {
-          // ✅ створюємо форму і сабмітимо її на Monobank
-          const form = document.createElement("form");
-          form.method = "POST";
-          form.action = data.pageUrl;
-          form.style.display = "none";
-          form.target = "_blank";
+          if (typeof window !== "undefined") {
+            // ✅ створюємо форму і сабмітимо її на Monobank
+            const form = document.createElement("form");
+            form.method = "POST";
+            form.action = data.pageUrl;
+            form.style.display = "none";
+            form.target = "_blank";
 
-          document.body.appendChild(form);
-          form.submit();
-          document.body.removeChild(form);
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+          }
         } else {
           alert(JSON.stringify(data, null, 2));
         }
