@@ -238,21 +238,23 @@ export const handleSubmitForm = async <T>(
         const data = await response.json();
 
         if (response.ok && data.pageUrl) {
-          // ✅ Форма замість window.location.href
-          const form = document.createElement("form");
-          form.method = "POST";
-          form.action = data.pageUrl; // URL від Monopay
-          form.style.display = "none";
-          form.target = "_blank";
+          if (typeof window !== "undefined") {
+            // ✅ Форма замість window.location.href
+            const form = document.createElement("form");
+            form.method = "POST";
+            form.action = data.pageUrl; // URL від Monopay
+            form.style.display = "none";
+            form.target = "_blank";
 
-          document.body.appendChild(form);
-          form.submit();
-          document.body.removeChild(form);
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+          }
         } else {
-          console.error("Monopay error:", data);
+          alert(data);
         }
       } catch (err) {
-        console.error("Помилка Monopay:", err);
+        alert(err);
       }
     }
 
