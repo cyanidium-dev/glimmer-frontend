@@ -249,12 +249,10 @@ export const handleSubmitForm = async <T>(
             document.body.removeChild(form);
           }
         } else {
-          alert(JSON.stringify(data, null, 2));
+          console.error("error", data);
         }
       } catch (err) {
-        alert(
-          err instanceof Error ? err.message : JSON.stringify(err, null, 2)
-        );
+        console.error("error", err);
       }
     }
 
