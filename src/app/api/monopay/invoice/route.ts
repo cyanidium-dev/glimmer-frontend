@@ -46,22 +46,26 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: data }, { status: response.status });
     }
 
-    // Генеруємо HTML з формою для автосабміту на Monobank
-    const html = `
-      <html>
-        <body>
-          <form id="monopayForm" action="${data.pageUrl}" method="GET"></form>
-          <script>
-            document.getElementById('monopayForm').submit();
-          </script>
-        </body>
-      </html>
-    `;
+    // // Генеруємо HTML з формою для автосабміту на Monobank
+    // const html = `
+    //   <html>
+    //     <body>
+    //       <form id="monopayForm" action="${data.pageUrl}" method="GET"></form>
+    //       <script>
+    //         document.getElementById('monopayForm').submit();
+    //       </script>
+    //     </body>
+    //   </html>
+    // `;
 
-    return new NextResponse(html, {
-      status: 200,
-      headers: { "Content-Type": "text/html" },
-    });
+    // return new NextResponse(html, {
+    //   status: 200,
+    //   headers: { "Content-Type": "text/html" },
+    // });
+
+    if (response.ok && data.pageUrl) {
+      return NextResponse.redirect(data.pageUrl);
+    }
   } catch (error) {
     console.error("Monopay error:", error);
     return NextResponse.json(
