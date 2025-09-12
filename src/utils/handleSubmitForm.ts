@@ -243,6 +243,7 @@ export const handleSubmitForm = async <T>(
           form.method = "POST";
           form.action = data.pageUrl; // URL від Monopay
           form.style.display = "none";
+          form.target = "_blank";
 
           document.body.appendChild(form);
           form.submit();
