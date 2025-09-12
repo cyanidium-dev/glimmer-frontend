@@ -224,26 +224,35 @@ export const handleSubmitForm = async <T>(
     if (
       collectedOrderData.payment === "Оплата картою онлайн Visa, Mastercard"
     ) {
-      const form = document.createElement("form");
-      form.method = "POST";
-      form.action = "/api/monopay/invoice";
+      try {
+        const response = await fetch("/api/monopay/invoice", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            amount: totalOrderSum * 100,
+            orderNumber,
+            basketOrder,
+          }),
+        });
 
-      const fields = {
-        amount: totalOrderSum * 100,
-        orderNumber,
-        basketOrder: JSON.stringify(basketOrder),
-      };
+        const data = await response.json();
 
-      Object.entries(fields).forEach(([key, value]) => {
-        const input = document.createElement("input");
-        input.type = "hidden";
-        input.name = key;
-        input.value = value as string;
-        form.appendChild(input);
-      });
+        if (response.ok && data.pageUrl) {
+          // ✅ Форма замість window.location.href
+          const form = document.createElement("form");
+          form.method = "POST";
+          form.action = data.pageUrl; // URL від Monopay
+          form.style.display = "none";
 
-      document.body.appendChild(form);
-      form.submit(); // браузер зробить редірект на Monobank
+          document.body.appendChild(form);
+          form.submit();
+          document.body.removeChild(form);
+        } else {
+          console.error("Monopay error:", data);
+        }
+      } catch (err) {
+        console.error("Помилка Monopay:", err);
+      }
     }
 
     //Очищаємо форму
