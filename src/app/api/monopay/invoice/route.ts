@@ -5,23 +5,18 @@ const MONOPAY_TOKEN = process.env.MONOPAY_TOKEN;
 const MONOBANK_API_URL = "https://api.monobank.ua/api/merchant/invoice/create";
 
 export async function POST(req: NextRequest) {
-  if (!MONOPAY_TOKEN) {
-    throw new Error("MERCHANT_SECRET_KEY не визначено в середовищі!");
-  }
+  if (!MONOPAY_TOKEN)
+    throw new Error("MONOPAY_TOKEN не визначено в середовищі!");
 
   try {
-    const body = await req.formData();
-
-    const amount = Number(body.get("amount"));
-    const orderNumber = body.get("orderNumber") as string;
-    const basketOrder = JSON.parse(body.get("basketOrder") as string);
+    const { amount, orderNumber, basketOrder } = await req.json();
 
     const invoicePayload = {
-      amount, // у копійках
-      ccy: 980, // UAH
+      amount,
+      ccy: 980,
       merchantPaymInfo: {
         reference: orderNumber,
-        basketOrder, // обов’язково масив
+        basketOrder,
         destination: "Покупка товару",
         comment: "Покупка товару",
       },
@@ -35,7 +30,7 @@ export async function POST(req: NextRequest) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-Token": MONOPAY_TOKEN!,
+        "X-Token": MONOPAY_TOKEN,
       },
       body: JSON.stringify(invoicePayload),
     });
@@ -46,22 +41,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: data }, { status: response.status });
     }
 
-    // Генеруємо HTML з формою для автосабміту на Monobank
-    const html = `
-      <html>
-        <body>
-          <form id="monopayForm" action="${data.pageUrl}" method="GET"></form>
-          <script>
-            document.getElementById('monopayForm').submit();
-          </script>
-        </body>
-      </html>
-    `;
-
-    return new NextResponse(html, {
-      status: 200,
-      headers: { "Content-Type": "text/html" },
-    });
+    // ✅ повертаємо лише pageUrl у JSON
+    return NextResponse.json({ pageUrl: data.pageUrl });
   } catch (error) {
     console.error("Monopay error:", error);
     return NextResponse.json(

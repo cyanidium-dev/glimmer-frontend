@@ -224,26 +224,36 @@ export const handleSubmitForm = async <T>(
     if (
       collectedOrderData.payment === "Оплата картою онлайн Visa, Mastercard"
     ) {
-      const form = document.createElement("form");
-      form.method = "POST";
-      form.action = "/api/monopay/invoice";
+      try {
+        const response = await fetch("/api/monopay/invoice", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            amount: totalOrderSum * 100,
+            orderNumber,
+            basketOrder,
+          }),
+        });
 
-      const fields = {
-        amount: totalOrderSum * 100,
-        orderNumber,
-        basketOrder: JSON.stringify(basketOrder),
-      };
+        const data = await response.json();
 
-      Object.entries(fields).forEach(([key, value]) => {
-        const input = document.createElement("input");
-        input.type = "hidden";
-        input.name = key;
-        input.value = value as string;
-        form.appendChild(input);
-      });
-
-      document.body.appendChild(form);
-      form.submit(); // браузер зробить редірект на Monobank
+        if (response.ok && data.pageUrl) {
+          if (typeof window !== "undefined") {
+            const form = document.createElement("form");
+            form.method = "POST";
+            form.action = data.pageUrl;
+            form.style.display = "none";
+            form.target = "_self";
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+          }
+        } else {
+          console.error("error", data);
+        }
+      } catch (err) {
+        console.error("error", err);
+      }
     }
 
     //Очищаємо форму
@@ -253,7 +263,12 @@ export const handleSubmitForm = async <T>(
     //Видаляємо промокод
     removePromoCode();
     //Редірект на сторінку підтвердження замовлення
-    router.push("/confirmation");
+    {
+      if (
+        collectedOrderData.payment !== "Оплата картою онлайн Visa, Mastercard"
+      )
+        router.push("/confirmation");
+    }
   } catch (error) {
     setIsError(true);
     setIsNotificationShown(true);

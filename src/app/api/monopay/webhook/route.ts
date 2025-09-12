@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createVerify } from "crypto";
 import axios from "axios";
+import { CRM_API_URL } from "@/constants/constants";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL!;
 const MONOPAY_PUBKEY = process.env.MONOPAY_PUBKEY!; // Base64 ECDSA pubkey
+const CRM_API_KEY = process.env.CRM_API_KEY;
 
 export async function POST(req: NextRequest) {
   try {
@@ -31,7 +33,11 @@ export async function POST(req: NextRequest) {
     const data = JSON.parse(rawBody);
 
     if (data.status === "success") {
-      const message = `✅ Оплата через MonoPay успішна!\nСума: ${data.finalAmount / 100} грн\nЗамовлення: #${data.reference}`;
+      const orderId = data.reference;
+      const paymentId = data.paymentId;
+      const finalAmount = data.finalAmount;
+
+      const message = `✅ Оплата через MonoPay успішна!\nСума: ${finalAmount / 100} грн\nЗамовлення: #${orderId}`;
 
       await axios({
         method: "post",
@@ -41,6 +47,21 @@ export async function POST(req: NextRequest) {
           "Content-Type": "application/json",
         },
       });
+
+      // Оновлюємо статус оплати у Key CRM
+      await axios.put(
+        `${CRM_API_URL}/order/${orderId}/payment/${paymentId}`,
+        {
+          status: "paid",
+          description: "Оплата через MonoPay",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${CRM_API_KEY}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
     }
 
     return NextResponse.json({ ok: true, status: data.status });
