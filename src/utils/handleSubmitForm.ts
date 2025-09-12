@@ -239,12 +239,15 @@ export const handleSubmitForm = async <T>(
 
         if (response.ok && data.pageUrl) {
           if (typeof window !== "undefined") {
-            // ✅ створюємо форму і сабмітимо її на Monobank
             const form = document.createElement("form");
             form.method = "POST";
             form.action = data.pageUrl;
             form.style.display = "none";
-            form.target = "_blank";
+            form.target = "_self"; // редірект у тій же вкладці
+
+            // Створюємо поля форми на основі того, що потрібно Monobank
+            // Якщо у тебе немає paymentData, можна пропустити цей крок
+            // і просто сабмітити форму на data.pageUrl
 
             document.body.appendChild(form);
             form.submit();
