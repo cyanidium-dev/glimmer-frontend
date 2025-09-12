@@ -231,25 +231,23 @@ export const handleSubmitForm = async <T>(
           body: JSON.stringify({
             amount: totalOrderSum * 100,
             orderNumber,
-            basketOrder,
+            basketOrder, // масив
           }),
         });
 
         const data = await response.json();
 
         if (response.ok && data.pageUrl) {
-          if (typeof window !== "undefined") {
-            // ✅ Форма замість window.location.href
-            const form = document.createElement("form");
-            form.method = "POST";
-            form.action = data.pageUrl; // URL від Monopay
-            form.style.display = "none";
-            form.target = "_blank";
+          // ✅ створюємо форму і сабмітимо її на Monobank
+          const form = document.createElement("form");
+          form.method = "POST";
+          form.action = data.pageUrl;
+          form.style.display = "none";
+          form.target = "_blank";
 
-            document.body.appendChild(form);
-            form.submit();
-            document.body.removeChild(form);
-          }
+          document.body.appendChild(form);
+          form.submit();
+          document.body.removeChild(form);
         } else {
           alert(JSON.stringify(data, null, 2));
         }
