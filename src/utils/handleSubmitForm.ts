@@ -2,7 +2,6 @@ import { FormikHelpers } from "formik";
 import axios from "axios";
 import { Dispatch, SetStateAction } from "react";
 import { ValuesCheckoutFormType } from "@/components/shared/forms/checkoutForm/CheckoutForm";
-import { generateOrderNumber } from "./generateOrderNumber";
 import { fetchSanityDataClient } from "./fetchSanityDataClient";
 import { productsByIds, promocodeByCodeQuery } from "../lib/queries";
 import { useCartStore } from "../store/cartStore";
@@ -39,9 +38,6 @@ export const handleSubmitForm = async <T>(
   clearOrder();
 
   setIsLoading(true);
-
-  //Формуємо номер замовлення
-  const orderNumber = generateOrderNumber();
 
   // Формуємо дату та час замовлення
   const now = new Date();
@@ -129,7 +125,7 @@ export const handleSubmitForm = async <T>(
   const collectedOrderData = {
     orderDate,
     orderTime,
-    orderNumber,
+    orderNumber: "",
     name: values.name.trim(),
     surname: values.surname.trim(),
     email: values.email.trim(),
@@ -148,9 +144,6 @@ export const handleSubmitForm = async <T>(
     totalOrderSum,
   };
 
-  // Записуємо в orderState зібрану та оновлену інформацію по замовленню
-  setOrder(collectedOrderData);
-
   // Формуємо список товарів з переносами на новий рядок для Telegram
   const orderedListProducts = cart
     .map((cartItem) => {
@@ -163,27 +156,39 @@ export const handleSubmitForm = async <T>(
     })
     .join("\n");
 
-  // Формуємо дані для telegram
-  const dataTelegram =
-    `<b>Замовлення #${orderNumber}</b>\n` +
-    `<b>Дата замовлення:</b> ${orderDate} ${orderTime}\n` +
-    `<b>Ім'я:</b> ${values.name.trim()}\n` +
-    `<b>Прізвище:</b> ${values.surname.trim()}\n` +
-    `<b>Телефон:</b> ${values.phone.replace(/[^\d+]/g, "")}\n` +
-    `<b>Email:</b> ${values.email.trim()}\n` +
-    `<b>Сервіс доставки:</b> ${values.deliveryService.trim()}\n` +
-    `<b>Тип доставки:</b> ${values.deliveryType.trim()}\n` +
-    `<b>Насeлений пункт:</b> ${values.city.trim()}\n` +
-    `<b>Номер відділення або поштомату:</b> ${values.branchNumber?.trim() || ""}\n` +
-    `<b>Адреса:</b> ${values.address?.trim() || ""}\n` +
-    `<b>Оплата:</b> ${values.payment.trim()}\n` +
-    `<b>Повідомлення:</b> ${values.message?.trim()}\n` +
-    `<b>Промокод:</b> ${promoCode || ""}\n` +
-    `<b>Розмір знижки за промокодом:</b> ${promoDiscountPercent ? `${promoDiscountPercent}%` : ""}\n` +
-    `<b>Список товарів в замовленні:</b>\n${orderedListProducts}\n` +
-    `<b>Сума замовлення:</b> ${totalOrderSum} грн\n`;
-
   try {
+    const crmResponse = await sendDataToKeyCrm(collectedOrderData);
+
+    // crmOrderId — id замовлення у KeyCRM (порядковий номер)
+    const crmOrderId = crmResponse.id;
+
+    const orderNumber = crmOrderId.toString();
+
+    // Формуємо дані для telegram
+    const dataTelegram =
+      `<b>Замовлення #${orderNumber}</b>\n` +
+      `<b>Дата замовлення:</b> ${orderDate} ${orderTime}\n` +
+      `<b>Ім'я:</b> ${values.name.trim()}\n` +
+      `<b>Прізвище:</b> ${values.surname.trim()}\n` +
+      `<b>Телефон:</b> ${values.phone.replace(/[^\d+]/g, "")}\n` +
+      `<b>Email:</b> ${values.email.trim()}\n` +
+      `<b>Сервіс доставки:</b> ${values.deliveryService.trim()}\n` +
+      `<b>Тип доставки:</b> ${values.deliveryType.trim()}\n` +
+      `<b>Насeлений пункт:</b> ${values.city.trim()}\n` +
+      `<b>Номер відділення або поштомату:</b> ${values.branchNumber?.trim() || ""}\n` +
+      `<b>Адреса:</b> ${values.address?.trim() || ""}\n` +
+      `<b>Оплата:</b> ${values.payment.trim()}\n` +
+      `<b>Повідомлення:</b> ${values.message?.trim()}\n` +
+      `<b>Промокод:</b> ${promoCode || ""}\n` +
+      `<b>Розмір знижки за промокодом:</b> ${promoDiscountPercent ? `${promoDiscountPercent}%` : ""}\n` +
+      `<b>Список товарів в замовленні:</b>\n${orderedListProducts}\n` +
+      `<b>Сума замовлення:</b> ${totalOrderSum} грн\n`;
+
+    const updatedCollectedOrderData = { ...collectedOrderData, orderNumber };
+
+    // Записуємо в orderState зібрану та оновлену інформацію по замовленню
+    setOrder(updatedCollectedOrderData);
+
     await axios({
       method: "post",
       url: "/api/telegram",
@@ -197,21 +202,21 @@ export const handleSubmitForm = async <T>(
       method: "post",
       url: "/api/send-email",
       data: {
-        email: collectedOrderData.email,
-        subject: `Glimmer: Підтвердження замовлення №${collectedOrderData.orderNumber}`,
+        email: updatedCollectedOrderData.email,
+        subject: `Glimmer: Підтвердження замовлення №${updatedCollectedOrderData.orderNumber}`,
         orderData: {
-          orderNumber: collectedOrderData.orderNumber,
-          orderDate: collectedOrderData.orderDate,
-          name: collectedOrderData.name.trim(),
-          phone: collectedOrderData.phone.trim(),
-          city: collectedOrderData.city.trim(),
-          deliveryService: collectedOrderData.deliveryService.trim(),
-          deliveryType: collectedOrderData.deliveryType.trim(),
-          branchNumber: collectedOrderData.branchNumber.trim(),
-          address: collectedOrderData.address.trim(),
-          paymentMethod: collectedOrderData.payment.trim(),
-          cart: collectedOrderData.cart,
-          totalOrderSum: collectedOrderData.totalOrderSum,
+          orderNumber: updatedCollectedOrderData.orderNumber,
+          orderDate: updatedCollectedOrderData.orderDate,
+          name: updatedCollectedOrderData.name.trim(),
+          phone: updatedCollectedOrderData.phone.trim(),
+          city: updatedCollectedOrderData.city.trim(),
+          deliveryService: updatedCollectedOrderData.deliveryService.trim(),
+          deliveryType: updatedCollectedOrderData.deliveryType.trim(),
+          branchNumber: updatedCollectedOrderData.branchNumber.trim(),
+          address: updatedCollectedOrderData.address.trim(),
+          paymentMethod: updatedCollectedOrderData.payment.trim(),
+          cart: updatedCollectedOrderData.cart,
+          totalOrderSum: updatedCollectedOrderData.totalOrderSum,
         },
       },
       headers: {
@@ -219,15 +224,9 @@ export const handleSubmitForm = async <T>(
       },
     });
 
-    const crmResponse = await sendDataToKeyCrm(collectedOrderData);
-
-    // crmOrderId — id замовлення у KeyCRM (порядковий номер)
-    const crmOrderId = crmResponse.id;
-
-    console.log(crmOrderId);
-
     if (
-      collectedOrderData.payment === "Оплата картою онлайн Visa, Mastercard"
+      updatedCollectedOrderData.payment ===
+      "Оплата картою онлайн Visa, Mastercard"
     ) {
       try {
         const response = await fetch("/api/monopay/invoice", {
@@ -235,7 +234,7 @@ export const handleSubmitForm = async <T>(
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             amount: totalOrderSum * 100,
-            orderNumber: String(crmOrderId), // додаємо айді замовлення KeyCRM
+            orderNumber, // додаємо айді замовлення KeyCRM
             basketOrder,
           }),
         });
